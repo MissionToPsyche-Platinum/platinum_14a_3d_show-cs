@@ -7,8 +7,8 @@ export default function CameraRig() {
     const scroll = useScroll()
 
     // Camera path
-    const start = new THREE.Vector3(0, 0, 10)
-    const end = new THREE.Vector3(5, 5, 5)
+    const start = new THREE.Vector3(0, 0, 30)
+    const end = new THREE.Vector3(10, 10, 40)
 
     useFrame(() => {
         const t = scroll.offset // Scroll offset from 0 to 1
