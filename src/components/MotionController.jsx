@@ -41,11 +41,38 @@ export default class MotionController {
 
     // Object follows an orbit
     orbit(object, delta) {
-        const { radius = 10, speed = 1 } = this.config.orbit
+        const { 
+            radius = 10,
+            speed = 1,
+            center = [0, 0, 0],
+            axis = [0, 1, 0],
+        } = this.config.orbit
+
+        // Increment orbit angle based on speed and delta time
         this.orbitAngle = (this.orbitAngle ?? 0) + delta * speed
 
-        object.position.x = Math.cos(this.orbitAngle) * radius
-        object.position.z = Math.sin(this.orbitAngle) * radius
+        // Get normalized axis vector
+        const axisVector = new THREE.Vector3(...axis).normalize()
+
+        // Pick a vector perpendicular to the axis to start the orbit
+        let startVector
+        if (Math.abs(axisVector.x) < 0.9) {
+            startVector = new THREE.Vector3(1, 0, 0).cross(axisVector).normalize()
+        } else {
+            startVector = new THREE.Vector3(0, 1, 0).cross(axisVector).normalize()
+        }
+
+        // Scale by radius
+        startVector.multiplyScalar(radius)
+
+        // Rotate around the axis
+        const quaternion = new THREE.Quaternion()
+        quaternion.setFromAxisAngle(axisVector, this.orbitAngle)
+        startVector.applyQuaternion(quaternion)
+
+        // Offset by center and update
+        startVector.add(new THREE.Vector3(...center))
+        object.position.copy(startVector)
     }
 
     // Object follows a predefined path
