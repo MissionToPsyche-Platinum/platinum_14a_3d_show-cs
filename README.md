@@ -200,6 +200,7 @@ orbit: {
     radius: 10,
     speed: 1,
     center: [0, 0, 0],
+    axis: [0, 0, 1],
 }
 ```
 
