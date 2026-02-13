@@ -41,11 +41,12 @@ export default class MotionController {
 
     // Object follows an orbit
     orbit(object, delta) {
-        const { radius = 10, speed = 1 } = this.config.orbit
+        const { radius = 10, speed = 1, center = [0, 0, 0] } = this.config.orbit
         this.orbitAngle = (this.orbitAngle ?? 0) + delta * speed
 
-        object.position.x = Math.cos(this.orbitAngle) * radius
-        object.position.z = Math.sin(this.orbitAngle) * radius
+        object.position.x = center[0] + Math.cos(this.orbitAngle) * radius
+        object.position.y = center[1]
+        object.position.z = center[2] + Math.sin(this.orbitAngle) * radius
     }
 
     // Object follows a predefined path
