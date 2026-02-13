@@ -1,20 +1,63 @@
 import { useThree, useFrame } from '@react-three/fiber'
-import { useScroll } from '@react-three/drei'
+import { useMemo, useEffect } from 'react'
 import * as THREE from 'three'
+import { cameraTimeLine } from '../configs/camera-rig.config'
 
 export default function CameraRig() {
-    const { camera } = useThree()
-    const scroll = useScroll()
+    const { camera, size } = useThree()
 
-    // Camera path
-    const start = new THREE.Vector3(0, 0, 30)
-    const end = new THREE.Vector3(10, 10, 40)
+    const segments = useMemo(() => {
+        let scrollVHLength = 0
+
+        // Create timeline segments with curves for position and lookAt
+        return cameraTimeLine.map((segment) => {
+            const positionCurve = new THREE.CatmullRomCurve3(
+                segment.position.map((pos) => new THREE.Vector3(...pos))
+            )
+
+            const lookAtCurve = new THREE.CatmullRomCurve3(
+                segment.lookAt.map((pos) => new THREE.Vector3(...pos))
+            )
+
+            const data = {
+                startVH: scrollVHLength,
+                endVH: scrollVHLength + segment.durationVH,
+                positionCurve,
+                lookAtCurve,
+            }
+
+            scrollVHLength += segment.durationVH
+            return data
+        })
+    }, [])
+
+    useEffect(() => {
+        const isMobile = size.width < 768
+        camera.fov = isMobile ? 75: 60
+        camera.updateProjectionMatrix()
+        camera.up.set(0, 1, 0)
+    }, [size, camera])
 
     useFrame(() => {
-        const t = scroll.offset // Scroll offset from 0 to 1
+        const scrollVH = window.scrollY / window.innerHeight
 
-        camera.position.lerpVectors(start, end, t)
-        camera.lookAt(0, 0, 0)
+        // Find segment for current scroll position
+        const segment = segments.find(
+            (s) => scrollVH >= s.startVH && scrollVH <= s.endVH
+        )
+
+        if (!segment) return
+
+        const localT = THREE.MathUtils.clamp(
+            (scrollVH - segment.startVH) / (segment.endVH - segment.startVH),
+            0,
+            1
+        )
+
+        const t = THREE.MathUtils.smoothstep(localT, 0, 1)
+
+        camera.position.copy(segment.positionCurve.getPointAt(t))
+        camera.lookAt(segment.lookAtCurve.getPointAt(t))
     })
 
     return null

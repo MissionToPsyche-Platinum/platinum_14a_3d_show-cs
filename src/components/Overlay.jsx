@@ -1,7 +1,9 @@
+import '../styles/Overlay.css'
+
 export default function Overlay() {
     return (
-        <div style={{ width: '100vw'}}>
-            <section className="panel">
+        <div className='overlay'>
+            <section>
                 <h1>Psyche Mission</h1>
                 <p>Mission to a metal asteroid.</p>
             </section>
