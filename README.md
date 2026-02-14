@@ -71,7 +71,7 @@ Installs React, Three.js, and other dependencies from `package.json`.
 
 ### 7. Start the development local host
 ```bash
-npm start
+npm run dev
 ```
 This opens a local server that will update as you make changes.
 Sometimes you may need to refresh the page to get changes.
