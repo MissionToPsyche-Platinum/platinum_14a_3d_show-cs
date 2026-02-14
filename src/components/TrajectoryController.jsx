@@ -21,8 +21,8 @@ export default class TrajectoryController {
                 return this.createOrbitCurve()
             case 'spline':
                 return this.createSplineCurve()
-            case 'eclipse':
-                // return this.createEclipseCurve()
+            case 'ellipse':
+                return this.createEllipseCurve()
             default:
                 return null
         }
@@ -65,6 +65,52 @@ export default class TrajectoryController {
         )
     }
 
+    createEllipseCurve() {
+        const {
+            radiusX = 1,
+            radiusZ = 1,
+            center = [0, 0, 0],
+            axis = [0, 1, 0],
+            startAngle = 0,
+            rotationOffset = [0, 0, 0], 
+        } = this.config.ellipse
+
+        const axisVector = new THREE.Vector3(...axis).normalize()
+        const centerVector = new THREE.Vector3(...center)
+
+        // Perpendicular basis vectors for the plane of the ellipse
+        let startVector = new THREE.Vector3(1, 0, 0)
+        if (axisVector.dot(startVector) > 0.9) {
+            startVector = new THREE.Vector3(0, 1, 0)
+        }
+
+        const perpendicularVector = new THREE.Vector3().crossVectors(axisVector, startVector).normalize()
+        const orthogonalVector = new THREE.Vector3().crossVectors(axisVector, perpendicularVector).normalize()
+
+        const startQuaternion = new THREE.Quaternion().setFromAxisAngle(axisVector, THREE.MathUtils.degToRad(startAngle))
+
+        // Rotation offset for the ellipse orientation
+        const rotationQuaternion = new THREE.Quaternion().setFromEuler(new THREE.Euler(
+            THREE.MathUtils.degToRad(rotationOffset[0]),
+            THREE.MathUtils.degToRad(rotationOffset[1]),
+            THREE.MathUtils.degToRad(rotationOffset[2])
+        ))
+
+        const points = []
+        const segments = 128
+        for (let i = 0; i <= segments; i++) {
+            const angle = (i / segments) * Math.PI * 2
+            const point = perpendicularVector.clone().multiplyScalar(Math.cos(angle) * radiusX)
+                .add(orthogonalVector.clone().multiplyScalar(Math.sin(angle) * radiusZ))
+                .applyQuaternion(startQuaternion)
+                .applyQuaternion(rotationQuaternion)
+                .add(centerVector)
+            points.push(point)
+        }
+
+        return new THREE.CatmullRomCurve3(points, true)
+    }
+
     createTrajectoryLine() {
         const { color = 0xffffff, opacity = 1 } = this.config.style
 
@@ -77,8 +123,8 @@ export default class TrajectoryController {
 
         const line = new THREE.Line(geometry, material)
 
-        // Always show full path for orbit
-        if (this.config.type === 'orbit') {
+        // Always show full path for orbit and ellipse
+        if (this.config.type === 'orbit' || this.config.type === 'ellipse') {
             geometry.setFromPoints(this.curve.getPoints(256))
         }
 
@@ -156,7 +202,7 @@ export default class TrajectoryController {
                         this.setProgress((startVH + durationVH) * speed)
                     }
                 } else {
-                    this.setProgress(t / durationVH)
+                    this.setProgress(THREE.MathUtils.clamp(t / durationVH, 0, 1))
                 }
             } else if (speed !== undefined) {
                 this.setProgress(t * speed)
@@ -168,7 +214,7 @@ export default class TrajectoryController {
         if (!this.curve) return
 
         // Orbit repeats, spline clamps
-        if (this.config.type === 'orbit') {
+        if (this.config.type === 'orbit' || this.config.type === 'ellipse') {
             t = t % 1
         } else if (this.config.type === 'spline') {
             t = THREE.MathUtils.clamp(t, 0, 1)
