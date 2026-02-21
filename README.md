@@ -117,7 +117,7 @@ export const cameraTimeLine = [
 
 ---
 
-## Model Motion System
+## Model Motion
 
 The model system is designed to make inserting objects into the environment simple and easy. There are a few configurations that help simulate a space-like environment:
 - `spin` - Controls the rotation of the object using time.
@@ -158,7 +158,7 @@ import Model from './Model'
 import Psyche from './models/Psyche'
 
 // Configs
-import { psycheConfig } from '../configs/psyche.config'
+import { psycheConfig } from '../configs/psyche.config.js'
 
 export default function Scene() {
   return (
@@ -171,7 +171,7 @@ export default function Scene() {
 }
 ```
 
-### Creating a configuration file
+### Creating a motion configuration file
 
 Each model needs a configuration file for it to be added to the 3D environment. Configuration files contain information about motion properties for `MotionController.jsx`. Below an example of a blank configuration file (no motion).
 Example: `src/configs/psyche.config.js`
@@ -231,6 +231,124 @@ visibility: {
 If spin isn't defined, the object will face a specific point in space.
 ```javascript
 lookAt: [0, 0, 0]
+```
+
+---
+
+## Trajectory Motion
+
+The trajectory class allows paths and orbits to be drawn into the 3D environment.
+
+### Adding a trajectory to the environment
+
+To add a trajectory to the environment, you need a configuration file.
+Example: `src/components/Scene.jsx`
+```javascript
+// Configs
+import { trajectoryConfig } from '../configs/trajectory.config.js'
+
+export default function Scene() {
+  return (
+    <>
+      <Trajectory config={trajectoryConfig} />
+    </>
+  )
+}
+```
+
+### Creating a trajectory configuration file
+
+Each trajectory needs a configuration file for it to be added to the 3D environment. Configuration files contain information about trajectory properties for `TrajectoryController.jsx`. There a multiple types of trajectories:
+- circle
+- ellipse
+- spline
+
+#### Circle
+Create a perfectly circular path. 
+```javascript
+type: 'circle',
+
+circle: {
+    radius: 10,
+    center: [0, 0, 0],
+    axis: [1, 1, 1],
+    startAngle: 90,
+}
+```
+
+#### Ellipse
+Create an elliptical path.
+Example:
+```javascript
+type: 'ellipse',
+
+ellipse: {
+    radiusX: 20,
+    radiusZ: 40,
+    center: [0, 0, 0],
+    axis: [0, 1, 0],
+    startAngle: 0, 
+    rotationOffset: [0, 90, 0]
+}
+```
+
+#### Spline
+Create a spline path.
+```javascript
+type: 'spline',
+
+spline: {
+    points: [
+        [0, 0, 20],
+        [10, 5, 10],
+        [20, 0, 0],
+    ],
+    closed: false,
+}
+```
+
+#### General properties
+Properties that can be defined for any type of trajectory (may have different behaviors).
+
+##### Style
+Control the color and opacity of the path.
+```javascript
+style: {
+    color: 0xffffff,
+    opacity: 1,
+}
+```
+
+##### Icon
+Create an icon at the head of the trajectory. There are multiple types of icons:
+- Circle
+- Hexagon
+```javascript
+icon: {
+    type: 'hexagon',
+    size: 3,
+    color: 0xffffff,
+    opacity: 1,
+}
+```
+
+##### Motion
+Set a start view height for motion. Optional duration and/or speed property.
+```javascript
+motion: {
+    startVH: 0,
+    durationVH: 1,
+    speed: 1,
+}
+```
+
+##### Visibility
+Set a starting and ending view height.
+```javascript
+visibility: {
+    startVH: 0,
+    endVH: 1,
+}
 ```
 
 ---
