@@ -9,27 +9,27 @@ export default class TrajectoryController {
         this.curve = this.createCurve()
 
         this.trajectoryLine = this.createTrajectoryLine()
-        this.head = this.createHead()
+        this.icon = this.createIcon()
 
         this.group.add(this.trajectoryLine)
-        this.group.add(this.head)
+        this.group.add(this.icon)
     }
 
     createCurve() {
         switch (this.config.type) {
-            case 'orbit':
-                return this.createOrbitCurve()
+            case 'circle':
+                return this.createCircleCurve()
             case 'spline':
                 return this.createSplineCurve()
             case 'ellipse':
                 return this.createEllipseCurve()
             default:
-                return null
+                return this.createCircleCurve()
         }
     }
 
-    createOrbitCurve() {
-        const { radius, center = [0, 0, 0], axis = [0, 1, 0], startAngle = 0 } = this.config.orbit
+    createCircleCurve() {
+        const { radius = 1, center = [0, 0, 0], axis = [0, 1, 0], startAngle = 0 } = this.config.circle
 
         const axisVector = new THREE.Vector3(...axis).normalize()
         const centerVector = new THREE.Vector3(...center)
@@ -123,16 +123,16 @@ export default class TrajectoryController {
 
         const line = new THREE.Line(geometry, material)
 
-        // Always show full path for orbit and ellipse
-        if (this.config.type === 'orbit' || this.config.type === 'ellipse') {
+        // Always show full path for circle and ellipse
+        if (this.config.type === 'circle' || this.config.type === 'ellipse') {
             geometry.setFromPoints(this.curve.getPoints(256))
         }
 
         return line
     }
 
-    createHead() {
-        const { type = 'hexagon', size = 3, color = 0xffffff, opacity = 1 } = this.config.head || {}
+    createIcon() {
+        const { type = 'hexagon', size = 3, color = 0xffffff, opacity = 1 } = this.config.icon || {}
 
         const points = []
         if (type === 'circle') {
@@ -213,8 +213,8 @@ export default class TrajectoryController {
     setProgress(t) {
         if (!this.curve) return
 
-        // Orbit repeats, spline clamps
-        if (this.config.type === 'orbit' || this.config.type === 'ellipse') {
+        // Circle and ellipse repeats, spline clamps
+        if (this.config.type === 'circle' || this.config.type === 'ellipse') {
             t = t % 1
         } else if (this.config.type === 'spline') {
             t = THREE.MathUtils.clamp(t, 0, 1)
@@ -223,9 +223,9 @@ export default class TrajectoryController {
         this.progress = t
         console.log(t)
 
-        // Head position
+        // Icon position
         const position = this.curve.getPointAt(t)
-        this.head.position.copy(position)
+        this.icon.position.copy(position)
 
         // Update spline path if applicable
         if (this.config.type === 'spline') {
