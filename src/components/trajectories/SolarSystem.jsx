@@ -1,0 +1,212 @@
+import { use, useRef } from 'react'
+import { useFrame } from '@react-three/fiber'
+import * as THREE from 'three'
+import TrajectoryController from '../TrajectoryController'
+import EllipseConfigurator from './EllipseConfigurator'
+
+const MERCURY = {
+    name: 'Mercury',
+    trajectory: {
+        aphelion: 69.82, // in million km
+        perihelion: 46, // in million km
+        inclination: 3.38, // in degrees (sun's equator)
+        longitudeAscendingNode: 48.33, // in degrees
+        argumentOfPerihelion: 29.12, // in degrees
+        orbitalPeriod: 87.97, // earth days
+        style: {
+            color: 0x504E51,
+        },
+        icon: {
+            type: 'circle',
+            color: 0x504E51,
+        }
+    }
+}
+
+const VENUS = {
+    name: 'Venus',
+    trajectory: {
+        aphelion: 108.94,
+        perihelion: 107.48,
+        inclination: 3.86,
+        longitudeAscendingNode: 76.68,
+        argumentOfPerihelion: 54.88,
+        orbitalPeriod: 224.7,
+        style: {
+            color: 0x8C7853,
+        },
+        icon: {
+            type: 'circle',
+            color: 0x8C7853,
+        }
+    }
+}
+
+const EARTH = {
+    name: 'Earth',
+    trajectory: {
+        aphelion: 152.1,
+        perihelion: 147.1,
+        inclination: 7.155,
+        longitudeAscendingNode: -11.26,
+        argumentOfPerihelion: 114.21,
+        orbitalPeriod: 365.25,
+        style: {
+            color: 0x2E86C1,
+        },
+        icon: {
+            type: 'circle',
+            color: 0x2E86C1,
+        }
+    }
+}
+
+const MARS = {
+    name: 'Mars',
+    trajectory: {
+        aphelion: 249.2,
+        perihelion: 206.7,
+        inclination: 5.65,
+        longitudeAscendingNode: 49.56,
+        argumentOfPerihelion: 286.5,
+        orbitalPeriod: 687,
+        style: {
+            color: 0xC1440E,
+        },
+        icon: {
+            type: 'circle',
+            color: 0xC1440E,
+        }
+    }
+}
+
+const JUPITER = {
+    name: 'Jupiter',
+    trajectory: {
+        aphelion: 816.62,
+        perihelion: 740.52,
+        inclination: 6.09,
+        longitudeAscendingNode: 100.46,
+        argumentOfPerihelion: 273.87,
+        orbitalPeriod: 4331,
+        style: {
+            color: 0xD2B48C,
+        },
+        icon: {
+            type: 'circle',
+            color: 0xD2B48C,
+        }
+    }
+}
+
+const SATURN = {
+    name: 'Saturn',
+    trajectory: {
+        aphelion: 1514.5,
+        perihelion: 1352.55,
+        inclination: 5.51,
+        longitudeAscendingNode: 113.67,
+        argumentOfPerihelion: 339.39,
+        orbitalPeriod: 10747,
+        style: {
+            color: 0xF5DEB3,
+        },
+        icon: {
+            type: 'circle',
+            color: 0xF5DEB3,
+        }
+    }
+}
+
+const URANUS = {
+    name: 'Uranus',
+    trajectory: {
+        aphelion: 3003.6,
+        perihelion: 2741.3,
+        inclination: 6.48,
+        longitudeAscendingNode: 74.01,
+        argumentOfPerihelion: 97.00,
+        orbitalPeriod: 30589,
+        style: {
+            color: 0xAFEEEE,
+        },
+        icon: {
+            type: 'circle',
+            color: 0xAFEEEE,
+        }
+    }
+}
+
+const NEPTUNE = {
+    name: 'Neptune',
+    trajectory: {
+        aphelion: 4545.7,
+        perihelion: 4457.1,
+        inclination: 6.43,
+        longitudeAscendingNode: 131.78,
+        argumentOfPerihelion: 273.19,
+        orbitalPeriod: 59800,
+        style: {
+            color: 0x4169E1,
+        },
+        icon: {
+            type: 'circle',
+            color: 0x4169E1,
+        }
+    }
+}
+
+export default function SolarSystem({ position = [0, 0, 0], speed = 1 }) {
+    const system = useRef(null)
+
+    system.current = new SolarSystemController(position, speed)
+
+    useFrame(() => {
+        system.current.update()
+    })
+
+    return <primitive object={system.current.group} />
+}
+
+class SolarSystemController {
+    constructor(position, speed) {
+        this.group = new THREE.Group()
+        this.group.position.set(...position)
+        this.speed = speed
+
+        this.trajectories = []
+        this.createSun()
+        this.createPlanets()
+    }
+
+    createSun() {
+        const geometry = new THREE.SphereGeometry(1.39, 32, 32)
+        const material = new THREE.MeshBasicMaterial({ color: 0xffcc33 })
+        const sun = new THREE.Mesh(geometry, material)
+        this.group.add(sun)
+    }
+
+    createPlanets() {
+        const planets = [
+            MERCURY,
+            VENUS,
+            EARTH,
+            MARS,
+            JUPITER,
+            SATURN,
+            URANUS,
+            NEPTUNE,
+        ]
+
+        planets.forEach(planet => {
+            const config = structuredClone(planet.trajectory)
+            const trajectory = new TrajectoryController(EllipseConfigurator.createEllipseConfig(config))
+            this.group.add(trajectory.group)
+            this.trajectories.push(trajectory)
+        })
+    }
+
+    update() {
+        this.trajectories.forEach(trajectory => trajectory.update())
+    }
+}

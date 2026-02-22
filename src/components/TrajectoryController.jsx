@@ -106,8 +106,8 @@ export default class TrajectoryController {
             const point = perpendicularVector.clone().multiplyScalar(Math.cos(angle) * radiusX)
                 .add(orthogonalVector.clone().multiplyScalar(Math.sin(angle) * radiusZ))
                 .applyQuaternion(startQuaternion)
-                .applyQuaternion(rotationQuaternion)
                 .add(centerVector)
+                .applyQuaternion(rotationQuaternion)
             points.push(point)
         }
 
