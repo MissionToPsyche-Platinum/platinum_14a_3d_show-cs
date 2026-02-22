@@ -57,10 +57,13 @@ export default class TrajectoryController {
     }
 
     createSplineCurve() {
-        const { points, closed = false } = this.config.spline
+        const { points, offset = [0, 0, 0], closed = false } = this.config.spline
+        const offsetVec = new THREE.Vector3(...offset)
 
         return new THREE.CatmullRomCurve3(
-            points.map(p => new THREE.Vector3(...p)),
+            points.map(p =>
+                new THREE.Vector3(...p).add(offsetVec)
+            ),
             closed
         )
     }
