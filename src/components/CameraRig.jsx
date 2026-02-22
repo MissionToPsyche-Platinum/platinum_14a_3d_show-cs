@@ -34,6 +34,7 @@ export default function CameraRig() {
     useEffect(() => {
         const isMobile = size.width < 768
         camera.fov = isMobile ? 75: 60
+        camera.far = 10000
         camera.updateProjectionMatrix()
         camera.up.set(0, 1, 0)
     }, [size, camera])
