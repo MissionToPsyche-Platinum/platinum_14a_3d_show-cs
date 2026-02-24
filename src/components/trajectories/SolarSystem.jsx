@@ -4,6 +4,25 @@ import * as THREE from 'three'
 import TrajectoryController from '../TrajectoryController'
 import EllipseConfigurator from './EllipseConfigurator'
 
+const PSYCHE = {
+    name: 'Psyche',
+    trajectory: {
+        aphelion: 497, // in million km
+        perihelion: 378, // in million km
+        inclination: 3.09, // in degrees (sun's equator)
+        longitudeAscendingNode: 150, // in degrees
+        argumentOfPerihelion: 229.8, // in degrees
+        orbitalPeriod: 1825.6, // earth days
+        style: {
+            color: 0xF99D06,
+        },
+        icon: {
+            type: 'hexagon',
+            color: 0xF99D06
+        }
+    }
+}
+
 const MERCURY = {
     name: 'Mercury',
     trajectory: {
@@ -18,7 +37,7 @@ const MERCURY = {
         },
         icon: {
             type: 'circle',
-            color: 0x504E51,
+            color: 0x504E51
         }
     }
 }
@@ -37,7 +56,7 @@ const VENUS = {
         },
         icon: {
             type: 'circle',
-            color: 0x8C7853,
+            color: 0x8C7853
         }
     }
 }
@@ -56,7 +75,7 @@ const EARTH = {
         },
         icon: {
             type: 'circle',
-            color: 0x2E86C1,
+            color: 0x2E86C1
         }
     }
 }
@@ -75,7 +94,7 @@ const MARS = {
         },
         icon: {
             type: 'circle',
-            color: 0xC1440E,
+            color: 0xC1440E
         }
     }
 }
@@ -94,7 +113,7 @@ const JUPITER = {
         },
         icon: {
             type: 'circle',
-            color: 0xD2B48C,
+            color: 0xD2B48C
         }
     }
 }
@@ -113,7 +132,7 @@ const SATURN = {
         },
         icon: {
             type: 'circle',
-            color: 0xF5DEB3,
+            color: 0xF5DEB3
         }
     }
 }
@@ -132,7 +151,7 @@ const URANUS = {
         },
         icon: {
             type: 'circle',
-            color: 0xAFEEEE,
+            color: 0xAFEEEE
         }
     }
 }
@@ -151,7 +170,7 @@ const NEPTUNE = {
         },
         icon: {
             type: 'circle',
-            color: 0x4169E1,
+            color: 0x4169E1
         }
     }
 }
@@ -188,6 +207,7 @@ class SolarSystemController {
 
     createPlanets() {
         const planets = [
+            PSYCHE,
             MERCURY,
             VENUS,
             EARTH,

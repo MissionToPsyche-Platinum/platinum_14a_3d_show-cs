@@ -5,5 +5,10 @@ export const psycheConfig = {
     spin: {
         speed: 0.2,
         axis: 'y',
+    },
+
+    visibility: {
+        startVH: 0,
+        endVH: 3,
     }
 }

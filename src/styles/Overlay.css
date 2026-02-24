@@ -4,6 +4,7 @@ body {
 
 .overlay {
     position: absolute;
+    font-size: 1.25vh;
     top: 0;
     left: 0;
     width: 100%;
@@ -11,9 +12,20 @@ body {
 }
 
 .overlay section {
-    position: absolute;
-    padding: 1.5rem;
+    top: 25vh;
+    position: fixed;
+    padding: 1.25vh;
     border-radius: 12px;
     background: rgba(28, 28, 28, 0.8);
     backdrop-filter: blur(2px);
+}
+
+.overlay section.overlay-left {
+    border: 2px solid red;
+    left: 25vw;
+}
+
+.overlay section.overlay-right {
+    border: 2px solid red;
+    right: 25vw;
 }

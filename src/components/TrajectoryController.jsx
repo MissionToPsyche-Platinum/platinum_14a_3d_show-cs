@@ -136,7 +136,9 @@ export default class TrajectoryController {
 
     createIcon() {
         const { type = 'hexagon', size = 3, color = 0xffffff, opacity = 1 } = this.config.icon || {}
-
+        
+        // const trueSize = size * (vw / 1920)
+        // console.log(vw, trueSize)
         const points = []
         if (type === 'circle') {
             const segments = 32
@@ -170,7 +172,7 @@ export default class TrajectoryController {
             const vFOV = THREE.MathUtils.degToRad(camera.fov)
             const visibleWorldHeight = 2 * distance * Math.tan(vFOV / 2)
             const worldUnitsPerPixel = visibleWorldHeight / renderer.domElement.clientHeight
-            const worldScale = size * worldUnitsPerPixel
+            const worldScale = size * (window.innerHeight / 1080) * worldUnitsPerPixel
 
             mesh.scale.set(worldScale, worldScale, 1)
             mesh.quaternion.copy(camera.quaternion)
@@ -180,6 +182,7 @@ export default class TrajectoryController {
     }
 
     update() {
+        // this.icon = this.createIcon()
         const scrollVH = window.scrollY / window.innerHeight
         if (this.config.visibility) this.visibility(scrollVH)
         if (this.config.motion) this.motion(scrollVH)
@@ -224,7 +227,7 @@ export default class TrajectoryController {
         }
 
         this.progress = t
-        console.log(t)
+        // console.log(t)
 
         // Icon position
         const position = this.curve.getPointAt(t)
