@@ -1,4 +1,7 @@
 import '../styles/Overlay.css'
+import CardOverlay from './CardOverlay.jsx'
+
+// Configs
 
 export default function Overlay() {
     return (
