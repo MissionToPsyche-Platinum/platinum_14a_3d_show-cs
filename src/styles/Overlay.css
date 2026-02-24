@@ -4,6 +4,7 @@ body {
 
 .overlay {
     position: absolute;
+    font-size: 1.25vh;
     top: 0;
     left: 0;
     width: 100%;
@@ -11,9 +12,73 @@ body {
 }
 
 .overlay section {
-    position: absolute;
-    padding: 1.5rem;
+    top: 25vh;
+    position: fixed;
+    padding: 1.25vh;
     border-radius: 12px;
     background: rgba(28, 28, 28, 0.8);
     backdrop-filter: blur(2px);
+}
+
+.overlay section.overlay-left {
+    border: 2px solid red;
+    left: 25vw;
+}
+
+.overlay section.overlay-right {
+    border: 2px solid red;
+    right: 25vw;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+
+    font-family: "League Gothic", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+
+    background-image: linear-gradient(to right, #302144, #592651 33%, #a53f5b 66%, #ef5966);
+    position: absolute;
+    color: white;
+    height: 256px;
+    width: 100%;
+    bottom: 0;
+}
+
+.footer h1, .footer p {
+    margin: 6px;
+    padding: 6px;
+}
+
+.footer svg {
+    fill: transparent;
+    border-radius: 16px;
+    background-color: white;
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+    margin: 4px;
+}
+
+.footer .socials {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.footer .socials img{
+    width: 64px;
+    height: 64px;
+}
+
+.footer .socials a{
+    height: 64px;
+    margin:8px;
 }
