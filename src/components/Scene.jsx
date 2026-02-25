@@ -3,6 +3,9 @@ import Trajectory from './Trajectory'
 
 // 3D Models
 import Psyche from './models/Psyche'
+import Mars from './models/Mars'
+import Moon from './models/Moon'
+import Earth from './models/Earth'
 
 // Configs
 import { psycheConfig } from '../configs/psyche.config'
@@ -17,7 +20,7 @@ export default function Scene() {
       <SolarSystem position={[0, 0, 0]} speed={0.25} />
       {/* <Trajectory config={testTrajectoryConfig} /> */}
       <Model config={psycheConfig}>
-        <Psyche />
+        <Earth scale={5} />
       </Model>
     </>
   )

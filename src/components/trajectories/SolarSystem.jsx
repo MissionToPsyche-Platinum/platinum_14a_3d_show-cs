@@ -199,8 +199,12 @@ class SolarSystemController {
     }
 
     createSun() {
-        const geometry = new THREE.SphereGeometry(1.39, 32, 32)
-        const material = new THREE.MeshBasicMaterial({ color: 0xffcc33 })
+        const geometry = new THREE.SphereGeometry(0.696, 32, 32)
+        
+        const texture = new THREE.TextureLoader().load('/images/equirectangular/sun-equirectangular.jpg')
+
+        const material = new THREE.MeshBasicMaterial({ map: texture })
+
         const sun = new THREE.Mesh(geometry, material)
         this.group.add(sun)
     }
