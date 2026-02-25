@@ -1,4 +1,6 @@
-html, body, #root {
+html,
+body,
+#root {
     width: 100%;
     height: 100vh;
     margin: 0;
@@ -15,4 +17,22 @@ canvas {
     height: 100vh;
     z-index: -1;
     background-color: black;
+}
+
+@keyframes active-node-pulse {
+    0% {
+        box-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 15px rgba(255, 255, 255, 1);
+    }
+
+    100% {
+        box-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
+    }
+}
+
+.pulse-animation {
+    animation: active-node-pulse 2.5s infinite ease-in-out;
 }
