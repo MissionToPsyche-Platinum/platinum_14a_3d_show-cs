@@ -93,7 +93,43 @@ export default class MotionController {
 
     // Set object visibility
     visibility(object, scrollVH) {
-        const { startVH, endVH } = this.config.visibility
-        object.visible = scrollVH >= startVH && scrollVH <= endVH
+        const { startVH, endVH, fadeInDuration = 0, fadeOutDuration = 0} = this.config.visibility
+
+        if (scrollVH < startVH - fadeInDuration || scrollVH > endVH + fadeOutDuration) {
+            object.visible = false
+            return
+        }
+
+        object.visible = true
+        let opacity = 1
+
+        // Fade in
+        if (fadeInDuration > 0 && scrollVH < startVH) {
+            opacity = THREE.MathUtils.clamp((scrollVH - (startVH - fadeInDuration)) / fadeInDuration, 0, 1)
+        }
+
+        // Fade out
+        if (fadeOutDuration > 0 && scrollVH > endVH) {
+            opacity = THREE.MathUtils.clamp(1 - (scrollVH - endVH) / fadeOutDuration, 0, 1)
+        }
+        
+        this.setOpacity(object, opacity)
+    }
+
+    setOpacity(object, opacity) {
+        object.traverse(child => {
+            if (!child.isMesh) return
+            
+            const materials = Array.isArray(child.material) ? child.material : [child.material]
+            materials.forEach(material => {
+                if (!material) return
+
+                material.transparent = true
+                material.opacity = opacity
+                material.side = THREE.FrontSide // Prevent rendering inside texture when fading out
+                material.depthWrite = opacity >= 0.99
+                material.depthTest = true
+            })
+        })
     }
 }
