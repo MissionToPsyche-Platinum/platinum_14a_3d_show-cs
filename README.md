@@ -224,6 +224,8 @@ Controls if an object is visible using VH.
 visibility: {
     startVH: 0,
     endVH: 5,
+    fadeInDuration: 0.5,
+    fadeOutDuration: 0.5,
 }
 ```
 
@@ -349,6 +351,8 @@ Set a starting and ending view height.
 visibility: {
     startVH: 0,
     endVH: 1,
+    fadeInDuration: 0.5,
+    fadeOutDuration: 0.5,
 }
 ```
 
