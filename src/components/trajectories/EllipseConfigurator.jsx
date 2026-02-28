@@ -2,7 +2,7 @@ import * as THREE from 'three'
 
 export default class EllipseConfigurator {
     // Create ellipse path where 1 unit is 1 million km
-    static createEllipseConfig({ perihelion, aphelion, orbitalPeriod, inclination = 0, longitudeAscendingNode = 0, argumentOfPerihelion = 0, style = {}, icon = {}, speed = 1 }) {
+    static createEllipseConfig({ perihelion, aphelion, orbitalPeriod, inclination = 0, longitudeAscendingNode = 0, argumentOfPerihelion = 0, style = {}, icon = {}, speed = 1, visibility = {} }) {
         // Set elliptical path
         const a = (perihelion + aphelion) / 2
         const b = Math.sqrt(perihelion * aphelion)
@@ -32,7 +32,8 @@ export default class EllipseConfigurator {
             motion: {
                 startVH: 0,
                 speed: 365.25 / orbitalPeriod * speed, // Orbits per earth year
-            }
+            },
+            visibility: visibility
         }
     }
 }
