@@ -175,10 +175,10 @@ const NEPTUNE = {
     }
 }
 
-export default function SolarSystem({ position = [0, 0, 0], speed = 1 }) {
+export default function SolarSystem({ config = {} }) {
     const system = useRef(null)
 
-    system.current = new SolarSystemController(position, speed)
+    system.current = new SolarSystemController(config)
 
     useFrame(() => {
         system.current.update()
@@ -188,7 +188,9 @@ export default function SolarSystem({ position = [0, 0, 0], speed = 1 }) {
 }
 
 class SolarSystemController {
-    constructor(position, speed) {
+    constructor(config) {
+        const { position = [0, 0, 0], speed = 1 } = config
+
         this.group = new THREE.Group()
         this.group.position.set(...position)
         this.speed = speed
@@ -223,8 +225,11 @@ class SolarSystemController {
         ]
 
         planets.forEach(planet => {
-            const config = structuredClone(planet.trajectory)
-            const trajectory = new TrajectoryController(EllipseConfigurator.createEllipseConfig(config))
+            const ellipseConfig = {
+                ...structuredClone(planet.trajectory),
+                speed: this.speed
+            }
+            const trajectory = new TrajectoryController(EllipseConfigurator.createEllipseConfig(ellipseConfig, this.speed))
             this.group.add(trajectory.group)
             this.trajectories.push(trajectory)
         })
