@@ -141,8 +141,6 @@ export default class TrajectoryController {
     createIcon() {
         const { type = 'hexagon', size = 3, color = 0xffffff, opacity = 1 } = this.config.icon || {}
         
-        // const trueSize = size * (vw / 1920)
-        // console.log(vw, trueSize)
         const points = []
         if (type === 'circle') {
             const segments = 32
@@ -163,7 +161,6 @@ export default class TrajectoryController {
             color,
             transparent: true,
             opacity,
-            side: THREE.DoubleSide,
         })
 
         const mesh = new THREE.LineLoop(geometry, material)
@@ -186,7 +183,6 @@ export default class TrajectoryController {
     }
 
     update() {
-        // this.icon = this.createIcon()
         const scrollVH = window.scrollY / window.innerHeight
         if (this.config.visibility) this.visibility(scrollVH)
         if (this.config.motion) this.motion(scrollVH)
