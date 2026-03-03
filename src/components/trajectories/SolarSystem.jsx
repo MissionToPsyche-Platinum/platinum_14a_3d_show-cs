@@ -9,6 +9,7 @@ const PSYCHE = {
     trajectory: {
         aphelion: 497, // in million km
         perihelion: 378, // in million km
+        timeOfPerihelion: 1745841600, // in unix time (seconds)
         inclination: 3.09, // in degrees (sun's equator)
         longitudeAscendingNode: 150, // in degrees
         argumentOfPerihelion: 229.8, // in degrees
@@ -28,6 +29,7 @@ const MERCURY = {
     trajectory: {
         aphelion: 69.82, // in million km
         perihelion: 46, // in million km
+        timeOfPerihelion: 1756296000, // in unix time (seconds)
         inclination: 3.38, // in degrees (sun's equator)
         longitudeAscendingNode: 48.33, // in degrees
         argumentOfPerihelion: 29.12, // in degrees
@@ -47,6 +49,7 @@ const VENUS = {
     trajectory: {
         aphelion: 108.94,
         perihelion: 107.48,
+        timeOfPerihelion: 1759406400,
         inclination: 3.86,
         longitudeAscendingNode: 76.68,
         argumentOfPerihelion: 54.88,
@@ -66,6 +69,7 @@ const EARTH = {
     trajectory: {
         aphelion: 152.1,
         perihelion: 147.1,
+        timeOfPerihelion: 1767441600,
         inclination: 7.155,
         longitudeAscendingNode: -11.26,
         argumentOfPerihelion: 114.21,
@@ -85,6 +89,7 @@ const MARS = {
     trajectory: {
         aphelion: 249.2,
         perihelion: 206.7,
+        timeOfPerihelion: 1655812800,
         inclination: 5.65,
         longitudeAscendingNode: 49.56,
         argumentOfPerihelion: 286.5,
@@ -104,6 +109,7 @@ const JUPITER = {
     trajectory: {
         aphelion: 816.62,
         perihelion: 740.52,
+        timeOfPerihelion: 1674302400,
         inclination: 6.09,
         longitudeAscendingNode: 100.46,
         argumentOfPerihelion: 273.87,
@@ -123,6 +129,7 @@ const SATURN = {
     trajectory: {
         aphelion: 1514.5,
         perihelion: 1352.55,
+        timeOfPerihelion: 1985342400,
         inclination: 5.51,
         longitudeAscendingNode: 113.67,
         argumentOfPerihelion: 339.39,
@@ -142,6 +149,7 @@ const URANUS = {
     trajectory: {
         aphelion: 3003.6,
         perihelion: 2741.3,
+        timeOfPerihelion: 2544436800,
         inclination: 6.48,
         longitudeAscendingNode: 74.01,
         argumentOfPerihelion: 97.00,
@@ -161,6 +169,7 @@ const NEPTUNE = {
     trajectory: {
         aphelion: 4545.7,
         perihelion: 4457.1,
+        timeOfPerihelion: 2293444800,
         inclination: 6.43,
         longitudeAscendingNode: 131.78,
         argumentOfPerihelion: 273.19,
@@ -229,7 +238,8 @@ class SolarSystemController {
             const ellipseConfig = {
                 ...structuredClone(planet.trajectory),
                 speed: this.speed,
-                visibility: this.config.visibility
+                visibility: this.config.visibility,
+                epochTime: this.config.epochTime,
             }
             const trajectory = new TrajectoryController(EllipseConfigurator.createEllipseConfig(ellipseConfig, this.speed))
             this.group.add(trajectory.group)
