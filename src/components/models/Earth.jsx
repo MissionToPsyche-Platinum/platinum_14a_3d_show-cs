@@ -12,7 +12,7 @@ export default function Earth({ position = [0, 0, 0], scale = 1, rotation = [0, 
             </mesh>
             <mesh>
                 <sphereGeometry args={[6.37 * scale * 1.01, 64, 64]} /> {/* in thousand km */}
-                <meshStandardMaterial map={cloudTexture} transparent opacity={0.6} />
+                <meshStandardMaterial alphaMap={cloudTexture} transparent opacity={0.6} />
             </mesh>
         </group>
     )

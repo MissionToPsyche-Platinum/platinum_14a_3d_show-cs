@@ -9,7 +9,6 @@ export default function App() {
   return (
     <>
       <Canvas>
-        {/* Temporary Lights */}
         <ambientLight intensity={1} />
 
         <Background />
