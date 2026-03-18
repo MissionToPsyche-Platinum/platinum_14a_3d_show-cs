@@ -1,13 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import '../styles/global.css';
 
-// The Configuration Block
 const progressBarConfig = {
-    // Defines when the bar starts filling and when it reaches 100%
     startVH: 0,
     endVH: 10,
-
-    // The exact VH where each node should light up
     scenes: [
         { name: 'Asteroid', vh: 0 },
         { name: 'Spacecraft', vh: 2.5 },
@@ -17,7 +13,6 @@ const progressBarConfig = {
     ]
 };
 
-// Components
 export default function ProgressBar() {
     const [activeIndex, setActiveIndex] = useState(0);
     const [hoveredScene, setHoveredScene] = useState(null);
@@ -28,10 +23,8 @@ export default function ProgressBar() {
 
         const updateScroll = () => {
             const currentVH = window.scrollY / window.innerHeight;
-
             const { startVH, endVH, scenes } = progressBarConfig;
             const progressRange = endVH - startVH;
-
             const progress = Math.max(0, Math.min(1, (currentVH - startVH) / progressRange));
 
             if (fillLineRef.current) {
@@ -73,14 +66,8 @@ export default function ProgressBar() {
 
     return (
         <div style={{
-            position: 'fixed',
-            top: '45%',
-            right: '40px',
-            transform: 'translateY(-50%)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            zIndex: 1002,
+            position: 'fixed', top: '45%', left: '40px', transform: 'translateY(-50%)',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 1002,
         }}>
             <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
@@ -106,24 +93,13 @@ export default function ProgressBar() {
                         <div
                             key={scene.name}
                             style={{
-                                display: 'flex', alignItems: 'center', justifyContent: 'flex-end',
+                                display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
                                 marginBottom: isLast ? 0 : '70px', cursor: 'pointer', position: 'relative',
                             }}
                             onClick={() => scrollToScene(scene.vh)}
                             onMouseEnter={() => setHoveredScene(scene.name)}
                             onMouseLeave={() => setHoveredScene(null)}
                         >
-                            <div style={{
-                                position: 'absolute', right: '25px',
-                                color: isPassed || isHovered ? '#ffffff' : '#aaaaaa',
-                                fontFamily: 'sans-serif', fontSize: '10px', textTransform: 'uppercase',
-                                letterSpacing: '1.5px', fontWeight: isActive ? '600' : '400',
-                                opacity: isPassed || isHovered ? 1 : 0.3, transition: 'all 0.3s ease',
-                                whiteSpace: 'nowrap', pointerEvents: 'none', textShadow: '1px 1px 2px rgba(0,0,0,0.8)'
-                            }}>
-                                {scene.name}
-                            </div>
-
                             <div
                                 className={isActive ? 'pulse-animation' : ''}
                                 style={{
@@ -131,6 +107,16 @@ export default function ProgressBar() {
                                     borderRadius: '50%', border: isPassed || isHovered ? '2px solid white' : '1px solid rgba(255,255,255,0.4)',
                                     backgroundColor: isPassed ? 'white' : '#000000', transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
                                 }} />
+
+                            <div style={{
+                                position: 'absolute', left: '25px', color: isPassed || isHovered ? '#ffffff' : '#aaaaaa',
+                                fontFamily: 'sans-serif', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1.5px',
+                                fontWeight: isActive ? '600' : '400', opacity: isPassed || isHovered ? 1 : 0.3,
+                                transition: 'all 0.3s ease', whiteSpace: 'nowrap', pointerEvents: 'none',
+                                textShadow: '1px 1px 2px rgba(0,0,0,0.8)', textAlign: 'left'
+                            }}>
+                                {scene.name}
+                            </div>
                         </div>
                     );
                 })}
