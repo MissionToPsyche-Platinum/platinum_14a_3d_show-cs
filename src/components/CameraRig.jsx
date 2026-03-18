@@ -57,8 +57,15 @@ export default function CameraRig() {
 
         const t = THREE.MathUtils.smoothstep(localT, 0, 1)
 
+        // Calculate the exact target the camera is looking at
+        const currentTarget = segment.lookAtCurve.getPointAt(t)
+
+        // Move and point the camera
         camera.position.copy(segment.positionCurve.getPointAt(t))
-        camera.lookAt(segment.lookAtCurve.getPointAt(t))
+        camera.lookAt(currentTarget)
+
+        // Save the target directly to the camera for the scale bar to read
+        camera.userData.target = currentTarget
     })
 
     return null

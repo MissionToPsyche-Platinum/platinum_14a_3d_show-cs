@@ -26,10 +26,3 @@ export default function Scene() {
     </>
   )
 }
-
-/**
-      <Model config={psycheConfig}>
-        <Psyche />
-      </Model>
-      <Trajectory config={testTrajectoryConfig} />
-*/
