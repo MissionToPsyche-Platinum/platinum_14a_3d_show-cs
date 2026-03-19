@@ -1,5 +1,9 @@
 body {
     color: white;
+    font: 'sans-serif';
+    font-size: '10px';
+    text-transform: 'uppercase';
+    letter-spacing: '1.5px';
 }
 
 .overlay {
@@ -86,8 +90,8 @@ body {
 /* Auto Scroll Button */
 .autoscroll-btn {
     position: fixed;
-    bottom: 2.5vh;
-    right: 2vw;
+    bottom: 24px;
+    left: 30px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -97,7 +101,6 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 999px;
     color: white;
-    font-family: "League Gothic", sans-serif;
     font-size: 14px;
     letter-spacing: 0.08em;
     cursor: pointer;

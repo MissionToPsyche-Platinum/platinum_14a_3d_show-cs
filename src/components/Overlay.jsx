@@ -8,6 +8,8 @@ import { card1 } from '../configs/cards/card1.config.js'
 export default function Overlay() {
     return (
         <div className='overlay'>
+            <AutoScroll />
+            
             <CardOverlay config={card1}>
                 <section className="overlay-right">
                     <h1>Scene 1</h1>
@@ -31,8 +33,6 @@ export default function Overlay() {
                 <h1>Scene 5</h1>
                 <p>Mission to a metal asteroid.</p>
             </section> */}
-
-            <AutoScroll />
 
             <div className="footer">
                 <p>PSYCHE / JOURNEY TO A METAL WORLD</p>
