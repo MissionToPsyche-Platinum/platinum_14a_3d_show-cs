@@ -1,5 +1,6 @@
 import '../styles/Overlay.css'
 import CardOverlay from './CardOverlay.jsx'
+import AutoScroll from './AutoScroll.jsx'
 
 // Overlay configs
 import { card1 } from '../configs/cards/card1.config.js'
@@ -30,6 +31,8 @@ export default function Overlay() {
                 <h1>Scene 5</h1>
                 <p>Mission to a metal asteroid.</p>
             </section> */}
+
+            <AutoScroll />
 
             <div className="footer">
                 <p>PSYCHE / JOURNEY TO A METAL WORLD</p>

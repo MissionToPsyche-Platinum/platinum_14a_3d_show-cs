@@ -82,3 +82,44 @@ body {
     height: 64px;
     margin:8px;
 }
+
+/* Auto Scroll Button */
+.autoscroll-btn {
+    position: fixed;
+    bottom: 2.5vh;
+    right: 2vw;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: rgba(28, 28, 28, 0.8);
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    color: white;
+    font-family: "League Gothic", sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.autoscroll-btn:hover {
+    background: rgba(50, 50, 50, 0.9);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.autoscroll-btn--active {
+    border-color: rgba(239, 89, 102, 0.7);
+}
+
+.autoscroll-icon {
+    font-size: 10px;
+    line-height: 1;
+}
+
+.autoscroll-label {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+}
