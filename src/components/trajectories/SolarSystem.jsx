@@ -16,10 +16,11 @@ const PSYCHE = {
         orbitalPeriod: 1825.6, // earth days
         style: {
             color: 0xF99D06,
+            opacity: 0.5,
         },
         icon: {
             type: 'hexagon',
-            color: 0xF99D06
+            color: 0xF99D06,
         }
     }
 }
@@ -36,6 +37,7 @@ const MERCURY = {
         orbitalPeriod: 87.97, // earth days
         style: {
             color: 0x504E51,
+            opacity: 0.5,
         },
         icon: {
             type: 'circle',
@@ -56,6 +58,7 @@ const VENUS = {
         orbitalPeriod: 224.7,
         style: {
             color: 0x8C7853,
+            opacity: 0.5,
         },
         icon: {
             type: 'circle',
@@ -76,6 +79,7 @@ const EARTH = {
         orbitalPeriod: 365.25,
         style: {
             color: 0x2E86C1,
+            opacity: 0.5,
         },
         icon: {
             type: 'circle',
@@ -96,6 +100,7 @@ const MARS = {
         orbitalPeriod: 687,
         style: {
             color: 0xC1440E,
+            opacity: 0.5,
         },
         icon: {
             type: 'circle',
@@ -116,6 +121,7 @@ const JUPITER = {
         orbitalPeriod: 4331,
         style: {
             color: 0xD2B48C,
+            opacity: 0.5,
         },
         icon: {
             type: 'circle',
@@ -136,6 +142,7 @@ const SATURN = {
         orbitalPeriod: 10747,
         style: {
             color: 0xF5DEB3,
+            opacity: 0.5,
         },
         icon: {
             type: 'circle',
@@ -156,6 +163,7 @@ const URANUS = {
         orbitalPeriod: 30589,
         style: {
             color: 0xAFEEEE,
+            opacity: 0.5,
         },
         icon: {
             type: 'circle',
@@ -176,6 +184,7 @@ const NEPTUNE = {
         orbitalPeriod: 59800,
         style: {
             color: 0x4169E1,
+            opacity: 0.5,
         },
         icon: {
             type: 'circle',

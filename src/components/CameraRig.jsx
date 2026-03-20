@@ -1,7 +1,7 @@
 import { useThree, useFrame } from '@react-three/fiber'
 import { useMemo, useEffect } from 'react'
 import * as THREE from 'three'
-import { cameraTimeLine } from '../configs/camera-rig.config'
+import { cameraTimeLine } from '../configs/camera-rig.config.js'
 
 export default function CameraRig() {
     const { camera, size } = useThree()

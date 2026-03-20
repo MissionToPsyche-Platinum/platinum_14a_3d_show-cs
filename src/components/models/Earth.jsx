@@ -8,7 +8,7 @@ export default function Earth({ position = [0, 0, 0], scale = 1, rotation = [0, 
         <group position={position} scale={scale} rotation={rotation}>
             <mesh>
                 <sphereGeometry args={[6.37 * scale, 64, 64]} /> {/* in thousand km */}
-                <meshStandardMaterial map={texture} />
+                <meshStandardMaterial map={texture} transparent opacity={1} />
             </mesh>
             <mesh>
                 <sphereGeometry args={[6.37 * scale * 1.01, 64, 64]} /> {/* in thousand km */}

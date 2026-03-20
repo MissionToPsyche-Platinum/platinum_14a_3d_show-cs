@@ -118,13 +118,12 @@ export default class MotionController {
 
     setOpacity(object, opacity) {
         object.traverse(child => {
-            if (!child.isMesh) return
+            if (!child.material) return
             
             const materials = Array.isArray(child.material) ? child.material : [child.material]
             materials.forEach(material => {
                 if (!material) return
 
-                material.transparent = true
                 material.opacity = opacity
                 material.side = THREE.FrontSide // Prevent rendering inside texture when fading out
                 material.depthWrite = opacity >= 0.99

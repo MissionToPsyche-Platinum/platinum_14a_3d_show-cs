@@ -125,6 +125,7 @@ export default class TrajectoryController {
             transparent: true,
             opacity,
         })
+        material.userData.baseOpacity = opacity
 
         this.lineMaterial = material
 
@@ -162,6 +163,7 @@ export default class TrajectoryController {
             transparent: true,
             opacity,
         })
+        material.userData.baseOpacity = opacity
 
         const mesh = new THREE.LineLoop(geometry, material)
         const group = new THREE.Group()
@@ -209,7 +211,7 @@ export default class TrajectoryController {
             opacity = THREE.MathUtils.clamp(1 - (scrollVH - endVH) / fadeOutDuration, 0, 1)
         }
 
-        this.setOpacity(opacity * this.baseOpacity)
+        this.setOpacity(opacity)
     }
 
     setOpacity(opacity) {
@@ -219,9 +221,10 @@ export default class TrajectoryController {
             const materials = Array.isArray(child.material) ? child.material : [child.material]
             materials.forEach(material => {
                 if (!material) return
+                const baseOpacity = material.userData.baseOpacity ?? 1
 
                 material.transparent = true
-                material.opacity = opacity
+                material.opacity = opacity * baseOpacity
                 material.depthWrite = opacity >= 0.99
                 material.depthTest = true
             })
