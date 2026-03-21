@@ -1,5 +1,6 @@
 import '../styles/Overlay.css'
 import CardOverlay from './CardOverlay.jsx'
+import TimeOverlay from './TimeOverlay.jsx'
 
 // Overlay configs
 import { card1 } from '../configs/cards/card1.config.js'
@@ -8,9 +9,18 @@ import { card3 } from '../configs/cards/card3.config.js'
 import { card4 } from '../configs/cards/card4.config.js'
 import { card5 } from '../configs/cards/card5.config.js'
 
+import { timeTimeLine } from '../configs/time.config.js'
+
+
 export default function Overlay() {
     return (
         <div className='overlay'>
+            <TimeOverlay config={timeTimeLine}>
+                <div id="timeBar">
+                    <h1>Time</h1>
+                </div>
+            </TimeOverlay>
+
             <CardOverlay config={card1}>
                 <section className="overlay-right">
                     <h1>The Big Picture</h1>
