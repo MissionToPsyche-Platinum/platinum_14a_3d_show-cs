@@ -7,7 +7,6 @@ import AutoScroll from './AutoScroll.jsx'
 import { card1 } from '../configs/cards/card1.config.js'
 
 export default function Overlay() {
-    // State to track if the user has reached the bottom of the page
     const [showFooter, setShowFooter] = useState(false);
 
     useEffect(() => {
@@ -16,7 +15,6 @@ export default function Overlay() {
             const windowHeight = window.innerHeight;
             const bodyHeight = document.documentElement.scrollHeight;
 
-            // Trigger the footer to show when the user is within 50 pixels of the bottom
             if (bodyHeight > windowHeight && Math.ceil(scrollPosition + windowHeight) >= bodyHeight - 50) {
                 setShowFooter(true);
             } else {
