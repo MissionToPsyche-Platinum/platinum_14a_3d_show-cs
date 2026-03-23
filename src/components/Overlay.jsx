@@ -41,7 +41,6 @@ export default function Overlay() {
                 </section>
             </CardOverlay>
 
-            {/* --- NEW DYNAMIC SLEEK FOOTER --- */}
             <div style={{
                 position: 'fixed',
                 bottom: 0,
@@ -52,13 +51,12 @@ export default function Overlay() {
                 justifyContent: 'center',
                 alignItems: 'center',
                 gap: '50px',
-                // Sleek dark fade so the stars show through the top
                 background: 'linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.6) 60%, rgba(5,5,5,0) 100%)',
                 backdropFilter: 'blur(2px)',
-                zIndex: 999, // Keeps it under your Distance Scale tooltip
+                zIndex: 999,
                 opacity: showFooter ? 1 : 0,
                 transform: showFooter ? 'translateY(0)' : 'translateY(100%)',
-                transition: 'all 0.7s cubic-bezier(0.25, 1, 0.5, 1)', // Snappy, smooth slide up
+                transition: 'all 0.7s cubic-bezier(0.25, 1, 0.5, 1)',
                 pointerEvents: showFooter ? 'auto' : 'none'
             }}>
                 <p style={{
@@ -101,7 +99,6 @@ export default function Overlay() {
                                 e.currentTarget.style.transform = 'scale(1)';
                             }}
                         >
-                            {/* Scaled down the icons drastically to fit the sleek vibe */}
                             <img
                                 src={`/images/socials/${social.name}.svg`}
                                 alt={social.name}
