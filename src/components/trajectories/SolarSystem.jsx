@@ -98,13 +98,18 @@ class SolarSystemController {
         const texture = new THREE.TextureLoader().load('/images/equirectangular/sun-equirectangular.jpg')
         const material = new THREE.MeshBasicMaterial({ map: texture })
         const sun = new THREE.Mesh(geometry, material)
-        sun.userData = {
+        this.group.add(sun)
+
+        const hitboxGeo = new THREE.SphereGeometry(3, 8, 8)
+        const hitboxMat = new THREE.MeshBasicMaterial({ visible: false })
+        const hitbox = new THREE.Mesh(hitboxGeo, hitboxMat)
+        hitbox.userData = {
             isHoverable: true,
             name: 'The Sun',
             color: 0xF9D71C,
             info: PLANET_DATA['The Sun'],
         }
-        this.group.add(sun)
+        this.group.add(hitbox)
     }
 
     createPlanets() {
