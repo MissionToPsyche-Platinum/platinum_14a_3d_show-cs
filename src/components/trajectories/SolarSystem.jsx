@@ -1,4 +1,4 @@
-import { use, useRef } from 'react'
+import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import TrajectoryController from '../TrajectoryController'
@@ -211,14 +211,42 @@ class SolarSystemController {
     }
 
     createSun() {
-        const geometry = new THREE.SphereGeometry(0.696, 32, 32)
-        
         const texture = new THREE.TextureLoader().load('/images/equirectangular/sun-equirectangular.jpg')
 
-        const material = new THREE.MeshBasicMaterial({ map: texture })
-
-        const sun = new THREE.Mesh(geometry, material)
+   
+        const sunGeometry = new THREE.SphereGeometry(0.696, 32, 32)
+        const sunMaterial = new THREE.MeshBasicMaterial({ map: texture })
+        const sun = new THREE.Mesh(sunGeometry, sunMaterial)
         this.group.add(sun)
+
+        const glowCanvas = document.createElement('canvas')
+        glowCanvas.width = 256
+        glowCanvas.height = 256
+
+        const ctx = glowCanvas.getContext('2d')
+        const gradient = ctx.createRadialGradient(128, 128, 20, 128, 128, 128)
+
+        gradient.addColorStop(0, 'rgba(255, 220, 160, 1.0)')
+        gradient.addColorStop(0.35, 'rgba(255, 170, 60, 0.45)')
+        gradient.addColorStop(0.7, 'rgba(255, 120, 30, 0.12)')
+        gradient.addColorStop(1, 'rgba(255, 80, 0, 0)')
+
+        ctx.fillStyle = gradient
+        ctx.fillRect(0, 0, 256, 256)
+
+        const glowTexture = new THREE.CanvasTexture(glowCanvas)
+
+        const glowMaterial = new THREE.SpriteMaterial({
+            map: glowTexture,
+            transparent: true,
+            depthWrite: false,
+})
+
+        const glow = new THREE.Sprite(glowMaterial)
+        glow.scale.set(4, 4, 1)
+
+        this.group.add(glow)
+       
     }
 
     createPlanets() {
