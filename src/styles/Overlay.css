@@ -1,33 +1,168 @@
 body {
     color: white;
+    font-family: Arial, sans-serif;
 }
 
 .overlay {
     position: absolute;
-    font-size: 1.25vh;
     top: 0;
     left: 0;
     width: 100%;
     height: 1500vh;
 }
 
-.overlay section {
-    top: 25vh;
+.overlay #timeBar {
     position: fixed;
+    top: 2vh;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#timeBar h1 {
+    position: relative;
+    padding: 0.5rem 1.5rem;
+
+    font-size: 1.4rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+
+    color: #eaf2ff;
+
+    background: 
+        radial-gradient(circle at top left, rgba(110, 140, 255, 0.18), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(255, 196, 92, 0.14), transparent 35%),
+        rgba(15, 18, 28, 0.82);
+   
+    border: 1px solid rgba(120, 180, 255, 0.22);
+    border-radius: 999px;
+
+    box-shadow:
+        0 0 4px 2px rgba(255, 255, 255, 0.05) inset,
+        0 0 12px rgba(90, 160, 255, 0.25);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+#timeBar::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 60%;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(120,180,255,0.6),
+        transparent
+    );
+
+    transform: translateY(-50%);
+    z-index: -1;
+}
+
+.overlay section {
+    position: fixed;
+    top: 10vh;
     padding: 1.25vh;
-    border-radius: 12px;
-    background: rgba(28, 28, 28, 0.8);
-    backdrop-filter: blur(2px);
+    width: min(28rem, 30vw);
+    border-radius: 20px;
+    background: 
+        radial-gradient(circle at top left, rgba(110, 140, 255, 0.18), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(255, 196, 92, 0.14), transparent 35%),
+        rgba(15, 18, 28, 0.82);
+   
+    border: 1px solid rgba(120, 180, 255, 0.22);
+
+    box-shadow:
+        0 0 4px 2px rgba(255, 255, 255, 0.05) inset,
+        0 0 24px rgba(90, 160, 255, 0.25);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.92);
+
+    font-size: 16px;
+}
+
+.overlay section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 1.25rem;
+    right: 1.25rem;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        rgba(0, 180, 255, 0),
+        rgba(0, 180, 255, 0.85),
+        rgba(255, 210, 120, 0.85),
+        rgba(0, 180, 255, 0)
+    );
+}
+
+/* .overlay section h1 {
+    margin: 0.5rem 0;
+    padding: 0.5rem 0;
+    font-size: 1.9rem;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+    border-bottom: 2px solid #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+} */
+
+.overlay section h1 {
+    position: relative;
+    margin: 0 0 1rem;
+    padding-bottom: 0.75rem;
+
+    text-transform: uppercase;
+
+    color: #eaf2ff;
+    text-shadow: 0 0 12px rgba(120, 190, 255, 0.18);
+}
+
+.overlay section h1::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255, 210, 120, 0.95), rgba(255, 210, 120, 0));
+}
+
+.overlay section > div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 1;
+}
+
+.overlay section p {
+    margin: 0;
+    color: rgba(222, 232, 245, 0.88);
+}
+
+.overlay section b {
+    color: #ffffff;
+    font-weight: 700;
 }
 
 .overlay section.overlay-left {
-    border: 2px solid red;
-    left: 25vw;
+    left: 10vw;
 }
 
 .overlay section.overlay-right {
-    border: 2px solid red;
-    right: 25vw;
+    right: 5vw;
 }
 
 .footer {
@@ -81,4 +216,44 @@ body {
 .footer .socials a{
     height: 64px;
     margin:8px;
+}
+
+/* Auto Scroll Button */
+.autoscroll-btn {
+    position: fixed;
+    bottom: 24px;
+    left: 30px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: rgba(28, 28, 28, 0.8);
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    color: white;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.autoscroll-btn:hover {
+    background: rgba(50, 50, 50, 0.9);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.autoscroll-btn--active {
+    border-color: rgba(239, 89, 102, 0.7);
+}
+
+.autoscroll-icon {
+    font-size: 10px;
+    line-height: 1;
+}
+
+.autoscroll-label {
+    font-size: 13px;
+    letter-spacing: 0.1em;
 }
