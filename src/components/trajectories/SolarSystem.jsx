@@ -276,6 +276,7 @@ class SolarSystemController {
                 ...structuredClone(planet.trajectory),
                 speed: this.speed,
                 visibility: this.config.visibility,
+                motion: this.config.motion,
                 epochTime: this.config.epochTime,
             }
             const trajectory = new TrajectoryController(EllipseConfigurator.createEllipseConfig(ellipseConfig, this.speed))
