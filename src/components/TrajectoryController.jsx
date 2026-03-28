@@ -240,11 +240,7 @@ export default class TrajectoryController {
             // If duration is specified, progress is based on scroll position
             if (durationVH !== undefined) {
                 if (speed !== undefined) {
-                    if (t <= durationVH) {
-                        this.setProgress(t * speed)
-                    } else {
-                        this.setProgress((startVH + durationVH) * speed)
-                    }
+                    this.setProgress(Math.min(t, durationVH) * speed)
                 } else {
                     this.setProgress(THREE.MathUtils.clamp(t / durationVH, 0, 1))
                 }
