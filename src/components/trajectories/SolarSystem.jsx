@@ -39,7 +39,6 @@ function usePlanetHover(groupRef) {
 
             raycaster.current.setFromCamera(mouse.current, camera)
 
-            // FIX 2: Only include meshes whose entire ancestor chain is visible
             const targets = []
             if (groupRef.current) {
                 groupRef.current.traverse(obj => {
