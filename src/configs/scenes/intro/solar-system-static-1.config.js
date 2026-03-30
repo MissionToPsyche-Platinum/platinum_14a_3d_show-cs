@@ -4,8 +4,8 @@ export const solarSystemConfig = {
     epochTime: 1697192340,
 
     visibility: {
-        startVH: 1.5,
-        endVH: 3,
+        startVH: 2.5,
+        endVH: 5,
         fadeInDuration: 0.15,
         fadeOutDuration: 0.15,
     }
