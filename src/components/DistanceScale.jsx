@@ -3,23 +3,30 @@ import { useFrame } from '@react-three/fiber';
 
 export default function DistanceScale({ isMetric }) {
     useFrame((state) => {
-        const textElement = document.getElementById('scale-text');
+        const textElement    = document.getElementById('scale-text');
         const analogyElement = document.getElementById('scale-analogy');
-        if (!textElement || !analogyElement) return;
+        const wrapElement    = document.getElementById('distance-scale-wrap');
+        if (!textElement || !analogyElement || !wrapElement) return;
 
+        // Hide when the footer is near (within 350px of bottom of page)
+        const distFromBottom = document.documentElement.scrollHeight - window.innerHeight - window.scrollY;
+        wrapElement.style.opacity  = distFromBottom < 350 ? '0' : '1';
+        wrapElement.style.pointerEvents = distFromBottom < 350 ? 'none' : 'auto';
+
+        // --- Original calculation logic (unchanged) ---
         const camera = state.camera;
         const target = camera.userData.target || state.scene.position;
         const distanceToTarget = camera.position.distanceTo(target);
 
         const vFov = (camera.fov * Math.PI) / 180;
         const visibleHeight = 2 * distanceToTarget * Math.tan(vFov / 2);
-        const visibleWidth = visibleHeight * camera.aspect;
+        const visibleWidth  = visibleHeight * camera.aspect;
 
-        const screenWidth = window.innerWidth;
-        const pixelsPerUnit = screenWidth / visibleWidth;
-        const unitsForBar = 100 / pixelsPerUnit;
+        const screenWidth    = window.innerWidth;
+        const pixelsPerUnit  = screenWidth / visibleWidth;
+        const unitsForBar    = 100 / pixelsPerUnit;
 
-        const scaleFactor = isMetric ? 1000000 : 621371;
+        const scaleFactor      = isMetric ? 1000000 : 621371;
         const realWorldDistance = unitsForBar * scaleFactor;
 
         let displayValue = realWorldDistance;
@@ -60,39 +67,32 @@ export default function DistanceScale({ isMetric }) {
 }
 
 export function DistanceScaleUI({ isMetric, setIsMetric }) {
-    const [showScaleInfo, setShowScaleInfo] = useState(false);
+    const [showInfo, setShowInfo] = useState(false);
 
     return (
         <div
+            id="distance-scale-wrap"
+            className="distance-scale"
             onClick={() => setIsMetric(!isMetric)}
-            style={{
-                position: 'fixed', bottom: '30px', right: '30px', display: 'flex', flexDirection: 'column',
-                alignItems: 'flex-end', zIndex: 1010, pointerEvents: 'auto', cursor: 'pointer',
-                fontFamily: 'sans-serif', fontVariantNumeric: 'tabular-nums', textShadow: '1px 1px 2px black'
-            }}
-            onMouseEnter={() => setShowScaleInfo(true)}
-            onMouseLeave={() => setShowScaleInfo(false)}
+            onMouseEnter={() => setShowInfo(true)}
+            onMouseLeave={() => setShowInfo(false)}
         >
-            <div style={{
-                position: 'absolute', bottom: '100%', right: '0', marginBottom: '15px', width: '260px',
-                padding: '12px 16px', backgroundColor: 'rgba(10, 10, 10, 0.85)', border: '1px solid rgba(255, 255, 255, 0.2)',
-                borderRadius: '8px', color: '#e0e0e0', fontSize: '12px', lineHeight: '1.5', textAlign: 'right',
-                backdropFilter: 'blur(4px)', boxShadow: '0px 4px 15px rgba(0,0,0,0.5)',
-                opacity: showScaleInfo ? 1 : 0, transform: showScaleInfo ? 'translateY(0)' : 'translateY(10px)',
-                transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)', pointerEvents: 'none'
-            }}>
-                This scale indicates the physical distance represented by the 100px line below. <br /><br />
-                <span style={{ color: '#ffffff', fontWeight: 'bold' }}>Click to toggle between Metric (km) and Imperial (mi).</span>
+            <div className={`distance-scale__tooltip${showInfo ? ' distance-scale__tooltip--visible' : ''}`}>
+                This bar represents 100px of real physical distance.
+                <br /><br />
+                <strong>Click to toggle between km and mi.</strong>
             </div>
 
-            <div id="scale-text" style={{ color: 'white', fontSize: '13px', fontWeight: 'bold' }}>Calculating...</div>
-            <div id="scale-analogy" style={{ color: '#aaaaaa', fontSize: '11px', marginBottom: '4px', fontStyle: 'italic' }}></div>
-
-            <div style={{
-                width: '100px', height: '6px', borderBottom: '2px solid white', borderLeft: '2px solid white',
-                borderRight: '2px solid white', boxShadow: '0px 1px 2px rgba(0,0,0,0.5)',
-                opacity: showScaleInfo ? 1 : 0.8, transition: 'opacity 0.3s',
-            }} />
+            <div id="scale-text"    className="distance-scale__value">Calculating...</div>
+            <div id="scale-analogy" className="distance-scale__analogy"></div>
+            <div className="distance-scale__bar">
+                <div className="distance-scale__tick distance-scale__tick--major" style={{ left: '0%' }} />
+                <div className="distance-scale__tick distance-scale__tick--minor" style={{ left: '25%' }} />
+                <div className="distance-scale__tick distance-scale__tick--half"  style={{ left: '50%' }} />
+                <div className="distance-scale__tick distance-scale__tick--minor" style={{ left: '75%' }} />
+                <div className="distance-scale__tick distance-scale__tick--major" style={{ left: '100%' }} />
+                <div className="distance-scale__line" />
+            </div>
         </div>
     );
 }

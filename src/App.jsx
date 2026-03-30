@@ -16,7 +16,8 @@ export default function App() {
   return (
     <>
       <Canvas>
-        <ambientLight intensity={1} />
+        <ambientLight intensity={0.6} />
+        <directionalLight position={[10, 8, 5]} intensity={4} />
         <Background />
         <CameraRig />
         <Scene />
