@@ -241,7 +241,6 @@ body {
     border-radius: 999px;
     box-shadow: 0 0 12px rgba(90, 160, 255, 0.15);
     color: rgba(255, 255, 255, 0.92);
-    font-family: "League Gothic", sans-serif;
     font-size: 15px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -279,7 +278,6 @@ body {
     border-radius: 999px;
     box-shadow: 0 0 12px rgba(90, 160, 255, 0.15);
     color: rgba(255, 255, 255, 0.6);
-    font-family: "League Gothic", sans-serif;
     font-size: 14px;
     letter-spacing: 0.06em;
     cursor: pointer;
