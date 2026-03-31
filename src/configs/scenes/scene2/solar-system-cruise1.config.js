@@ -5,7 +5,7 @@ export const solarSystemCruise1Config = {
 
     visibility: {
         startVH: 8,
-        endVH: 20,
+        endVH: 12.5,
         fadeInDuration: 0.15,
         fadeOutDuration: 0.15,
     },

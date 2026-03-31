@@ -18,6 +18,7 @@ import { psycheSat1Config } from '../configs/scenes/scene1/psyche-sat1.config.js
 
 // Configs: Scene 2: Mars gravity assist scene
 import { solarSystemCruise1Config } from '../configs/scenes/scene2/solar-system-cruise1.config.js'
+import { mars1Config } from '../configs/scenes/scene2/mars1.config.js'
 
 // Trajectories
 import SolarSystem from './trajectories/SolarSystem.jsx'
@@ -39,6 +40,9 @@ export default function Scene() {
       </Model>
     {/* Scene 2: Mars gravity assist scene */}
       <SolarSystem config={solarSystemCruise1Config} />
+      <Model config={mars1Config}>
+        <Mars />
+      </Model>
     </>
   )
 }
