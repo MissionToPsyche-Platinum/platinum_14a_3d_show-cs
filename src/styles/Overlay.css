@@ -140,6 +140,17 @@ body {
     background: linear-gradient(90deg, rgba(255, 210, 120, 0.95), rgba(255, 210, 120, 0));
 }
 
+.overlay section h2 {
+    position: relative;
+    margin: 0;
+    padding: 0;
+
+    text-transform: uppercase;
+
+    color: #eaf2ff;
+    text-shadow: 0 0 12px rgba(120, 190, 255, 0.18);
+}
+
 .overlay section > div {
     display: flex;
     flex-direction: column;
