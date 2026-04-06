@@ -28,19 +28,19 @@ export default function Overlay() {
 
     useEffect(() => {
         const handleScroll = () => {
-            const scrollPosition = window.scrollY;
-            const windowHeight = window.innerHeight;
-            const bodyHeight = document.documentElement.scrollHeight;
+            const distFromBottom = document.documentElement.scrollHeight - window.innerHeight - window.scrollY;
 
-            if (bodyHeight > windowHeight && Math.ceil(scrollPosition + windowHeight) >= bodyHeight - 50) {
-                setShowFooter(true);
-            } else {
-                setShowFooter(false);
-            }
+            // Hysteresis: show when within 80px of bottom, hide only when 350px+ away
+            // Prevents rapid toggling as the user scrolls near the threshold
+            setShowFooter(prev => {
+                if (!prev && distFromBottom < 80)  return true;
+                if (prev  && distFromBottom > 350) return false;
+                return prev;
+            });
         };
 
-        window.addEventListener('scroll', handleScroll);
-        handleScroll(); // Check on initial load
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
 
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
@@ -203,72 +203,41 @@ export default function Overlay() {
                 </section>
             </CardOverlay>
 
-            <div style={{
-                position: 'fixed',
-                bottom: 0,
-                left: 0,
-                width: '100%',
-                padding: '25px 0',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: '50px',
-                background: 'linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.6) 60%, rgba(5,5,5,0) 100%)',
-                backdropFilter: 'blur(2px)',
-                zIndex: 999,
-                opacity: showFooter ? 1 : 0,
-                transform: showFooter ? 'translateY(0)' : 'translateY(100%)',
-                transition: 'all 0.7s cubic-bezier(0.25, 1, 0.5, 1)',
-                pointerEvents: showFooter ? 'auto' : 'none'
-            }}>
-                <p style={{
-                    color: '#ffffff',
-                    fontFamily: 'sans-serif',
-                    fontSize: '13px',
-                    letterSpacing: '3px',
-                    textTransform: 'uppercase',
-                    margin: 0,
-                    fontWeight: '600',
-                    textShadow: '0 0 10px rgba(255,255,255,0.3)'
-                }}>
-                    PSYCHE / JOURNEY TO A METAL WORLD
-                </p>
+            <div className={`footer${showFooter ? ' footer--visible' : ''}`}>
+                <div className="footer__accent" />
 
-                <div style={{ display: 'flex', gap: '20px' }}>
+                <p className="footer__title">PSYCHE / JOURNEY TO A METAL WORLD</p>
+
+                <div className="footer__facts">
                     {[
-                        { name: 'facebook', url: 'https://www.facebook.com/MissionToPsyche' },
-                        { name: 'twitter', url: 'https://x.com/MissionToPsyche' },
+                        { label: 'Launched',       value: 'Oct 13, 2023' },
+                        { label: 'Vehicle',        value: 'Falcon Heavy' },
+                        { label: 'Destination',    value: '16 Psyche' },
+                        { label: 'Distance',       value: '2.5 – 3.3 AU' },
+                        { label: 'Arrival',        value: 'Aug 2029' },
+                        { label: 'Mission End',    value: 'Nov 2031' },
+                    ].map(({ label, value }) => (
+                        <div key={label} className="footer__fact">
+                            <span className="footer__fact-label">{label}</span>
+                            <span className="footer__fact-value">{value}</span>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="footer__socials">
+                    {[
+                        { name: 'facebook',  url: 'https://www.facebook.com/MissionToPsyche' },
+                        { name: 'twitter',   url: 'https://x.com/MissionToPsyche' },
                         { name: 'instagram', url: 'https://www.instagram.com/missiontopsyche/' },
-                        { name: 'youtube', url: 'https://www.youtube.com/channel/UC2BGcbPW8mxryXnjQcBqk6A' }
-                    ].map((social) => (
-                        <a
-                            key={social.name}
-                            href={social.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                                opacity: 0.6,
-                                transition: 'opacity 0.3s ease, transform 0.3s ease',
-                                display: 'flex',
-                                alignItems: 'center'
-                            }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.opacity = 1;
-                                e.currentTarget.style.transform = 'scale(1.1)';
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.opacity = 0.6;
-                                e.currentTarget.style.transform = 'scale(1)';
-                            }}
-                        >
-                            <img
-                                src={`/images/socials/${social.name}.svg`}
-                                alt={social.name}
-                                style={{ width: '28px', height: '28px' }}
-                            />
+                        { name: 'youtube',   url: 'https://www.youtube.com/channel/UC2BGcbPW8mxryXnjQcBqk6A' }
+                    ].map(({ name, url }) => (
+                        <a key={name} href={url} target="_blank" rel="noopener noreferrer" className="footer__social-link">
+                            <img src={`/images/socials/${name}.svg`} alt={name} />
                         </a>
                     ))}
                 </div>
+
+                <p className="footer__credit">NASA / JPL-Caltech / Arizona State University</p>
             </div>
         </div>
     )
