@@ -4,6 +4,7 @@ export default function LandscapePrompt() {
     const [isPortrait, setIsPortrait] = useState(false);
     const canvasRef = useRef(null);
     const animRef = useRef(null);
+    const starsRef = useRef([]);
 
     useEffect(() => {
         const checkOrientation = () => {
@@ -13,7 +14,10 @@ export default function LandscapePrompt() {
                 navigator.maxTouchPoints > 0 &&
                 !window.matchMedia('(pointer: fine)').matches;
 
-            const isTablet = window.innerWidth <= 1400 && window.innerWidth >= 600;
+            const isTablet =
+                isTouchDevice &&
+                window.innerWidth <= 1400 &&
+                window.innerWidth >= 600;
 
             const isMobile = isTouchDevice || isTablet;
 
@@ -35,20 +39,24 @@ export default function LandscapePrompt() {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
 
-        const resize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        };
-        resize();
-        window.addEventListener('resize', resize);
-
-        // Static stars
-        const stars = Array.from({ length: 80 }, () => ({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
+        const makeStars = (W, H) => Array.from({ length: 120 }, () => ({
+            x: Math.random() * W,
+            y: Math.random() * H,
             r: Math.random() * 1.2 + 0.2,
             alpha: Math.random() * 0.5 + 0.3,
         }));
+
+        const resize = () => {
+            const W = canvas.offsetWidth;
+            const H = canvas.offsetHeight;
+            canvas.width = W;
+            canvas.height = H;
+            starsRef.current = makeStars(W, H);
+        };
+
+        const ro = new ResizeObserver(() => resize());
+        ro.observe(canvas);
+        resize();
 
         const meteors = [];
         let spawnTimer = 0;
@@ -81,7 +89,7 @@ export default function LandscapePrompt() {
 
             ctx.clearRect(0, 0, W, H);
 
-            stars.forEach(s => {
+            starsRef.current.forEach(s => {
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
@@ -138,7 +146,7 @@ export default function LandscapePrompt() {
 
         return () => {
             cancelAnimationFrame(animRef.current);
-            window.removeEventListener('resize', resize);
+            ro.disconnect();
         };
     }, [isPortrait]);
 
@@ -162,6 +170,7 @@ export default function LandscapePrompt() {
             textAlign: 'center',
             overflow: 'hidden',
         }}>
+            {/* Meteor shower canvas — absolutely fills the container */}
             <canvas ref={canvasRef} style={{
                 position: 'absolute',
                 top: 0, left: 0,
