@@ -18,14 +18,17 @@ export default class EllipseConfigurator {
         ).normalize()
 
         const deltaTime = epochTime - timeOfPerihelion
-        const orbitFraction = ((deltaTime / orbitalPeriod) % 1 + 1) % 1
+        const orbitFraction = ((deltaTime / (orbitalPeriod * 86400)) % 1 + 1) % 1
         const meanAngle = orbitFraction * 360
 
         const globalSpeed = motion.speed ?? speed
+        const planetSpeed = motion.endEpochTime !== undefined
+            ? (motion.endEpochTime - epochTime) / (orbitalPeriod * 86400) / (motion.durationVH ?? 1)
+            : 365.25 / orbitalPeriod * globalSpeed
         const planetMotion = {
             ...motion,
             startVH: motion.startVH ?? 0,
-            speed: 365.25 / orbitalPeriod * globalSpeed,
+            speed: planetSpeed,
         }
 
         return {

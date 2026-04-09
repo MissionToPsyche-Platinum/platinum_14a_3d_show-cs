@@ -12,7 +12,7 @@ export const solarSystemCruise1Config = {
 
     motion: {
         startVH: 10,
-        durationVH: 1,
-        speed: 1,
+        durationVH: 2.5,
+        endEpochTime: 1777593666.75,
     }
 }

@@ -55,7 +55,7 @@ export default function CameraRig() {
             1
         )
 
-        const t = THREE.MathUtils.smoothstep(localT, 0, 1)
+        const t = localT * localT * localT * (localT * (localT * 6 - 15) + 10)
 
         // Calculate the exact target the camera is looking at
         const currentTarget = segment.lookAtCurve.getPointAt(t)
