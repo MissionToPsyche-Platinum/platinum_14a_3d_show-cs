@@ -43,6 +43,7 @@ export default function Overlay() {
         paddingRight: '15px',
     };
 
+
     return (
         <div className='overlay'>
             <AutoScroll />
@@ -56,7 +57,7 @@ export default function Overlay() {
             <CardOverlay config={card1}>
                 <section className="overlay-right">
                     <h1>The Big Picture</h1>
-                    <div style={scrollableContentStyle}>
+                    <div className="card-scroll" style={scrollableContentStyle}>
                         <p>
                             If you take a look between Mars and Jupiter, you will see a region that is filled with millions of rocky objects orbiting the Sun. This area is known as the <b>“Main Asteroid Belt”</b>. It stretches for about 140 million miles across, which is about one and a half times the distance from Earth to the sun. Early in the history of our solar system, these materials could have formed another planet. However, Jupiter’s strong gravity kept them from coming together so instead of being a planet, they remained separate and continued orbiting the Sun as individual asteroids.
                         </p>
@@ -76,7 +77,7 @@ export default function Overlay() {
             <CardOverlay config={card2}>
                 <section className="overlay-right">
                     <h1>The Spacecraft</h1>
-                    <div style={scrollableContentStyle}>
+                    <div className="card-scroll" style={scrollableContentStyle}>
                         <p>
                             On October 13, 2023, the Psyche mission began its journey from Kennedy Space Center in Florida. The spacecraft launched aboard a SpaceX Falcon Heavy rocket. The “Heavy” version was required because the spacecraft carried a large amount of xenon propellant for its long trip to the Main Asteroid Belt. Two side boosters provided the extra power needed to overcome the Earth’s gravity. To escape Earth’s pull, rockets must reach speeds greater than 25,000 miles per hour. As fuel is used, rocket stages separate to reduce weight. The spacecraft sits at the top inside a protective fairing during launch. At liftoff, Psyche 6,056 pounds. Once in space and fully deployed, its solar panels extend outward, making it about the size of a tennis court.
                         </p>
@@ -93,7 +94,7 @@ export default function Overlay() {
             <CardOverlay config={card3}>
                 <section className="overlay-right">
                     <h1>Scene 3</h1>
-                    <div style={scrollableContentStyle}>
+                    <div className="card-scroll" style={scrollableContentStyle}>
                         <p>
                             After launch, the Psyche spacecraft begins a long journey through deep space known as the cruise phase. This phase starts about 100 days after liftoff and lasts for nearly five years. During this time, the spacecraft steadily travels towards its final destination in the Main Asteroid Belt. Psyche is scheduled to arrive at Mars in May 2026 for a key part of its journey.
                         </p>
@@ -121,7 +122,7 @@ export default function Overlay() {
             <CardOverlay config={card4}>
                 <section className="overlay-right">
                     <h1>Scene 4</h1>
-                    <div style={scrollableContentStyle}>
+                    <div className="card-scroll" style={scrollableContentStyle}>
                         <p>
                             As the Psyche spacecraft enters the Main Asteroid Belt, it begins the most important part of its mission. After years of travel, the focus shifts from getting there to studying the asteroid. To do this, the spacecraft carries several scientific instruments designed to answer questions about what Psyche is made of and how it was formed.
                         </p>
@@ -141,7 +142,7 @@ export default function Overlay() {
             <CardOverlay config={card5}>
                 <section className="overlay-right">
                     <h1>Scene 5</h1>
-                    <div style={scrollableContentStyle}>
+                    <div className="card-scroll" style={scrollableContentStyle}>
                         <p>
                         </p>
                         <p>
