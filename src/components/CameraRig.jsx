@@ -29,6 +29,7 @@ export default function CameraRig() {
                 positionCurve,
                 lookAtCurve,
                 lookAtPoints,
+                easing: segment.easing ?? 'smoothstep',
             }
 
             scrollVHLength += segment.durationVH
@@ -69,7 +70,10 @@ export default function CameraRig() {
             1
         )
 
-        const t = localT * localT * localT * (localT * (localT * 6 - 15) + 10)
+        const t = segment.easing === 'easeIn'  ? localT * localT * localT
+               : segment.easing === 'easeOut' ? 1 - Math.pow(1 - localT, 3)
+               : segment.easing === 'linear'  ? localT
+               : localT * localT * localT * (localT * (localT * 6 - 15) + 10)
 
         const currentTarget = segment.lookAtCurve
             ? segment.lookAtCurve.getPointAt(localT)

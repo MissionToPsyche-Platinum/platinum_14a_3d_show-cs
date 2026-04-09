@@ -13,6 +13,7 @@ export const cameraTimeLine = [
     },
     {
         durationVH: 0.75,
+        easing: 'easeIn',
         position: [
             [ -65.0988, 23.123, 457.0127 ],
             [ -65.04028539697158, 23.417819479471557, 457.4125423255618 ],
@@ -58,6 +59,7 @@ export const cameraTimeLine = [
     // Earth and Psyche satellite scene (6vh)
     {
         durationVH: 0.75,
+        easing: 'easeOut',
         position: [
             [0, 350, 900],
             [ 139.56289709115075, 9.827000500412458, -51.9240150731558 ],
@@ -69,6 +71,7 @@ export const cameraTimeLine = [
     },
     {
         durationVH: 0.75,
+        easing: 'easeOut',
         position: [
             [ 139.56289709115075, 9.827000500412458, -51.9240150731558 ],
             [139.56, 9.817, -51.94],
@@ -91,6 +94,7 @@ export const cameraTimeLine = [
     },
     {
         durationVH: 0.75,
+        easing: 'easeIn',
         position: [
             [139.56, 9.817, -51.94],
             [ 139.56289709115075, 9.827000500412458, -51.9240150731558 ],
@@ -102,6 +106,7 @@ export const cameraTimeLine = [
     },
     {
         durationVH: 0.75,
+        easing: 'easeIn',
         position: [
             [ 139.56289709115075, 9.827000500412458, -51.9240150731558 ],
             [0, 350, 900],
@@ -136,6 +141,7 @@ export const cameraTimeLine = [
     // Mars gravity assist scene (6vh)
     {
         durationVH: 0.75,
+        easing: 'easeOut',
         position: [
             [0, 350, 900],
             [ 206.3267012681004, -16.277818287870705, 11.754116328850243 ],
@@ -147,6 +153,7 @@ export const cameraTimeLine = [
     },
     {
         durationVH: 0.75,
+        easing: 'easeOut',
         position: [
             [ 206.3267012681004, -16.277818287870705, 11.754116328850243 ],
             [ 206.327, -16.281545525247136, 11.742 ],
@@ -169,6 +176,7 @@ export const cameraTimeLine = [
     },
     {
         durationVH: 0.75,
+        easing: 'easeIn',
         position: [
             [ 206.327, -16.281545525247136, 11.742 ],
             [ 206.3267012681004, -16.277818287870705, 11.754116328850243 ],
@@ -180,6 +188,7 @@ export const cameraTimeLine = [
     },
     {
         durationVH: 0.75,
+        easing: 'easeIn',
         position: [
             [ 206.3267012681004, -16.277818287870705, 11.754116328850243 ],
             [0, 350, 900],
@@ -225,6 +234,7 @@ export const cameraTimeLine = [
     // Psyche Arrival scene (1.5vh)
     {
         durationVH: 0.75,
+        easing: 'easeOut',
         position: [
             [0, 350, 900],
             [ 306.12622401637975, 3.9138772759122546, 260.44162118364005 ],
@@ -236,6 +246,7 @@ export const cameraTimeLine = [
     },
     {
         durationVH: 0.75,
+        easing: 'easeOut',
         position: [
             [ 306.12622401637975, 3.9138772759122546, 260.44162118364005 ],
             [ 306.126, 3.9135, 260.4405 ],

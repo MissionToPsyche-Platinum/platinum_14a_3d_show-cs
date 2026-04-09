@@ -11,7 +11,7 @@ export const psycheIntroConfig = {
     visibility: [
         {
             startVH: 0,
-            endVH: 20,
+            endVH: 3,
             fadeInDuration: 0,
             fadeOutDuration: 0.1,
         },
