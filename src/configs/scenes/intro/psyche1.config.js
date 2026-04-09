@@ -9,7 +9,7 @@ export const psyche1Config = {
 
     visibility: {
         startVH: 0,
-        endVH: 2.25,
+        endVH: 2.75,
         fadeInDuration: 0,
         fadeOutDuration: 0.1,
     }

@@ -1,18 +1,18 @@
-export const solarSystemCruise1Config = {
+export const solarSystemCruise2Config = {
     position: [0, 0, 0],
     speed: 1,
-    epochTime: 1697192340,
+    epochTime: 1777593666.75,
 
     visibility: {
-        startVH: 8.5,
-        endVH: 13,
+        startVH: 15.25,
+        endVH: 20,
         fadeInDuration: 0.15,
         fadeOutDuration: 0.15,
     },
 
     motion: {
-        startVH: 10,
-        durationVH: 1,
+        startVH: 16,
+        durationVH: 2.5,
         speed: 1,
     }
 }

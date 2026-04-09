@@ -1,5 +1,5 @@
 export const mars1Config = {
-    position: [229.8, -224.75, -60.2],
+    position: [230, -224.75, -60.8],
     scale: 0.1,
     rotation: [0, 0, -0.15],
 
@@ -9,8 +9,8 @@ export const mars1Config = {
     },
 
     visibility: {
-        startVH: 12.75,
-        endVH: 20,
+        startVH: 13.25,
+        endVH: 14.75,
         fadeInDuration: 0.1,
         fadeOutDuration: 0.1,
     }

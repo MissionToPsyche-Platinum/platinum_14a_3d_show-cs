@@ -1,7 +1,7 @@
 export const cameraTimeLine = [
     // Intro scene
     {
-        durationVH: 1,
+        durationVH: 1.5,
         position: [
             [-864, -54, 159],
             [-864, -54, 159],
@@ -141,11 +141,34 @@ export const cameraTimeLine = [
         durationVH: 1,
         position: [
             [-300, 400, 800],
-            [229, -224, -59],
+            [228, -223.7, -62],
         ],
         lookAt: [
             [340, -100, 0],
             [230, -225, -60],
         ]
-    }
+    },
+    {
+        durationVH: 1,
+        position: [
+            [228, -223.7, -62],
+            [228, -223.7, -62],
+        ],
+        lookAt: [
+            [230, -225, -60],
+            [230, -225, -60],
+        ]
+    },
+    // Cruise 2 Scene
+    {
+        durationVH: 1.5,
+        position: [
+            [228, -223.7, -62],
+            [-300, 400, 800],
+        ],
+        lookAt: [
+            [230, -225, -60],
+            [340, -100, 0],
+        ]
+    },
 ]

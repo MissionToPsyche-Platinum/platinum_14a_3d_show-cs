@@ -21,9 +21,12 @@ export default class EllipseConfigurator {
         const orbitFraction = ((deltaTime / orbitalPeriod) % 1 + 1) % 1
         const meanAngle = orbitFraction * 360
 
-        // Create default motion if needed
-        if (!motion.startVH) motion.startVH = 0
-        if (!motion.speed) motion.speed = 365.25 / orbitalPeriod * speed
+        const globalSpeed = motion.speed ?? speed
+        const planetMotion = {
+            ...motion,
+            startVH: motion.startVH ?? 0,
+            speed: 365.25 / orbitalPeriod * globalSpeed,
+        }
 
         return {
             type: 'ellipse',
@@ -38,7 +41,7 @@ export default class EllipseConfigurator {
             },
             style: style,
             icon: icon,
-            motion: motion,
+            motion: planetMotion,
             visibility: visibility
         }
     }

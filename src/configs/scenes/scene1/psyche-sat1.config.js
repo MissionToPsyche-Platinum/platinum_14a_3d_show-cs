@@ -4,8 +4,8 @@ export const psycheSat1Config = {
     rotation: [-0.2, 0.3, 2.4],
 
     visibility: {
-        startVH: 5.5,
-        endVH: 7.5,
+        startVH: 6,
+        endVH: 8,
         fadeInDuration: 0.1,
         fadeOutDuration: 0.1,
     }

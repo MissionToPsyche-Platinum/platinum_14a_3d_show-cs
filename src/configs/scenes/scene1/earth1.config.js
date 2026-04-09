@@ -9,8 +9,8 @@ export const earth1Config = {
     },
 
     visibility: {
-        startVH: 5.5,
-        endVH: 7.5,
+        startVH: 6,
+        endVH: 8,
         fadeInDuration: 0.1,
         fadeOutDuration: 0.1,
     }
