@@ -1,7 +1,7 @@
-export const mars1Config = {
-    position: [230, -224.75, -60.8],
-    scale: 100,
+export const marsConfig = {
+    position: [206.333, -16.289, 11.727],
     rotation: [0, 0, -0.15],
+    scale: 1,
 
     spin: {
         speed: 0.01,
@@ -9,8 +9,8 @@ export const mars1Config = {
     },
 
     visibility: {
-        startVH: 13.25,
-        endVH: 14.75,
+        startVH: 10,
+        endVH: 20,
         fadeInDuration: 0.1,
         fadeOutDuration: 0.1,
     }

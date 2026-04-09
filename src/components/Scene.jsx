@@ -16,6 +16,7 @@ import { psycheIntroConfig } from '../configs/scenes/psyche-intro.config.js'
 import { solarSystemConfig } from '../configs/scenes/solar-system.config.js'
 import { earthConfig } from '../configs/scenes/earth.config.js'
 import { psycheSatEarthConfig } from '../configs/scenes/psyche-sat-earth.config.js'
+import { marsConfig } from '../configs/scenes/mars.config.js'
 
 export default function Scene() {
   return (
@@ -29,6 +30,9 @@ export default function Scene() {
       </Model>
       <Model config={psycheSatEarthConfig}>
         <PsycheSat />
+      </Model>
+      <Model config={marsConfig}>
+        <Mars />
       </Model>
     </>
     // <>
