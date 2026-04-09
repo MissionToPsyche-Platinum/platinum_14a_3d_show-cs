@@ -3,13 +3,13 @@ import '../styles/global.css';
 
 const progressBarConfig = {
     startVH: 0,
-    endVH: 10,
+    endVH: 17.5,
     scenes: [
         { name: 'Asteroid', vh: 0 },
-        { name: 'Spacecraft', vh: 2.5 },
-        { name: 'Journey to Mars', vh: 5 },
-        { name: 'Last Leg', vh: 7.5 },
-        { name: 'Psyche', vh: 9.8 },
+        { name: 'Spacecraft', vh: 5.5 },
+        { name: 'Journey to Mars', vh: 11.5 },
+        { name: 'Last Leg', vh: 14.5 },
+        { name: 'Psyche', vh: 17.5 },
     ]
 };
 
@@ -17,31 +17,47 @@ export default function ProgressBar() {
     const [activeIndex, setActiveIndex] = useState(0);
     const [hoveredScene, setHoveredScene] = useState(null);
     const fillLineRef = useRef(null);
+    const trackRef = useRef(null);
+    const dotRefs = useRef([]);
 
     useEffect(() => {
         let ticking = false;
 
         const updateScroll = () => {
             const currentVH = window.scrollY / window.innerHeight;
-            const { startVH, endVH, scenes } = progressBarConfig;
-            const progressRange = endVH - startVH;
-            const progress = Math.max(0, Math.min(1, (currentVH - startVH) / progressRange));
+            const { scenes } = progressBarConfig;
 
-            if (fillLineRef.current) {
-                fillLineRef.current.style.height = `${progress * 100}%`;
+            if (fillLineRef.current && trackRef.current && dotRefs.current[0]) {
+                const trackTop = trackRef.current.getBoundingClientRect().top;
+
+                const dotCenters = dotRefs.current.map(dot => {
+                    const r = dot.getBoundingClientRect();
+                    return r.top + r.height / 2 - trackTop;
+                });
+
+                let segIndex = 0;
+                for (let i = scenes.length - 1; i >= 0; i--) {
+                    if (currentVH >= scenes[i].vh) { segIndex = i; break; }
+                }
+
+                let fillPx;
+                if (segIndex >= scenes.length - 1) {
+                    fillPx = dotCenters[scenes.length - 1];
+                } else {
+                    const t = Math.max(0, Math.min(1,
+                        (currentVH - scenes[segIndex].vh) / (scenes[segIndex + 1].vh - scenes[segIndex].vh)
+                    ));
+                    fillPx = dotCenters[segIndex] + t * (dotCenters[segIndex + 1] - dotCenters[segIndex]);
+                }
+
+                fillLineRef.current.style.height = `${fillPx}px`;
             }
 
             let currentSceneIndex = 0;
             for (let i = 0; i < scenes.length; i++) {
-                if (currentVH >= scenes[i].vh - 0.1) {
-                    currentSceneIndex = i;
-                }
+                if (currentVH >= scenes[i].vh - 0.1) currentSceneIndex = i;
             }
-
-            setActiveIndex((prev) => {
-                if (prev !== currentSceneIndex) return currentSceneIndex;
-                return prev;
-            });
+            setActiveIndex(prev => prev !== currentSceneIndex ? currentSceneIndex : prev);
 
             ticking = false;
         };
@@ -55,13 +71,11 @@ export default function ProgressBar() {
 
         window.addEventListener('scroll', handleScroll);
         updateScroll();
-
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     const scrollToScene = (targetVH) => {
-        const targetScrollY = targetVH * window.innerHeight;
-        window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+        window.scrollTo({ top: targetVH * window.innerHeight, behavior: 'smooth' });
     };
 
     return (
@@ -71,13 +85,17 @@ export default function ProgressBar() {
         }}>
             <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
-                <div style={{
-                    position: 'absolute', top: '0', bottom: '0', width: '1px', backgroundColor: 'rgba(255, 255, 255, 0.15)', zIndex: -1,
-                }}>
+                <div
+                    ref={trackRef}
+                    style={{
+                        position: 'absolute', top: '0', bottom: '0', width: '1px',
+                        backgroundColor: 'rgba(255, 255, 255, 0.15)', zIndex: -1,
+                    }}
+                >
                     <div
                         ref={fillLineRef}
                         style={{
-                            height: '0%', width: '100%',
+                            height: '0px', width: '100%',
                             background: 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 100%)',
                         }}
                     />
@@ -101,19 +119,25 @@ export default function ProgressBar() {
                             onMouseLeave={() => setHoveredScene(null)}
                         >
                             <div
+                                ref={el => dotRefs.current[index] = el}
                                 className={isActive ? 'pulse-animation' : ''}
                                 style={{
-                                    width: isPassed || isHovered ? '10px' : '6px', height: isPassed || isHovered ? '10px' : '6px',
-                                    borderRadius: '50%', border: isPassed || isHovered ? '2px solid white' : '1px solid rgba(255,255,255,0.4)',
-                                    backgroundColor: isPassed ? 'white' : '#000000', transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
-                                }} />
-
+                                    width: isPassed || isHovered ? '10px' : '6px',
+                                    height: isPassed || isHovered ? '10px' : '6px',
+                                    borderRadius: '50%',
+                                    border: isPassed || isHovered ? '2px solid white' : '1px solid rgba(255,255,255,0.4)',
+                                    backgroundColor: isPassed ? 'white' : '#000000',
+                                    transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
+                                }}
+                            />
                             <div style={{
-                                position: 'absolute', left: '25px', color: isPassed || isHovered ? '#ffffff' : '#aaaaaa',
-                                fontFamily: 'sans-serif', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1.5px',
-                                fontWeight: isActive ? '600' : '400', opacity: isPassed || isHovered ? 1 : 0.3,
-                                transition: 'all 0.3s ease', whiteSpace: 'nowrap', pointerEvents: 'none',
-                                textShadow: '1px 1px 2px rgba(0,0,0,0.8)', textAlign: 'left'
+                                position: 'absolute', left: '25px',
+                                color: isPassed || isHovered ? '#ffffff' : '#aaaaaa',
+                                fontFamily: 'sans-serif', fontSize: '10px', textTransform: 'uppercase',
+                                letterSpacing: '1.5px', fontWeight: isActive ? '600' : '400',
+                                opacity: isPassed || isHovered ? 1 : 0.3, transition: 'all 0.3s ease',
+                                whiteSpace: 'nowrap', pointerEvents: 'none',
+                                textShadow: '1px 1px 2px rgba(0,0,0,0.8)', textAlign: 'left',
                             }}>
                                 {scene.name}
                             </div>
