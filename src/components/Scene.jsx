@@ -17,6 +17,7 @@ import { solarSystemConfig } from '../configs/scenes/solar-system.config.js'
 import { earthConfig } from '../configs/scenes/earth.config.js'
 import { psycheSatEarthConfig } from '../configs/scenes/psyche-sat-earth.config.js'
 import { marsConfig } from '../configs/scenes/mars.config.js'
+import { psycheConfig } from '../configs/scenes/psyche.config.js'
 
 export default function Scene() {
   return (
@@ -34,28 +35,9 @@ export default function Scene() {
       <Model config={marsConfig}>
         <Mars />
       </Model>
+      <Model config={psycheConfig}>
+        <Psyche />
+      </Model>
     </>
-    // <>
-    // {/* Intro scene */}
-    //   <Model config={psyche1Config}>
-    //     <Psyche />
-    //   </Model>
-    //   <SolarSystem config={solarSystemConfig} />
-    // {/* Scene 1: Earth and Psyche satellite scene */}
-    //   <Model config={earth1Config}>
-    //     <Earth />
-    //   </Model>
-    //   <Model config={psycheSat1Config}>
-    //     <PsycheSat />
-    //   </Model>
-    // {/* Scene 2: Mars gravity assist scene */}
-    //   <SolarSystem config={solarSystemCruise1Config} />
-    //   <Model config={mars1Config}>
-    //     <Mars />
-    //   </Model>
-    //   <Trajectory config={slingshotConfig} />
-    // {/* Scene 3: Solar system cruise 2 */}
-    //   <SolarSystem config={solarSystemCruise2Config} />
-    // </>
   )
 }
