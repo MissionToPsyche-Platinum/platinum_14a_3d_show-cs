@@ -73,17 +73,21 @@ export default class TrajectoryController {
             axis = [0, 1, 0],
             startAngle = 0,
             rotationOffset = [0, 0, 0],
+            referenceDir,
         } = this.config.ellipse
 
         const axisVector = new THREE.Vector3(...axis).normalize()
         const centerVector = new THREE.Vector3(...center)
 
-        let startVector = new THREE.Vector3(1, 0, 0)
-        if (axisVector.dot(startVector) > 0.9) {
-            startVector = new THREE.Vector3(0, 1, 0)
+        let perpendicularVector
+        if (referenceDir) {
+            perpendicularVector = new THREE.Vector3(...referenceDir).normalize()
+        } else {
+            let startVector = new THREE.Vector3(1, 0, 0)
+            if (axisVector.dot(startVector) > 0.9) startVector = new THREE.Vector3(0, 1, 0)
+            perpendicularVector = new THREE.Vector3().crossVectors(axisVector, startVector).normalize()
         }
 
-        const perpendicularVector = new THREE.Vector3().crossVectors(axisVector, startVector).normalize()
         const orthogonalVector = new THREE.Vector3().crossVectors(axisVector, perpendicularVector).normalize()
 
         const startQuaternion = new THREE.Quaternion().setFromAxisAngle(axisVector, THREE.MathUtils.degToRad(startAngle))

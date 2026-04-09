@@ -6,16 +6,24 @@ export default class EllipseConfigurator {
         // Set elliptical path
         const a = (perihelion + aphelion) / 2
         const b = Math.sqrt(perihelion * aphelion)
-        const center = [a - perihelion, 0, 0]
 
         const iRad = THREE.MathUtils.degToRad(inclination)
         const omegaRad = THREE.MathUtils.degToRad(longitudeAscendingNode)
+        const wRad = THREE.MathUtils.degToRad(argumentOfPerihelion)
 
         const axis = new THREE.Vector3(
             Math.sin(omegaRad) * Math.sin(iRad),
             Math.cos(iRad),
             Math.cos(omegaRad) * Math.sin(iRad)
         ).normalize()
+
+        const ascendingNode = new THREE.Vector3(Math.cos(omegaRad), 0, -Math.sin(omegaRad))
+        const ortho = new THREE.Vector3().crossVectors(axis, ascendingNode).normalize()
+        const perihelionDir = ascendingNode.clone().multiplyScalar(Math.cos(wRad))
+            .add(ortho.clone().multiplyScalar(Math.sin(wRad)))
+
+        const c = a - perihelion
+        const center = perihelionDir.clone().multiplyScalar(-c).toArray()
 
         const deltaTime = epochTime - timeOfPerihelion
         const orbitFraction = ((deltaTime / (orbitalPeriod * 86400)) % 1 + 1) % 1
@@ -38,14 +46,15 @@ export default class EllipseConfigurator {
             ellipse: {
                 radiusX: a,
                 radiusZ: b,
-                center: center,
+                center,
                 axis: axis.toArray(),
+                referenceDir: ascendingNode.toArray(),
                 startAngle: argumentOfPerihelion + meanAngle,
             },
-            style: style,
-            icon: icon,
+            style,
+            icon,
             motion: planetMotion,
-            visibility: visibility
+            visibility,
         }
     }
 }
