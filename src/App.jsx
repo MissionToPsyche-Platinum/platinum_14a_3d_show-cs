@@ -15,8 +15,8 @@ export default function App() {
 
   return (
     <>
-      <Canvas>
-        <ambientLight intensity={0.4} />
+      <Canvas gl={{ logarithmicDepthBuffer: true }}>
+        <ambientLight intensity={0.1} />
         <pointLight intensity={500} position={[0, 0, 0]} distance={0} decay={1} /> {/* Sun */}
         <Background />
         <CameraRig />

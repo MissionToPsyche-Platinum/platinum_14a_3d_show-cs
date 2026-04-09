@@ -8,48 +8,50 @@ import Mars from './models/Mars'
 import Moon from './models/Moon'
 import Earth from './models/Earth'
 
-// Configs: Intro Scene
-import { psyche1Config } from '../configs/scenes/intro/psyche1.config.js'
-import { solarSystemConfig } from '../configs/scenes/intro/solar-system-static-1.config.js'
-
-// Configs: Scene 1: Earth and Psyche satellite scene
-import { earth1Config } from '../configs/scenes/scene1/earth1.config.js'
-import { psycheSat1Config } from '../configs/scenes/scene1/psyche-sat1.config.js'
-
-// Configs: Scene 2: Mars gravity assist scene
-import { solarSystemCruise1Config } from '../configs/scenes/scene2/solar-system-cruise1.config.js'
-import { mars1Config } from '../configs/scenes/scene2/mars1.config.js'
-import { slingshotConfig } from '../configs/scenes/scene2/slingshot.config.js'
-
-// Configs: Scene 3: Solar system cruise 2
-import { solarSystemCruise2Config } from '../configs/scenes/scene3/solar-system-cruise2.config.js'
-
 // Trajectories
 import SolarSystem from './trajectories/SolarSystem.jsx'
+
+// Configs
+import { psycheIntroConfig } from '../configs/scenes/psyche-intro.config.js'
+import { solarSystemConfig } from '../configs/scenes/solar-system.config.js'
+import { earthConfig } from '../configs/scenes/earth.config.js'
+import { psycheSatEarthConfig } from '../configs/scenes/psyche-sat-earth.config.js'
 
 export default function Scene() {
   return (
     <>
-    {/* Intro scene */}
-      <Model config={psyche1Config}>
+      <Model config={psycheIntroConfig}>
         <Psyche />
       </Model>
       <SolarSystem config={solarSystemConfig} />
-    {/* Scene 1: Earth and Psyche satellite scene */}
-      <Model config={earth1Config}>
+      <Model config={earthConfig}>
         <Earth />
       </Model>
-      <Model config={psycheSat1Config}>
+      <Model config={psycheSatEarthConfig}>
         <PsycheSat />
       </Model>
-    {/* Scene 2: Mars gravity assist scene */}
-      <SolarSystem config={solarSystemCruise1Config} />
-      <Model config={mars1Config}>
-        <Mars />
-      </Model>
-      <Trajectory config={slingshotConfig} />
-    {/* Scene 3: Solar system cruise 2 */}
-      <SolarSystem config={solarSystemCruise2Config} />
     </>
+    // <>
+    // {/* Intro scene */}
+    //   <Model config={psyche1Config}>
+    //     <Psyche />
+    //   </Model>
+    //   <SolarSystem config={solarSystemConfig} />
+    // {/* Scene 1: Earth and Psyche satellite scene */}
+    //   <Model config={earth1Config}>
+    //     <Earth />
+    //   </Model>
+    //   <Model config={psycheSat1Config}>
+    //     <PsycheSat />
+    //   </Model>
+    // {/* Scene 2: Mars gravity assist scene */}
+    //   <SolarSystem config={solarSystemCruise1Config} />
+    //   <Model config={mars1Config}>
+    //     <Mars />
+    //   </Model>
+    //   <Trajectory config={slingshotConfig} />
+    // {/* Scene 3: Solar system cruise 2 */}
+    //   <SolarSystem config={solarSystemCruise2Config} />
+    // </>
   )
 }

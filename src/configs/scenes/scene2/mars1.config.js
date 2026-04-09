@@ -1,6 +1,6 @@
 export const mars1Config = {
     position: [230, -224.75, -60.8],
-    scale: 0.1,
+    scale: 100,
     rotation: [0, 0, -0.15],
 
     spin: {

@@ -8,22 +8,27 @@ export default function CameraRig() {
 
     const segments = useMemo(() => {
         let scrollVHLength = 0
+        let prevLastLookAt = null
 
-        // Create timeline segments with curves for position and lookAt
         return cameraTimeLine.map((segment) => {
             const positionCurve = new THREE.CatmullRomCurve3(
                 segment.position.map((pos) => new THREE.Vector3(...pos))
             )
 
-            const lookAtCurve = new THREE.CatmullRomCurve3(
-                segment.lookAt.map((pos) => new THREE.Vector3(...pos))
-            )
+            const lookAtPoints = segment.lookAt.map((pos) => new THREE.Vector3(...pos))
+            if (prevLastLookAt) lookAtPoints[0].copy(prevLastLookAt)
+            prevLastLookAt = lookAtPoints[lookAtPoints.length - 1].clone()
+
+            const lookAtCurve = lookAtPoints.length >= 3
+                ? new THREE.CatmullRomCurve3(lookAtPoints)
+                : null
 
             const data = {
                 startVH: scrollVHLength,
                 endVH: scrollVHLength + segment.durationVH,
                 positionCurve,
                 lookAtCurve,
+                lookAtPoints,
             }
 
             scrollVHLength += segment.durationVH
@@ -32,8 +37,17 @@ export default function CameraRig() {
     }, [])
 
     useEffect(() => {
+        if (segments.length === 0) return
+        const first = segments[0]
+        camera.position.copy(first.positionCurve.getPointAt(0))
+        camera.lookAt(first.lookAtPoints[0])
+        camera.updateProjectionMatrix()
+    }, [segments, camera])
+
+    useEffect(() => {
         const isMobile = size.width < 768
-        camera.fov = isMobile ? 75: 60
+        camera.fov = isMobile ? 75 : 60
+        camera.near = 0.000000001
         camera.far = 10000
         camera.updateProjectionMatrix()
         camera.up.set(0, 1, 0)
@@ -43,7 +57,7 @@ export default function CameraRig() {
         const scrollVH = window.scrollY / window.innerHeight
 
         // Find segment for current scroll position
-        const segment = segments.find(
+        const segment = segments.findLast(
             (s) => scrollVH >= s.startVH && scrollVH <= s.endVH
         )
 
@@ -57,10 +71,10 @@ export default function CameraRig() {
 
         const t = localT * localT * localT * (localT * (localT * 6 - 15) + 10)
 
-        // Calculate the exact target the camera is looking at
-        const currentTarget = segment.lookAtCurve.getPointAt(t)
+        const currentTarget = segment.lookAtCurve
+            ? segment.lookAtCurve.getPointAt(localT)
+            : new THREE.Vector3().lerpVectors(segment.lookAtPoints[0], segment.lookAtPoints[1], localT)
 
-        // Move and point the camera
         camera.position.copy(segment.positionCurve.getPointAt(t))
         camera.lookAt(currentTarget)
 

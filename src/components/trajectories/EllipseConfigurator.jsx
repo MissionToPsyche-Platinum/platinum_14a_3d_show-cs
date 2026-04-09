@@ -1,9 +1,7 @@
 import * as THREE from 'three'
 
 export default class EllipseConfigurator {
-    // Create ellipse path where 1 unit is 1 million km
-    static createEllipseConfig({ perihelion, aphelion, orbitalPeriod, timeOfPerihelion, epochTime, inclination = 0, longitudeAscendingNode = 0, argumentOfPerihelion = 0, style = {}, icon = {}, speed = 1, visibility = {}, motion = {}, planetName, info }) {
-        // Set elliptical path
+    static createEllipseConfig({ perihelion, aphelion, orbitalPeriod, timeOfPerihelion, epochTime, inclination = 0, longitudeAscendingNode = 0, argumentOfPerihelion = 0, style = {}, icon = {}, speed = 1, visibility = {}, motion, planetName, info }) {
         const a = (perihelion + aphelion) / 2
         const b = Math.sqrt(perihelion * aphelion)
 
@@ -29,14 +27,36 @@ export default class EllipseConfigurator {
         const orbitFraction = ((deltaTime / (orbitalPeriod * 86400)) % 1 + 1) % 1
         const meanAngle = orbitFraction * 360
 
-        const globalSpeed = motion.speed ?? speed
-        const planetSpeed = motion.endEpochTime !== undefined
-            ? (motion.endEpochTime - epochTime) / (orbitalPeriod * 86400) / (motion.durationVH ?? 1)
-            : 365.25 / orbitalPeriod * globalSpeed
-        const planetMotion = {
-            ...motion,
-            startVH: motion.startVH ?? 0,
-            speed: planetSpeed,
+        const rawMotions = !motion
+            ? []
+            : Array.isArray(motion)
+                ? motion
+                : [motion]
+
+        let currentEpoch = epochTime
+        let accProgress = 0
+        const motionWindows = []
+
+        for (const m of rawMotions) {
+            if (!m.durationVH || m.durationVH <= 0) continue
+            const startProgress = accProgress
+            let endProgress
+
+            if (m.endEpochTime !== undefined) {
+                endProgress = accProgress + (m.endEpochTime - currentEpoch) / (orbitalPeriod * 86400)
+                currentEpoch = m.endEpochTime
+            } else {
+                const spd = m.speed !== undefined ? m.speed : speed
+                endProgress = accProgress + (365.25 / orbitalPeriod) * spd * m.durationVH
+            }
+
+            accProgress = endProgress
+            motionWindows.push({
+                startVH: m.startVH ?? 0,
+                endVH: (m.startVH ?? 0) + m.durationVH,
+                startProgress,
+                endProgress,
+            })
         }
 
         return {
@@ -53,7 +73,7 @@ export default class EllipseConfigurator {
             },
             style,
             icon,
-            motion: planetMotion,
+            motion: motionWindows.length > 0 ? motionWindows : null,
             visibility,
         }
     }

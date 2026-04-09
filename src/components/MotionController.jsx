@@ -33,10 +33,15 @@ export default class MotionController {
         }
     }
 
-    // Rotates the object around an axis
     spin(object, delta) {
-        const { speed = 1, axis = 'y' } = this.config.spin
-        object.rotation[axis] += delta * speed
+        const { speed = 1, axis = 'y', vector } = this.config.spin
+        if (vector) {
+            const axisVec = new THREE.Vector3(...vector).normalize()
+            const q = new THREE.Quaternion().setFromAxisAngle(axisVec, delta * speed)
+            object.quaternion.premultiply(q)
+        } else {
+            object.rotation[axis] += delta * speed
+        }
     }
 
     // Object follows an orbit
@@ -91,29 +96,29 @@ export default class MotionController {
         this.curve.getPointAt(t, object.position)
     }
 
-    // Set object visibility
     visibility(object, scrollVH) {
-        const { startVH, endVH, fadeInDuration = 0, fadeOutDuration = 0} = this.config.visibility
+        const windows = Array.isArray(this.config.visibility)
+            ? this.config.visibility
+            : [this.config.visibility]
 
-        if (scrollVH < startVH - fadeInDuration || scrollVH > endVH + fadeOutDuration) {
+        let bestOpacity = null
+        for (const { startVH, endVH, fadeInDuration = 0, fadeOutDuration = 0 } of windows) {
+            if (scrollVH < startVH - fadeInDuration || scrollVH > endVH + fadeOutDuration) continue
+            let opacity = 1
+            if (fadeInDuration > 0 && scrollVH < startVH)
+                opacity = THREE.MathUtils.clamp((scrollVH - (startVH - fadeInDuration)) / fadeInDuration, 0, 1)
+            if (fadeOutDuration > 0 && scrollVH > endVH)
+                opacity = THREE.MathUtils.clamp(1 - (scrollVH - endVH) / fadeOutDuration, 0, 1)
+            if (bestOpacity === null || opacity > bestOpacity) bestOpacity = opacity
+        }
+
+        if (bestOpacity === null) {
             object.visible = false
             return
         }
 
         object.visible = true
-        let opacity = 1
-
-        // Fade in
-        if (fadeInDuration > 0 && scrollVH < startVH) {
-            opacity = THREE.MathUtils.clamp((scrollVH - (startVH - fadeInDuration)) / fadeInDuration, 0, 1)
-        }
-
-        // Fade out
-        if (fadeOutDuration > 0 && scrollVH > endVH) {
-            opacity = THREE.MathUtils.clamp(1 - (scrollVH - endVH) / fadeOutDuration, 0, 1)
-        }
-        
-        this.setOpacity(object, opacity)
+        this.setOpacity(object, bestOpacity)
     }
 
     setOpacity(object, opacity) {
