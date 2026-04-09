@@ -58,6 +58,8 @@ function usePlanetHover(groupRef) {
 
             if (hits.length > 0) {
                 const obj = hits[0].object
+                const worldPos = new THREE.Vector3()
+                obj.parent.getWorldPosition(worldPos)
                 document.body.style.cursor = 'pointer'
                 window.dispatchEvent(new CustomEvent('planetHover', {
                     detail: {
@@ -67,6 +69,7 @@ function usePlanetHover(groupRef) {
                         info: obj.userData.info,
                         x: e.clientX,
                         y: e.clientY,
+                        worldPos: { x: worldPos.x, y: worldPos.y, z: worldPos.z },
                     }
                 }))
             } else {
