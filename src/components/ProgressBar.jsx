@@ -13,12 +13,44 @@ const progressBarConfig = {
     ]
 };
 
+// Breakpoints
+const SMALL = 480;  // phone
+const MEDIUM = 768;  // tablet
+
+function useWindowWidth() {
+    const [width, setWidth] = useState(window.innerWidth);
+    useEffect(() => {
+        const handle = () => setWidth(window.innerWidth);
+        window.addEventListener('resize', handle);
+        return () => window.removeEventListener('resize', handle);
+    }, []);
+    return width;
+}
+
 export default function ProgressBar() {
     const [activeIndex, setActiveIndex] = useState(0);
     const [hoveredScene, setHoveredScene] = useState(null);
     const fillLineRef = useRef(null);
     const trackRef = useRef(null);
     const dotRefs = useRef([]);
+    const width = useWindowWidth();
+
+    const isSmall = width <= SMALL;
+    const isMedium = width <= MEDIUM && !isSmall;
+
+    const leftOffset = isSmall ? '18px' : isMedium ? '28px' : '40px';
+
+    const nodeGap = isSmall ? '44px' : isMedium ? '58px' : '70px';
+
+    const dotActive = isSmall ? 8 : 10;
+    const dotInactive = isSmall ? 5 : 6;
+
+    const labelSize = isSmall ? '8px' : '10px';
+    const labelLeft = isSmall ? '18px' : '25px';
+
+    const showLabels = width > 360;
+
+    const topPercent = isSmall ? '42%' : '45%';
 
     useEffect(() => {
         let ticking = false;
@@ -57,8 +89,8 @@ export default function ProgressBar() {
             for (let i = 0; i < scenes.length; i++) {
                 if (currentVH >= scenes[i].vh - 0.1) currentSceneIndex = i;
             }
-            setActiveIndex(prev => prev !== currentSceneIndex ? currentSceneIndex : prev);
 
+            setActiveIndex(prev => prev !== currentSceneIndex ? currentSceneIndex : prev);
             ticking = false;
         };
 
@@ -80,8 +112,16 @@ export default function ProgressBar() {
 
     return (
         <div style={{
-            position: 'fixed', top: '45%', left: '40px', transform: 'translateY(-50%)',
-            display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 1002,
+            position: 'fixed',
+            top: topPercent,
+            left: leftOffset,
+            transform: 'translateY(-50%)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            zIndex: 1002,
+            maxHeight: '70vh',
+            justifyContent: 'center',
         }}>
             <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
@@ -107,17 +147,24 @@ export default function ProgressBar() {
                     const isLast = index === progressBarConfig.scenes.length - 1;
                     const isHovered = hoveredScene === scene.name;
 
+                    const dotSize = isPassed || isHovered ? dotActive : dotInactive;
+
                     return (
                         <div
                             key={scene.name}
                             style={{
-                                display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
-                                marginBottom: isLast ? 0 : '70px', cursor: 'pointer', position: 'relative',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
+                                marginBottom: isLast ? 0 : nodeGap,
+                                cursor: 'pointer',
+                                position: 'relative',
                             }}
                             onClick={() => scrollToScene(scene.vh)}
                             onMouseEnter={() => setHoveredScene(scene.name)}
                             onMouseLeave={() => setHoveredScene(null)}
                         >
+                            {/* Node dot */}
                             <div
                                 ref={el => dotRefs.current[index] = el}
                                 className={isActive ? 'pulse-animation' : ''}

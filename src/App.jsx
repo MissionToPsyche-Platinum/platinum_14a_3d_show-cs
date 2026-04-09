@@ -9,6 +9,7 @@ import ProgressBar from './components/ProgressBar'
 import DistanceScale, { DistanceScaleUI } from './components/DistanceScale'
 import PlanetTooltip from './components/PlanetTooltip'
 import DebugOverlay from './components/DebugOverlay'
+import LandscapePrompt from './components/LandscapePrompt'
 
 export default function App() {
   const [isMetric, setIsMetric] = useState(false)
@@ -24,6 +25,7 @@ export default function App() {
         <DistanceScale isMetric={isMetric} />
       </Canvas>
 
+      <LandscapePrompt />
       <DistanceScaleUI isMetric={isMetric} setIsMetric={setIsMetric} />
       <ProgressBar />
       <Overlay />

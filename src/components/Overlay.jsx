@@ -22,7 +22,6 @@ import { card13 } from '../configs/cards/card13.config.js'
 
 import { timeTimeLine } from '../configs/time.config.js'
 
-
 export default function Overlay() {
     const [showFooter, setShowFooter] = useState(false);
 
@@ -39,16 +38,25 @@ export default function Overlay() {
             });
         };
 
-        window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('scroll', handleScroll);
         handleScroll();
 
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const scrollableContentStyle = {
+        maxHeight: '55vh',
+        overflowY: 'auto',
+        overscrollBehavior: 'contain',
+        pointerEvents: 'auto',
+        paddingRight: '15px',
+    };
+
+
     return (
         <div className='overlay'>
             <AutoScroll />
-            
+
             <TimeOverlay config={timeTimeLine}>
                 <div id="timeBar">
                     <h1>Time</h1>
@@ -206,7 +214,7 @@ export default function Overlay() {
             <div className={`footer${showFooter ? ' footer--visible' : ''}`}>
                 <div className="footer__accent" />
 
-                <p className="footer__title">PSYCHE / JOURNEY TO A METAL WORLD</p>
+                <h2 className="footer__title">PSYCHE / JOURNEY TO A METAL WORLD</h2>
 
                 <div className="footer__facts">
                     {[
