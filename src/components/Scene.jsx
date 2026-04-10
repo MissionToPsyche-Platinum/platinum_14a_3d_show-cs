@@ -3,32 +3,41 @@ import Trajectory from './Trajectory'
 
 // 3D Models
 import Psyche from './models/Psyche'
+import PsycheSat from './models/PsycheSat'
 import Mars from './models/Mars'
 import Moon from './models/Moon'
 import Earth from './models/Earth'
 
-// Configs
-import { psycheConfig } from '../configs/psyche.config'
-import { testTrajectoryConfig } from '../configs/testfile.config.js'
-
 // Trajectories
 import SolarSystem from './trajectories/SolarSystem.jsx'
+
+// Configs
+import { psycheIntroConfig } from '../configs/scenes/psyche-intro.config.js'
+import { solarSystemConfig } from '../configs/scenes/solar-system.config.js'
+import { earthConfig } from '../configs/scenes/earth.config.js'
+import { psycheSatEarthConfig } from '../configs/scenes/psyche-sat-earth.config.js'
+import { marsConfig } from '../configs/scenes/mars.config.js'
+import { psycheConfig } from '../configs/scenes/psyche.config.js'
 
 export default function Scene() {
   return (
     <>
-      <SolarSystem position={[0, 0, 0]} speed={0.25} />
-      {/* <Trajectory config={testTrajectoryConfig} /> */}
+      <Model config={psycheIntroConfig}>
+        <Psyche />
+      </Model>
+      <SolarSystem config={solarSystemConfig} />
+      <Model config={earthConfig}>
+        <Earth />
+      </Model>
+      <Model config={psycheSatEarthConfig}>
+        <PsycheSat />
+      </Model>
+      <Model config={marsConfig}>
+        <Mars />
+      </Model>
       <Model config={psycheConfig}>
-        <Earth scale={5} />
+        <Psyche />
       </Model>
     </>
   )
 }
-
-/**
-      <Model config={psycheConfig}>
-        <Psyche />
-      </Model>
-      <Trajectory config={testTrajectoryConfig} />
-*/

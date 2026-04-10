@@ -13,6 +13,8 @@ export default class TrajectoryController {
 
         this.group.add(this.trajectoryLine)
         this.group.add(this.icon)
+
+        this.setProgress(0)
     }
 
     createCurve() {
@@ -34,7 +36,6 @@ export default class TrajectoryController {
         const axisVector = new THREE.Vector3(...axis).normalize()
         const centerVector = new THREE.Vector3(...center)
 
-        // Choose positive x as default perpendicular vector, but if axis is close to x, use y
         let startVector = new THREE.Vector3(1, 0, 0)
         if (axisVector.dot(startVector) > 0.9) {
             startVector = new THREE.Vector3(0, 1, 0)
@@ -61,9 +62,7 @@ export default class TrajectoryController {
         const offsetVec = new THREE.Vector3(...offset)
 
         return new THREE.CatmullRomCurve3(
-            points.map(p =>
-                new THREE.Vector3(...p).add(offsetVec)
-            ),
+            points.map(p => new THREE.Vector3(...p).add(offsetVec)),
             closed
         )
     }
@@ -75,24 +74,26 @@ export default class TrajectoryController {
             center = [0, 0, 0],
             axis = [0, 1, 0],
             startAngle = 0,
-            rotationOffset = [0, 0, 0], 
+            rotationOffset = [0, 0, 0],
+            referenceDir,
         } = this.config.ellipse
 
         const axisVector = new THREE.Vector3(...axis).normalize()
         const centerVector = new THREE.Vector3(...center)
 
-        // Perpendicular basis vectors for the plane of the ellipse
-        let startVector = new THREE.Vector3(1, 0, 0)
-        if (axisVector.dot(startVector) > 0.9) {
-            startVector = new THREE.Vector3(0, 1, 0)
+        let perpendicularVector
+        if (referenceDir) {
+            perpendicularVector = new THREE.Vector3(...referenceDir).normalize()
+        } else {
+            let startVector = new THREE.Vector3(1, 0, 0)
+            if (axisVector.dot(startVector) > 0.9) startVector = new THREE.Vector3(0, 1, 0)
+            perpendicularVector = new THREE.Vector3().crossVectors(axisVector, startVector).normalize()
         }
 
-        const perpendicularVector = new THREE.Vector3().crossVectors(axisVector, startVector).normalize()
         const orthogonalVector = new THREE.Vector3().crossVectors(axisVector, perpendicularVector).normalize()
 
         const startQuaternion = new THREE.Quaternion().setFromAxisAngle(axisVector, THREE.MathUtils.degToRad(startAngle))
 
-        // Rotation offset for the ellipse orientation
         const rotationQuaternion = new THREE.Quaternion().setFromEuler(new THREE.Euler(
             THREE.MathUtils.degToRad(rotationOffset[0]),
             THREE.MathUtils.degToRad(rotationOffset[1]),
@@ -120,17 +121,17 @@ export default class TrajectoryController {
         this.baseOpacity = opacity
 
         const geometry = new THREE.BufferGeometry()
-        const material = new THREE.LineBasicMaterial({ 
+        const material = new THREE.LineBasicMaterial({
             color,
             transparent: true,
             opacity,
         })
+        material.userData.baseOpacity = opacity
 
         this.lineMaterial = material
 
         const line = new THREE.Line(geometry, material)
 
-        // Always show full path for circle and ellipse
         if (this.config.type === 'circle' || this.config.type === 'ellipse') {
             geometry.setFromPoints(this.curve.getPoints(256))
         }
@@ -140,9 +141,7 @@ export default class TrajectoryController {
 
     createIcon() {
         const { type = 'hexagon', size = 3, color = 0xffffff, opacity = 1 } = this.config.icon || {}
-        
-        // const trueSize = size * (vw / 1920)
-        // console.log(vw, trueSize)
+
         const points = []
         if (type === 'circle') {
             const segments = 32
@@ -156,21 +155,31 @@ export default class TrajectoryController {
                 points.push(new THREE.Vector3(Math.cos(angle) * size, Math.sin(angle) * size, 0))
             }
         } else return
-        points.push(points[0].clone()) // Close the shape
+        points.push(points[0].clone())
 
         const geometry = new THREE.BufferGeometry().setFromPoints(points)
-        const material = new THREE.LineBasicMaterial({ 
+        const material = new THREE.LineBasicMaterial({
             color,
             transparent: true,
             opacity,
-            side: THREE.DoubleSide,
         })
+        material.userData.baseOpacity = opacity
 
         const mesh = new THREE.LineLoop(geometry, material)
         const group = new THREE.Group()
         group.add(mesh)
 
-        // Perspective scaling
+        const hitboxGeo = new THREE.SphereGeometry(size * 1.5, 8, 8)
+        const hitboxMat = new THREE.MeshBasicMaterial({ visible: false, side: THREE.FrontSide })
+        const hitbox = new THREE.Mesh(hitboxGeo, hitboxMat)
+        hitbox.userData = {
+            isHoverable: true,
+            name: this.config.planetName,
+            color: this.config.icon?.color ?? 0xffffff,
+            info: this.config.info ?? null,
+        }
+        group.add(hitbox)
+
         mesh.onBeforeRender = (renderer, scene, camera) => {
             const distance = group.position.distanceTo(camera.position)
             const vFOV = THREE.MathUtils.degToRad(camera.fov)
@@ -179,53 +188,55 @@ export default class TrajectoryController {
             const worldScale = size * (window.innerHeight / 1080) * worldUnitsPerPixel
 
             mesh.scale.set(worldScale, worldScale, 1)
+            hitbox.scale.set(worldScale, worldScale, worldScale)
+
             mesh.quaternion.copy(camera.quaternion)
-        };
+        }
 
         return group
     }
 
     update() {
-        // this.icon = this.createIcon()
         const scrollVH = window.scrollY / window.innerHeight
         if (this.config.visibility) this.visibility(scrollVH)
         if (this.config.motion) this.motion(scrollVH)
     }
 
     visibility(scrollVH) {
-        const { startVH, endVH, fadeInDuration = 0, fadeOutDuration = 0 } = this.config.visibility
+        const windows = Array.isArray(this.config.visibility)
+            ? this.config.visibility
+            : [this.config.visibility]
 
-        if (scrollVH < startVH - fadeInDuration || scrollVH > endVH + fadeOutDuration) {
+        let bestOpacity = null
+        for (const { startVH, endVH, fadeInDuration = 0, fadeOutDuration = 0 } of windows) {
+            if (scrollVH < startVH - fadeInDuration || scrollVH > endVH + fadeOutDuration) continue
+            let opacity = 1
+            if (fadeInDuration > 0 && scrollVH < startVH)
+                opacity = THREE.MathUtils.clamp((scrollVH - (startVH - fadeInDuration)) / fadeInDuration, 0, 1)
+            if (fadeOutDuration > 0 && scrollVH > endVH)
+                opacity = THREE.MathUtils.clamp(1 - (scrollVH - endVH) / fadeOutDuration, 0, 1)
+            if (bestOpacity === null || opacity > bestOpacity) bestOpacity = opacity
+        }
+
+        if (bestOpacity === null) {
             this.group.visible = false
             return
         }
 
         this.group.visible = true
-        let opacity = 1
-
-        // Fade in
-        if (fadeInDuration > 0 && scrollVH < startVH) {
-            opacity = THREE.MathUtils.clamp((scrollVH - (startVH - fadeInDuration)) / fadeInDuration, 0, 1)
-        }
-
-        // Fade out
-        if (fadeOutDuration > 0 && scrollVH > endVH) {
-            opacity = THREE.MathUtils.clamp(1 - (scrollVH - endVH) / fadeOutDuration, 0, 1)
-        }
-
-        this.setOpacity(opacity * this.baseOpacity)
+        this.setOpacity(bestOpacity)
     }
 
     setOpacity(opacity) {
         this.group.traverse(child => {
             if (!child.material) return
-
             const materials = Array.isArray(child.material) ? child.material : [child.material]
             materials.forEach(material => {
                 if (!material) return
+                const baseOpacity = material.userData.baseOpacity ?? 1
 
                 material.transparent = true
-                material.opacity = opacity
+                material.opacity = opacity * baseOpacity
                 material.depthWrite = opacity >= 0.99
                 material.depthTest = true
             })
@@ -233,32 +244,49 @@ export default class TrajectoryController {
     }
 
     motion(scrollVH) {
-        const { startVH = 0, durationVH, speed } = this.config.motion
-        const t = (scrollVH - startVH)
+        const motions = Array.isArray(this.config.motion)
+            ? this.config.motion
+            : [this.config.motion]
+
+        if (motions.length === 0) return
+
+        if (motions[0].startProgress !== undefined) {
+            for (let i = 0; i < motions.length; i++) {
+                const w = motions[i]
+                if (scrollVH < w.startVH) {
+                    this.setProgress(w.startProgress)
+                    return
+                }
+                if (scrollVH <= w.endVH) {
+                    const t = (scrollVH - w.startVH) / (w.endVH - w.startVH)
+                    this.setProgress(w.startProgress + t * (w.endProgress - w.startProgress))
+                    return
+                }
+            }
+            this.setProgress(motions[motions.length - 1].endProgress)
+            return
+        }
+
+        const { startVH = 0, durationVH, speed } = motions[0]
+        const t = scrollVH - startVH
         if (scrollVH < startVH) {
             this.setProgress(0)
-        } else {
-            // If duration is specified, progress is based on scroll position
-            if (durationVH !== undefined) {
-                if (speed !== undefined) {
-                    if (t <= durationVH) {
-                        this.setProgress(t * speed)
-                    } else {
-                        this.setProgress((startVH + durationVH) * speed)
-                    }
-                } else {
-                    this.setProgress(THREE.MathUtils.clamp(t / durationVH, 0, 1))
-                }
-            } else if (speed !== undefined) {
-                this.setProgress(t * speed)
+            return
+        }
+        if (durationVH !== undefined) {
+            if (speed !== undefined) {
+                this.setProgress(Math.min(t, durationVH) * speed)
+            } else {
+                this.setProgress(THREE.MathUtils.clamp(t / durationVH, 0, 1))
             }
+        } else if (speed !== undefined) {
+            this.setProgress(t * speed)
         }
     }
 
     setProgress(t) {
         if (!this.curve) return
 
-        // Circle and ellipse repeats, spline clamps
         if (this.config.type === 'circle' || this.config.type === 'ellipse') {
             t = t % 1
         } else if (this.config.type === 'spline') {
@@ -267,17 +295,15 @@ export default class TrajectoryController {
 
         this.progress = t
 
-        // Icon position
         const position = this.curve.getPointAt(t)
         this.icon.position.copy(position)
 
-        // Update spline path if applicable
         if (this.config.type === 'spline') {
             const { segments = 256 } = this.config.spline
             const points = []
             for (let i = 0; i <= segments; i++) {
                 const segmentT = i / segments
-                if (segmentT > t) break // only draw up to the current progress
+                if (segmentT > t) break
                 points.push(this.curve.getPointAt(segmentT))
             }
             this.trajectoryLine.geometry.dispose()
