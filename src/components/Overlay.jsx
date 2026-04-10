@@ -18,6 +18,7 @@ import { card10 } from '../configs/cards/card10.config.js'
 import { card11 } from '../configs/cards/card11.config.js'
 import { card12 } from '../configs/cards/card12.config.js'
 import { card13 } from '../configs/cards/card13.config.js'
+import { card14 } from '../configs/cards/card14.config.js'
 
 
 import { timeTimeLine } from '../configs/time.config.js'
@@ -207,6 +208,16 @@ export default function Overlay() {
                     <div>
                         <p>Orbit D is the lowest orbit at 75 kilometers. This phase focuses on determining the asteroid’s composition using the gamma ray and neutron spectrometer, while continuing gravity and magnetic measurements.</p>
                         <p>The goal of Orbit D is to identify what Psyche is made of. By measuring elements such as metal and rock, scientists can test the idea that Psyche may be the exposed core of an early planet. This is one of the most important phases for understanding planetary formation.</p>
+                    </div>
+                </section>
+            </CardOverlay>
+
+            <CardOverlay config={card14}>
+                <section className="overlay-middle">
+                    <h1>Conculsion</h1>
+                    <div>
+                        <p>Orbit D is the lowest orbit at 75 kilometers. This phase focuses on determining the asteroid’s composition using the gamma ray and neutron spectrometer, while continuing gravity and magnetic measurements.</p>
+                        <p>This work was created in partial fulfillment of Arizona State University Capstone Course “CSE485 & CSE486″. The work is a result of the Psyche Student Collaborations component of NASA’s Psyche Mission (<a href='https://psyche.ssl.berkeley.edu'>https://psyche.ssl.berkeley.edu</a>). “Psyche: A Journey to a Metal World” [Contract number NNM16AA09C] is part of the NASA Discovery Program mission to solar system targets. Trade names and trademarks of ASU and NASA are used in this work for identification only. Their usage does not constitute an official endorsement, either expressed or implied, by Arizona State University or National Aeronautics and Space Administration. The content is solely the responsibility of the authors and does not necessarily represent the official views of ASU or NASA.</p>
                     </div>
                 </section>
             </CardOverlay>

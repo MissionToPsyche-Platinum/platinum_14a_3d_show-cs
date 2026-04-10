@@ -172,6 +172,13 @@ body {
     right: 5vw;
 }
 
+.overlay section.overlay-middle {
+    margin: 12rem;
+    width: auto;
+    height: auto;
+    z-index: 999;
+}
+
 /* Footer */
 .footer {
     position: fixed;
