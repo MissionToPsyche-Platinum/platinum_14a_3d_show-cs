@@ -19,6 +19,7 @@ import { card11 } from '../configs/cards/card11.config.js'
 import { card12 } from '../configs/cards/card12.config.js'
 import { card13 } from '../configs/cards/card13.config.js'
 import { card14 } from '../configs/cards/card14.config.js'
+import { card15 } from '../configs/cards/card15.config.js'
 
 
 import { timeTimeLine } from '../configs/time.config.js'
@@ -78,7 +79,7 @@ export default function Overlay() {
                 <section className="overlay-right">
                     <h1>16 Psyche</h1>
                     <div>
-                        <p>Among these objects, <b>16 Psyche</b> is especially important. It was discovered in 1852 and was the sixteenth asteroid found, named after the Greek goddess of the soul, “Psyche”. </p>
+                        <p><b>16 Psyche</b> is an asteroid oribiting the Sun in the <b>Main Asteroid Belt</b>, located between Mars and Jupiter. It was discovered in 1852 and was the sixteenth asteroid found, named after the Greek goddess of the soul, “Psyche”. </p>
                         <p>Psyche measures about 279 km long, 232 km wide, and 189 km tall. Its surface area is about <b>64,000 square miles</b>. With a mass of about 2.3 * 10 ^19 kg (23 with 18 zeros behind it), it is the <b>tenth largest</b> known asteroid and makes up about 1 percent of the Main Asteroid Belt’s total mass all by itself.</p>
                         <p>Unlike most asteroids, Psyche is <b>rich in metal</b>. Scientists think it may be the <b>exposed core</b> of an early planet. This gives us a unique opportunity to study the building blocks of our own planet and how other planets are formed.</p>
                     </div>
@@ -142,7 +143,15 @@ export default function Overlay() {
                 <section className="overlay-right">
                     <h1>The Instruments</h1>
                     <div>
-                        <p>The spacecraft carries a magnetometer and a gamma ray and neutron spectrometer to study Psyche’s composition and history.</p>
+                        {/* <p>The spacecraft carries a magnetometer and a gamma ray and neutron spectrometer to study Psyche’s composition and history.</p> */}
+                        <div>
+                            <h2>Imagers</h2>
+                            <p>The imagers capture images using different wavelengths of light, helping scientists analyze surface features and composition.</p>
+                        </div>
+                        <div>
+                            <h2>X Band Radio</h2>
+                            <p>Scientists also use X band radio signals between Earth and the spacecraft to study gravity. Small changes in the spacecraft’s orbit reveal details about the asteroid’s properties, such as rotation, mass, and gravity field.</p>
+                        </div>
                         <div>
                             <h2>Magnetometer</h2>
                             <p>The magnetometer searches for a remnant magnetic field. If Psyche once had a molten interior, it may have generated a magnetic field, and traces of it could still exist in the asteroid’s materials. This would be strong evidence that Psyche formed from the core of a planetary body.</p>
@@ -174,6 +183,17 @@ export default function Overlay() {
 
             <CardOverlay config={card10}>
                 <section className="overlay-right">
+                    <h1>Arrival at Psyche</h1>
+                    <div>
+                        <p>This is a place holder</p>
+                        <p>Orbit A is the highest orbit at 709 kilometers and lasts about 56 days. During this phase, the spacecraft creates the first global maps of Psyche by imaging the entire surface. It also collects initial magnetic field and gravity measurements.</p>
+                        <p>The goal of Orbit A is to provide a complete overview of the asteroid. These early observations help scientists understand Psyche’s overall shape, rotation, and major surface features. This information is critical for planning lower orbits and guiding the rest of the mission.</p>
+                    </div>
+                </section>
+            </CardOverlay>
+
+            <CardOverlay config={card11}>
+                <section className="overlay-right">
                     <h1>Orbit A</h1>
                     <div>
                         <p>Orbit A is the highest orbit at 709 kilometers and lasts about 56 days. During this phase, the spacecraft creates the first global maps of Psyche by imaging the entire surface. It also collects initial magnetic field and gravity measurements.</p>
@@ -182,7 +202,7 @@ export default function Overlay() {
                 </section>
             </CardOverlay>
 
-            <CardOverlay config={card11}>
+            <CardOverlay config={card12}>
                 <section className="overlay-right">
                     <h1>Orbit B</h1>
                     <div>
@@ -192,7 +212,7 @@ export default function Overlay() {
                 </section>
             </CardOverlay>
 
-            <CardOverlay config={card12}>
+            <CardOverlay config={card13}>
                 <section className="overlay-right">
                     <h1>Orbit C</h1>
                     <div>
@@ -202,7 +222,7 @@ export default function Overlay() {
                 </section>
             </CardOverlay>
 
-            <CardOverlay config={card13}>
+            <CardOverlay config={card14}>
                 <section className="overlay-right">
                     <h1>Orbit D</h1>
                     <div>
@@ -212,7 +232,7 @@ export default function Overlay() {
                 </section>
             </CardOverlay>
 
-            <CardOverlay config={card14}>
+            <CardOverlay config={card15}>
                 <section className="overlay-middle">
                     <h1>Conculsion</h1>
                     <div>
