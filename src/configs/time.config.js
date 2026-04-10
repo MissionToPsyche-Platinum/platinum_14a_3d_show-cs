@@ -3,7 +3,7 @@ export const timeTimeLine = [
         visibility: {
             startVH: 1,
             endVH: 8.25,
-            fadeInDuration: 0.1,
+            fadeInDuration: 0.25,
             fadeOutDuration: 0,
         },
         timeBounds: {
