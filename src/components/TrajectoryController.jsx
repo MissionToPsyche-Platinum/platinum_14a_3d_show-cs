@@ -13,6 +13,8 @@ export default class TrajectoryController {
 
         this.group.add(this.trajectoryLine)
         this.group.add(this.icon)
+
+        this.setProgress(0)
     }
 
     createCurve() {
@@ -73,17 +75,21 @@ export default class TrajectoryController {
             axis = [0, 1, 0],
             startAngle = 0,
             rotationOffset = [0, 0, 0],
+            referenceDir,
         } = this.config.ellipse
 
         const axisVector = new THREE.Vector3(...axis).normalize()
         const centerVector = new THREE.Vector3(...center)
 
-        let startVector = new THREE.Vector3(1, 0, 0)
-        if (axisVector.dot(startVector) > 0.9) {
-            startVector = new THREE.Vector3(0, 1, 0)
+        let perpendicularVector
+        if (referenceDir) {
+            perpendicularVector = new THREE.Vector3(...referenceDir).normalize()
+        } else {
+            let startVector = new THREE.Vector3(1, 0, 0)
+            if (axisVector.dot(startVector) > 0.9) startVector = new THREE.Vector3(0, 1, 0)
+            perpendicularVector = new THREE.Vector3().crossVectors(axisVector, startVector).normalize()
         }
 
-        const perpendicularVector = new THREE.Vector3().crossVectors(axisVector, startVector).normalize()
         const orthogonalVector = new THREE.Vector3().crossVectors(axisVector, perpendicularVector).normalize()
 
         const startQuaternion = new THREE.Quaternion().setFromAxisAngle(axisVector, THREE.MathUtils.degToRad(startAngle))
@@ -197,25 +203,28 @@ export default class TrajectoryController {
     }
 
     visibility(scrollVH) {
-        const { startVH, endVH, fadeInDuration = 0, fadeOutDuration = 0 } = this.config.visibility
+        const windows = Array.isArray(this.config.visibility)
+            ? this.config.visibility
+            : [this.config.visibility]
 
-        if (scrollVH < startVH - fadeInDuration || scrollVH > endVH + fadeOutDuration) {
+        let bestOpacity = null
+        for (const { startVH, endVH, fadeInDuration = 0, fadeOutDuration = 0 } of windows) {
+            if (scrollVH < startVH - fadeInDuration || scrollVH > endVH + fadeOutDuration) continue
+            let opacity = 1
+            if (fadeInDuration > 0 && scrollVH < startVH)
+                opacity = THREE.MathUtils.clamp((scrollVH - (startVH - fadeInDuration)) / fadeInDuration, 0, 1)
+            if (fadeOutDuration > 0 && scrollVH > endVH)
+                opacity = THREE.MathUtils.clamp(1 - (scrollVH - endVH) / fadeOutDuration, 0, 1)
+            if (bestOpacity === null || opacity > bestOpacity) bestOpacity = opacity
+        }
+
+        if (bestOpacity === null) {
             this.group.visible = false
             return
         }
 
         this.group.visible = true
-        let opacity = 1
-
-        if (fadeInDuration > 0 && scrollVH < startVH) {
-            opacity = THREE.MathUtils.clamp((scrollVH - (startVH - fadeInDuration)) / fadeInDuration, 0, 1)
-        }
-
-        if (fadeOutDuration > 0 && scrollVH > endVH) {
-            opacity = THREE.MathUtils.clamp(1 - (scrollVH - endVH) / fadeOutDuration, 0, 1)
-        }
-
-        this.setOpacity(opacity)
+        this.setOpacity(bestOpacity)
     }
 
     setOpacity(opacity) {
@@ -235,20 +244,43 @@ export default class TrajectoryController {
     }
 
     motion(scrollVH) {
-        const { startVH = 0, durationVH, speed } = this.config.motion
-        const t = (scrollVH - startVH)
+        const motions = Array.isArray(this.config.motion)
+            ? this.config.motion
+            : [this.config.motion]
+
+        if (motions.length === 0) return
+
+        if (motions[0].startProgress !== undefined) {
+            for (let i = 0; i < motions.length; i++) {
+                const w = motions[i]
+                if (scrollVH < w.startVH) {
+                    this.setProgress(w.startProgress)
+                    return
+                }
+                if (scrollVH <= w.endVH) {
+                    const t = (scrollVH - w.startVH) / (w.endVH - w.startVH)
+                    this.setProgress(w.startProgress + t * (w.endProgress - w.startProgress))
+                    return
+                }
+            }
+            this.setProgress(motions[motions.length - 1].endProgress)
+            return
+        }
+
+        const { startVH = 0, durationVH, speed } = motions[0]
+        const t = scrollVH - startVH
         if (scrollVH < startVH) {
             this.setProgress(0)
-        } else {
-            if (durationVH !== undefined) {
-                if (speed !== undefined) {
-                    this.setProgress(Math.min(t, durationVH) * speed)
-                } else {
-                    this.setProgress(THREE.MathUtils.clamp(t / durationVH, 0, 1))
-                }
-            } else if (speed !== undefined) {
-                this.setProgress(t * speed)
+            return
+        }
+        if (durationVH !== undefined) {
+            if (speed !== undefined) {
+                this.setProgress(Math.min(t, durationVH) * speed)
+            } else {
+                this.setProgress(THREE.MathUtils.clamp(t / durationVH, 0, 1))
             }
+        } else if (speed !== undefined) {
+            this.setProgress(t * speed)
         }
     }
 

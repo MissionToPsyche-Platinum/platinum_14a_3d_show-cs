@@ -18,37 +18,47 @@ import { card10 } from '../configs/cards/card10.config.js'
 import { card11 } from '../configs/cards/card11.config.js'
 import { card12 } from '../configs/cards/card12.config.js'
 import { card13 } from '../configs/cards/card13.config.js'
+import { card14 } from '../configs/cards/card14.config.js'
+import { card15 } from '../configs/cards/card15.config.js'
 
 
 import { timeTimeLine } from '../configs/time.config.js'
-
 
 export default function Overlay() {
     const [showFooter, setShowFooter] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
-            const scrollPosition = window.scrollY;
-            const windowHeight = window.innerHeight;
-            const bodyHeight = document.documentElement.scrollHeight;
+            const distFromBottom = document.documentElement.scrollHeight - window.innerHeight - window.scrollY;
 
-            if (bodyHeight > windowHeight && Math.ceil(scrollPosition + windowHeight) >= bodyHeight - 50) {
-                setShowFooter(true);
-            } else {
-                setShowFooter(false);
-            }
+            // Hysteresis: show when within 80px of bottom, hide only when 350px+ away
+            // Prevents rapid toggling as the user scrolls near the threshold
+            setShowFooter(prev => {
+                if (!prev && distFromBottom < 80)  return true;
+                if (prev  && distFromBottom > 350) return false;
+                return prev;
+            });
         };
 
         window.addEventListener('scroll', handleScroll);
-        handleScroll(); // Check on initial load
+        handleScroll();
 
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const scrollableContentStyle = {
+        maxHeight: '55vh',
+        overflowY: 'auto',
+        overscrollBehavior: 'contain',
+        pointerEvents: 'auto',
+        paddingRight: '15px',
+    };
+
+
     return (
         <div className='overlay'>
             <AutoScroll />
-            
+
             <TimeOverlay config={timeTimeLine}>
                 <div id="timeBar">
                     <h1>Time</h1>
@@ -69,7 +79,7 @@ export default function Overlay() {
                 <section className="overlay-right">
                     <h1>16 Psyche</h1>
                     <div>
-                        <p>Among these objects, <b>16 Psyche</b> is especially important. It was discovered in 1852 and was the sixteenth asteroid found, named after the Greek goddess of the soul, “Psyche”. </p>
+                        <p><b>16 Psyche</b> is an asteroid oribiting the Sun in the <b>Main Asteroid Belt</b>, located between Mars and Jupiter. It was discovered in 1852 and was the sixteenth asteroid found, named after the Greek goddess of the soul, “Psyche”. </p>
                         <p>Psyche measures about 279 km long, 232 km wide, and 189 km tall. Its surface area is about <b>64,000 square miles</b>. With a mass of about 2.3 * 10 ^19 kg (23 with 18 zeros behind it), it is the <b>tenth largest</b> known asteroid and makes up about 1 percent of the Main Asteroid Belt’s total mass all by itself.</p>
                         <p>Unlike most asteroids, Psyche is <b>rich in metal</b>. Scientists think it may be the <b>exposed core</b> of an early planet. This gives us a unique opportunity to study the building blocks of our own planet and how other planets are formed.</p>
                     </div>
@@ -133,7 +143,15 @@ export default function Overlay() {
                 <section className="overlay-right">
                     <h1>The Instruments</h1>
                     <div>
-                        <p>The spacecraft carries a magnetometer and a gamma ray and neutron spectrometer to study Psyche’s composition and history.</p>
+                        {/* <p>The spacecraft carries a magnetometer and a gamma ray and neutron spectrometer to study Psyche’s composition and history.</p> */}
+                        <div>
+                            <h2>Imagers</h2>
+                            <p>The imagers capture images using different wavelengths of light, helping scientists analyze surface features and composition.</p>
+                        </div>
+                        <div>
+                            <h2>X Band Radio</h2>
+                            <p>Scientists also use X band radio signals between Earth and the spacecraft to study gravity. Small changes in the spacecraft’s orbit reveal details about the asteroid’s properties, such as rotation, mass, and gravity field.</p>
+                        </div>
                         <div>
                             <h2>Magnetometer</h2>
                             <p>The magnetometer searches for a remnant magnetic field. If Psyche once had a molten interior, it may have generated a magnetic field, and traces of it could still exist in the asteroid’s materials. This would be strong evidence that Psyche formed from the core of a planetary body.</p>
@@ -165,6 +183,17 @@ export default function Overlay() {
 
             <CardOverlay config={card10}>
                 <section className="overlay-right">
+                    <h1>Arrival at Psyche</h1>
+                    <div>
+                        <p>This is a place holder</p>
+                        <p>Orbit A is the highest orbit at 709 kilometers and lasts about 56 days. During this phase, the spacecraft creates the first global maps of Psyche by imaging the entire surface. It also collects initial magnetic field and gravity measurements.</p>
+                        <p>The goal of Orbit A is to provide a complete overview of the asteroid. These early observations help scientists understand Psyche’s overall shape, rotation, and major surface features. This information is critical for planning lower orbits and guiding the rest of the mission.</p>
+                    </div>
+                </section>
+            </CardOverlay>
+
+            <CardOverlay config={card11}>
+                <section className="overlay-right">
                     <h1>Orbit A</h1>
                     <div>
                         <p>Orbit A is the highest orbit at 709 kilometers and lasts about 56 days. During this phase, the spacecraft creates the first global maps of Psyche by imaging the entire surface. It also collects initial magnetic field and gravity measurements.</p>
@@ -173,7 +202,7 @@ export default function Overlay() {
                 </section>
             </CardOverlay>
 
-            <CardOverlay config={card11}>
+            <CardOverlay config={card12}>
                 <section className="overlay-right">
                     <h1>Orbit B</h1>
                     <div>
@@ -183,7 +212,7 @@ export default function Overlay() {
                 </section>
             </CardOverlay>
 
-            <CardOverlay config={card12}>
+            <CardOverlay config={card13}>
                 <section className="overlay-right">
                     <h1>Orbit C</h1>
                     <div>
@@ -193,7 +222,7 @@ export default function Overlay() {
                 </section>
             </CardOverlay>
 
-            <CardOverlay config={card13}>
+            <CardOverlay config={card14}>
                 <section className="overlay-right">
                     <h1>Orbit D</h1>
                     <div>
@@ -203,72 +232,51 @@ export default function Overlay() {
                 </section>
             </CardOverlay>
 
-            <div style={{
-                position: 'fixed',
-                bottom: 0,
-                left: 0,
-                width: '100%',
-                padding: '25px 0',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: '50px',
-                background: 'linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.6) 60%, rgba(5,5,5,0) 100%)',
-                backdropFilter: 'blur(2px)',
-                zIndex: 999,
-                opacity: showFooter ? 1 : 0,
-                transform: showFooter ? 'translateY(0)' : 'translateY(100%)',
-                transition: 'all 0.7s cubic-bezier(0.25, 1, 0.5, 1)',
-                pointerEvents: showFooter ? 'auto' : 'none'
-            }}>
-                <p style={{
-                    color: '#ffffff',
-                    fontFamily: 'sans-serif',
-                    fontSize: '13px',
-                    letterSpacing: '3px',
-                    textTransform: 'uppercase',
-                    margin: 0,
-                    fontWeight: '600',
-                    textShadow: '0 0 10px rgba(255,255,255,0.3)'
-                }}>
-                    PSYCHE / JOURNEY TO A METAL WORLD
-                </p>
+            <CardOverlay config={card15}>
+                <section className="overlay-middle">
+                    <h1>Conculsion</h1>
+                    <div>
+                        <p>Orbit D is the lowest orbit at 75 kilometers. This phase focuses on determining the asteroid’s composition using the gamma ray and neutron spectrometer, while continuing gravity and magnetic measurements.</p>
+                        <p>This work was created in partial fulfillment of Arizona State University Capstone Course “CSE485 & CSE486″. The work is a result of the Psyche Student Collaborations component of NASA’s Psyche Mission (<a href='https://psyche.ssl.berkeley.edu'>https://psyche.ssl.berkeley.edu</a>). “Psyche: A Journey to a Metal World” [Contract number NNM16AA09C] is part of the NASA Discovery Program mission to solar system targets. Trade names and trademarks of ASU and NASA are used in this work for identification only. Their usage does not constitute an official endorsement, either expressed or implied, by Arizona State University or National Aeronautics and Space Administration. The content is solely the responsibility of the authors and does not necessarily represent the official views of ASU or NASA.</p>
+                    </div>
+                </section>
+            </CardOverlay>
 
-                <div style={{ display: 'flex', gap: '20px' }}>
+            <div className={`footer${showFooter ? ' footer--visible' : ''}`}>
+                <div className="footer__accent" />
+
+                <h2 className="footer__title">PSYCHE / JOURNEY TO A METAL WORLD</h2>
+
+                <div className="footer__facts">
                     {[
-                        { name: 'facebook', url: 'https://www.facebook.com/MissionToPsyche' },
-                        { name: 'twitter', url: 'https://x.com/MissionToPsyche' },
+                        { label: 'Launched',       value: 'Oct 13, 2023' },
+                        { label: 'Vehicle',        value: 'Falcon Heavy' },
+                        { label: 'Destination',    value: '16 Psyche' },
+                        { label: 'Distance',       value: '2.5 – 3.3 AU' },
+                        { label: 'Arrival',        value: 'Aug 2029' },
+                        { label: 'Mission End',    value: 'Nov 2031' },
+                    ].map(({ label, value }) => (
+                        <div key={label} className="footer__fact">
+                            <span className="footer__fact-label">{label}</span>
+                            <span className="footer__fact-value">{value}</span>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="footer__socials">
+                    {[
+                        { name: 'facebook',  url: 'https://www.facebook.com/MissionToPsyche' },
+                        { name: 'twitter',   url: 'https://x.com/MissionToPsyche' },
                         { name: 'instagram', url: 'https://www.instagram.com/missiontopsyche/' },
-                        { name: 'youtube', url: 'https://www.youtube.com/channel/UC2BGcbPW8mxryXnjQcBqk6A' }
-                    ].map((social) => (
-                        <a
-                            key={social.name}
-                            href={social.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                                opacity: 0.6,
-                                transition: 'opacity 0.3s ease, transform 0.3s ease',
-                                display: 'flex',
-                                alignItems: 'center'
-                            }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.opacity = 1;
-                                e.currentTarget.style.transform = 'scale(1.1)';
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.opacity = 0.6;
-                                e.currentTarget.style.transform = 'scale(1)';
-                            }}
-                        >
-                            <img
-                                src={`/images/socials/${social.name}.svg`}
-                                alt={social.name}
-                                style={{ width: '28px', height: '28px' }}
-                            />
+                        { name: 'youtube',   url: 'https://www.youtube.com/channel/UC2BGcbPW8mxryXnjQcBqk6A' }
+                    ].map(({ name, url }) => (
+                        <a key={name} href={url} target="_blank" rel="noopener noreferrer" className="footer__social-link">
+                            <img src={`/images/socials/${name}.svg`} alt={name} />
                         </a>
                     ))}
                 </div>
+
+                <p className="footer__credit">NASA / JPL-Caltech / Arizona State University</p>
             </div>
         </div>
     )

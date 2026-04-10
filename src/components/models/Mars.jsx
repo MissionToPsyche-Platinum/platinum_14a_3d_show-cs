@@ -1,11 +1,11 @@
 import { useTexture } from '@react-three/drei'
 
-export default function Mars({ position = [0, 0, 0], scale = 1, rotation = [0, 0, 0] }) {
+export default function Mars() {
     const texture = useTexture('/images/equirectangular/mars-equirectangular.jpg')
-    
+
     return (
-        <mesh position={position} scale={scale} rotation={rotation}>
-            <sphereGeometry args={[3.39 * scale, 64, 64]} /> {/* in thousand km */}
+        <mesh>
+            <sphereGeometry args={[0.003390, 64, 64]} />
             <meshStandardMaterial map={texture} />
         </mesh>
     )

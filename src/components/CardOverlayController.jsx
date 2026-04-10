@@ -18,7 +18,7 @@ export default class CardOverlayController {
     }
 
     visibility(scrollVH) {
-        const { startVH = 0, endVH = 1, fadeInDuration = 0, fadeOutDuration = 0 } = this.config.visibility
+        const { startVH = 0, endVH = 99, fadeInDuration = 0, fadeOutDuration = 0 } = this.config.visibility
 
         if (scrollVH < startVH - fadeInDuration || scrollVH > endVH + fadeOutDuration) {
             this.element.style.display = 'none'
