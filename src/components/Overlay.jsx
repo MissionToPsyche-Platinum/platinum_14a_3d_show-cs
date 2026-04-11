@@ -3,6 +3,7 @@ import '../styles/Overlay.css'
 import CardOverlay from './CardOverlay.jsx'
 import AutoScroll from './AutoScroll.jsx'
 import TimeOverlay from './TimeOverlay.jsx'
+import MissionGallery from './MissionGallery.jsx';
 
 import { card1 } from '../configs/cards/card1.config.js'
 import { card2 } from '../configs/cards/card2.config.js'
@@ -22,7 +23,6 @@ import { card15 } from '../configs/cards/card15.config.js'
 
 import { timeTimeLine } from '../configs/time.config.js'
 
-// vh at which the conclusion card becomes active — tune to match card15.config
 const CONCLUSION_VH = 26;
 
 export default function Overlay() {
@@ -50,7 +50,7 @@ export default function Overlay() {
 
     return (
         <div className='overlay'>
-            <AutoScroll conclusion={showConclusion} />
+            <AutoScroll />
 
             <TimeOverlay config={timeTimeLine}>
                 <div id="timeBar">
@@ -234,28 +234,15 @@ export default function Overlay() {
                         <div className="conclusion-text-block">
                             <h2>A Window Into Our Origins</h2>
                             <p>
-                                Since we cannot bore a path to Earth’s metallic core, visiting Psyche provides a one-of-a-kind opportunity to study the hidden building blocks of our solar system. By the end of its orbital campaign, the spacecraft will have gathered the data necessary to determine if this asteroid is truly the surviving heart of a shattered <b>planetesimal</b>.
+                                Since we cannot bore a path to Earth's metallic core, visiting Psyche provides a one-of-a-kind opportunity to study the hidden building blocks of our solar system. By the end of its orbital campaign, the spacecraft will have gathered the data necessary to determine if this asteroid is truly the surviving heart of a shattered <b>planetesimal</b>.
                             </p>
                             <p>
                                 Even if it proves not to be an exposed core, exploring this rare, <b>metal-rich</b> primordial world will fundamentally shift our understanding of how rocky planets formed and evolved in the violent early days of our solar system.
                             </p>
                         </div>
 
-                        <div className="conclusion-image-row">
-                            <figure className="conclusion-figure">
-                                <img
-                                    src="/images/psyche-launch.jpg"
-                                    alt="Psyche Launch"
-                                />
-                                <figcaption>A SpaceX Falcon Heavy rocket with the Psyche spacecraft onboard launches from NASA’s Kennedy Space Center — Credit: NASA/Aubrey Gemignani</figcaption>
-                            </figure>
-                            <figure className="conclusion-figure">
-                                <img
-                                    src="/images/psyche-team.jpg"
-                                    alt="Psyche Team"
-                                />
-                                <figcaption>The team behind the Psyche mission — Credit: Mission to Psyche (LinkedIn)</figcaption>
-                            </figure>
+                        <div className="conclusion-gallery-row">
+                            <MissionGallery />
                         </div>
 
                         <div className="conclusion-text-block">

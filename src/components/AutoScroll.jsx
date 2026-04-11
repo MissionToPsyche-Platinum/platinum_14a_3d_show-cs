@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 
-const BASE_SPEED = 120
+const BASE_SPEED = 120 // px/s (1x)
 
-export default function AutoScroll({ conclusion }) {
+export default function AutoScroll({ showFooter }) {
     const [isScrolling, setIsScrolling] = useState(false)
     const [speed, setSpeed] = useState(1)
 
@@ -23,30 +23,33 @@ export default function AutoScroll({ conclusion }) {
 
         const scroll = (timestamp) => {
             if (!isScrollingRef.current) return
-            if (lastTimeRef.current === null) lastTimeRef.current = timestamp
+
+            if (lastTimeRef.current === null) {
+                lastTimeRef.current = timestamp
+            }
+
             const delta = (timestamp - lastTimeRef.current) / 1000
             lastTimeRef.current = timestamp
+
             const maxScroll = document.documentElement.scrollHeight - window.innerHeight
-            if (window.scrollY >= maxScroll) { setIsScrolling(false); return }
+            if (window.scrollY >= maxScroll) {
+                setIsScrolling(false)
+                return
+            }
+
             window.scrollBy(0, BASE_SPEED * speedRef.current * delta)
             rafRef.current = requestAnimationFrame(scroll)
         }
 
         rafRef.current = requestAnimationFrame(scroll)
-        return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current) }
+
+        return () => {
+            if (rafRef.current) cancelAnimationFrame(rafRef.current)
+        }
     }, [isScrolling])
 
-    // when conclusion is active, float to top-right clear of the card's content
-    const groupStyle = conclusion ? {
-        bottom: 'auto',
-        top: '1.25rem',
-        left: 'auto',
-        right: '2rem',
-        transform: 'none',
-    } : {}
-
     return (
-        <div className="autoscroll-group" style={groupStyle}>
+        <div className={`autoscroll-group${showFooter ? ' autoscroll-group--footer-up' : ''}`}>
             <button
                 className={`autoscroll-btn${isScrolling ? ' autoscroll-btn--active' : ''}`}
                 onClick={() => setIsScrolling(prev => !prev)}
