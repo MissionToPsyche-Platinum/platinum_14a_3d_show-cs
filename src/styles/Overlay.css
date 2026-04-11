@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
     color: white;
     font-family: Arial, sans-serif;
@@ -11,9 +17,7 @@ body {
     height: 3000vh;
 }
 
-/* =========================================
-   TIME BAR
-   ========================================= */
+/* TIME BAR */
 .overlay #timeBar {
     position: fixed;
     top: 0.5rem;
@@ -53,15 +57,12 @@ body {
     z-index: -1;
 }
 
-/* =========================================
-   STANDARD CARDS
-   ========================================= */
+/* STANDARD CARDS */
 .overlay section {
     position: fixed;
     top: 4rem;
-    padding: 1.5rem;
-    /* THE FIX: Replaced min() with clamp() to prevent cards from getting unreadably skinny */
-    width: clamp(220px, 32vw, 28rem);
+    padding: clamp(1rem, 2vw, 1.5rem);
+    width: clamp(240px, 30vw, 28rem);
     border-radius: 1.5rem;
     background:
         radial-gradient(circle at top left, rgba(110, 140, 255, 0.18), transparent 35%),
@@ -94,6 +95,7 @@ body {
     text-transform: uppercase;
     color: #eaf2ff;
     text-shadow: 0 0 12px rgba(120, 190, 255, 0.18);
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
 }
 
 .overlay section h1::after {
@@ -113,11 +115,13 @@ body {
     text-transform: uppercase;
     color: #eaf2ff;
     text-shadow: 0 0 12px rgba(120, 190, 255, 0.18);
+    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
 }
 
 .overlay section p {
     margin: 0;
     color: rgba(222, 232, 245, 0.88);
+    font-size: clamp(0.85rem, 1vw, 1rem);
 }
 
 .overlay section b {
@@ -140,9 +144,7 @@ body {
     z-index: 999;
 }
 
-/* =========================================
-   FOOTER
-   ========================================= */
+/* FOOTER */
 .footer {
     position: fixed;
     bottom: 0;
@@ -259,9 +261,7 @@ body {
     color: rgba(150, 170, 200, 0.4);
 }
 
-/* =========================================
-   AUTO SCROLL
-   ========================================= */
+/* AUTO SCROLL */
 .autoscroll-group {
     position: fixed;
     bottom: 24px;
@@ -339,9 +339,7 @@ body {
     color: white;
 }
 
-/* =========================================
-   DISTANCE SCALE
-   ========================================= */
+/* DISTANCE SCALE */
 .distance-scale {
     position: fixed;
     bottom: 24px;
@@ -441,9 +439,7 @@ body {
     white-space: nowrap;
 }
 
-/* =========================================
-   CARD SCROLL
-   ========================================= */
+/* CARD SCROLL */
 .card-scroll {
     max-height: 55vh;
     overflow-y: auto;
@@ -475,17 +471,17 @@ body {
     background: rgba(255, 255, 255, 0.4);
 }
 
-/* =========================================
-   CONCLUSION FULL-SCREEN CARD
-   ========================================= */
+/* CONCLUSION FULL-SCREEN CARD */
 .overlay section.overlay-conclusion {
     position: fixed;
     top: 5vh;
     bottom: 4.5rem;
+
     left: clamp(160px, 18vw, 280px);
     right: clamp(2rem, 4vw, 6rem);
     width: auto;
     max-width: none;
+
     max-height: none;
     transform: none;
     padding: 0;
@@ -514,28 +510,26 @@ body {
 }
 
 .overlay-conclusion .conclusion-hero {
-    padding: 2rem 2.5rem 1rem;
+    padding: clamp(1.5rem, 3vh, 2.5rem) clamp(1.5rem, 3vw, 2.5rem) 1rem;
     flex-shrink: 0;
 }
 
 .overlay-conclusion .conclusion-hero h1 {
-    font-size: clamp(1.3rem, 2.2vw, 2rem);
+    font-size: clamp(1.4rem, 2.5vw, 2.4rem);
     margin-bottom: 0.3rem;
     padding-bottom: 0.5rem;
 }
 
 .overlay-conclusion .conclusion-subtitle {
     margin: 0;
-    font-size: 0.68rem;
+    font-size: clamp(0.6rem, 1vw, 0.85rem);
     letter-spacing: 0.14em;
     text-transform: uppercase;
     opacity: 0.4;
     color: rgba(200, 220, 245, 0.9);
 }
 
-/* =========================================
-   CONCLUSION BODY
-   ========================================= */
+/* CONCLUSION BODY */
 .overlay-conclusion .conclusion-body {
     flex: 1;
     min-height: 0;
@@ -544,7 +538,7 @@ body {
     padding: 1.5rem clamp(2rem, 3vw, 3.5rem);
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem clamp(2rem, 4vw, 4rem);
+    gap: clamp(1.5rem, 3vw, 2.5rem) clamp(2rem, 4vw, 4rem);
     align-content: start;
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
@@ -567,6 +561,10 @@ body {
     background: rgba(255, 255, 255, 0.4);
 }
 
+.overlay-conclusion .conclusion-body>* {
+    min-width: 0;
+}
+
 .overlay-conclusion .conclusion-body>.conclusion-text-block:first-child {
     grid-column: 1 / -1;
 }
@@ -575,11 +573,13 @@ body {
     grid-column: 1 / -1;
 }
 
-/* =========================================
-   CONCLUSION TEXT BLOCKS
-   ========================================= */
+/* CONCLUSION TEXT BLOCKS */
+.overlay-conclusion .conclusion-text-block {
+    width: auto;
+}
+
 .overlay-conclusion .conclusion-text-block h2 {
-    font-size: 0.65rem;
+    font-size: clamp(0.6rem, 1.2vw, 0.8rem);
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -591,15 +591,13 @@ body {
 }
 
 .overlay-conclusion .conclusion-text-block p {
-    font-size: 0.88rem;
+    font-size: clamp(0.85rem, 1.1vw, 1.05rem);
     line-height: 1.75;
     margin: 0 0 0.75rem;
     color: rgba(222, 232, 245, 0.88);
 }
 
-/* =========================================
-   MISSION GALLERY 
-   ========================================= */
+/* MISSION GALLERY  */
 .mission-gallery {
     position: relative;
     width: 100%;
@@ -625,7 +623,7 @@ body {
 
 .mission-gallery__item {
     flex-shrink: 0;
-    width: 320px;
+    width: clamp(220px, 20vw, 360px);
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -660,7 +658,7 @@ body {
 
 .mission-gallery__item figcaption {
     padding: 0.45rem 0.7rem 0.55rem;
-    font-size: 0.6rem;
+    font-size: clamp(0.55rem, 0.8vw, 0.65rem);
     line-height: 1.5;
     letter-spacing: 0.04em;
     color: rgba(200, 220, 245, 0.7);
@@ -668,18 +666,32 @@ body {
     background: rgba(10, 14, 24, 0.75);
 }
 
-/* =========================================
-   CONCLUSION DISCLAIMER
-   ========================================= */
+/* CONCLUSION DISCLAIMER */
 .overlay-conclusion .conclusion-disclaimer {
     flex-shrink: 0;
     padding: 1.25rem 2.5rem;
     border-top: 1px solid rgba(120, 180, 255, 0.08);
     background: rgba(0, 0, 0, 0.25);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+.overlay-conclusion .conclusion-disclaimer::-webkit-scrollbar {
+    width: 4px;
+}
+
+.overlay-conclusion .conclusion-disclaimer::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.overlay-conclusion .conclusion-disclaimer::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
 }
 
 .overlay-conclusion .conclusion-disclaimer p {
-    font-size: 0.58rem;
+    font-size: clamp(0.5rem, 0.8vw, 0.58rem);
     line-height: 1.65;
     opacity: 0.4;
     margin: 0;
@@ -691,9 +703,7 @@ body {
     text-decoration: underline;
 }
 
-/* =========================================
-   RESPONSIVE BREAKPOINTS
-   ========================================= */
+/* RESPONSIVE BREAKPOINTS */
 @media (max-width: 1100px) {
     .overlay-conclusion .conclusion-body {
         grid-template-columns: 1fr;
@@ -704,15 +714,10 @@ body {
     .overlay-conclusion .conclusion-body>.conclusion-gallery-row {
         grid-column: 1;
     }
-
-    .mission-gallery__item {
-        width: 260px;
-    }
 }
 
 @media (max-width: 850px) {
 
-    /* THE FIX: Removes the centering from standard cards to keep the 3D model visible */
     .overlay section.overlay-left {
         left: 1.5rem;
         right: auto;
@@ -728,20 +733,26 @@ body {
     .overlay section.overlay-conclusion {
         left: 90px;
         right: 1.5rem;
+        top: 3vh;
+        bottom: 3.5rem;
     }
 
-    .mission-gallery__item {
-        width: 200px;
+    .overlay-conclusion .conclusion-body {
+        padding: 1rem 1.5rem;
+        gap: 1.25rem;
+    }
+
+    .overlay-conclusion .conclusion-disclaimer {
+        padding: 0.75rem 1.5rem;
+        max-height: 80px;
     }
 }
 
 @media (max-width: 480px) {
 
-    /* THE FIX: On portrait phones, standard cards stretch beautifully beside the progress bar */
     .overlay section.overlay-left,
     .overlay section.overlay-right {
         left: 64px;
-        /* Clears the progress bar */
         right: 1rem;
         width: auto;
     }
@@ -749,9 +760,29 @@ body {
     .overlay section.overlay-conclusion {
         left: 60px;
         right: 1rem;
+        top: 2vh;
+        bottom: 3rem;
     }
 
-    .mission-gallery__item {
-        width: 160px;
+    .overlay-conclusion .conclusion-body {
+        padding: 1rem 1.25rem;
+        gap: 1rem;
+    }
+
+    .overlay-conclusion .conclusion-disclaimer {
+        padding: 0.5rem 1rem;
+        max-height: 60px;
+    }
+}
+
+@media (max-height: 450px) {
+    .overlay section.overlay-conclusion {
+        top: 2vh;
+        bottom: 1.5rem;
+    }
+
+    .overlay-conclusion .conclusion-body {
+        padding: 0.5rem 1.5rem;
+        gap: 1rem;
     }
 }
