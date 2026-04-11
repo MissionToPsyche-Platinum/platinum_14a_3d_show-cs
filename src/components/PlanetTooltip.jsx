@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
-const Row = ({ label, value, color }) => (
+const Row = ({ label, value, color, noBorder }) => (
     <div style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'baseline',
         gap: '24px',
         padding: '5px 0',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
+        borderBottom: noBorder ? 'none' : '1px solid rgba(255,255,255,0.06)',
     }}>
         <span style={{
             color: '#777',
@@ -57,17 +57,29 @@ export default function PlanetTooltip() {
         }
     }, [])
 
+    const tooltipRef = useRef(null)
+
     const cssColor = `#${(data.color >>> 0).toString(16).padStart(6, '0')}`
     const { info } = data
 
-    const flipX = data.x > window.innerWidth * 0.7
-    const offsetX = flipX ? -230 : 18
+    const OFFSET = 18
+    const WIDTH = 210
+    const PAD = 8
+    const height = tooltipRef.current?.offsetHeight ?? 0
+
+    let left = data.x + OFFSET
+    let top = data.y + OFFSET
+
+    if (left + WIDTH > window.innerWidth - PAD) left = data.x - WIDTH - OFFSET
+    if (top + height > window.innerHeight - PAD) top = data.y - height - OFFSET
+    left = Math.max(PAD, left)
+    top = Math.max(PAD, top)
 
     return (
-        <div style={{
+        <div ref={tooltipRef} style={{
             position: 'fixed',
-            left: `${data.x + offsetX}px`,
-            top: `${data.y + 18}px`,
+            left: `${left}px`,
+            top: `${top}px`,
             width: '210px',
             pointerEvents: 'none',
             zIndex: 1050,
@@ -124,7 +136,27 @@ export default function PlanetTooltip() {
             </div>
 
             {/* Stats */}
-            {info && (
+            {info && info.cardType === 'orbit' ? (
+                <div style={{ padding: '8px 14px 4px' }}>
+                    {info.altitude != null && <Row label="Altitude" value={info.altitude} />}
+                    {info.orbitalPeriod != null && info.orbits != null ? (<>
+                        <Row label="Orbital Period" value={`${info.orbits} orbits`} noBorder />
+                        <div style={{
+                            textAlign: 'right',
+                            fontSize: '11px',
+                            fontWeight: 600,
+                            letterSpacing: '0.5px',
+                            color: '#e8e8e8',
+                            padding: '0 0 5px',
+                            borderBottom: '1px solid rgba(255,255,255,0.06)',
+                        }}>
+                            = {info.orbitalPeriod}
+                        </div>
+                    </>) : info.orbitalPeriod != null && (
+                        <Row label="Orbital Period" value={info.orbitalPeriod} />
+                    )}
+                </div>
+            ) : info && (
                 <div style={{ padding: '8px 14px 4px' }}>
                     <Row label="Diameter" value={info.diameter} />
                     {info.distanceFromSun !== '—' && (

@@ -1,5 +1,5 @@
-import { useRef, useEffect } from 'react'
-import { useFrame, useThree } from '@react-three/fiber'
+import { useRef } from 'react'
+import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import TrajectoryController from '../TrajectoryController'
 import EllipseConfigurator from './EllipseConfigurator'
@@ -27,61 +27,6 @@ const SATURN = { name: 'Saturn', trajectory: { aphelion: 1514.5, perihelion: 135
 const URANUS = { name: 'Uranus', trajectory: { aphelion: 3003.6, perihelion: 2741.3, timeOfPerihelion: 2544436800, inclination: 6.48, longitudeAscendingNode: 74.01, argumentOfPerihelion: 97.00, orbitalPeriod: 30589, style: { color: 0xAFEEEE, opacity: 0.5 }, icon: { type: 'circle', color: 0xAFEEEE } } }
 const NEPTUNE = { name: 'Neptune', trajectory: { aphelion: 4545.7, perihelion: 4457.1, timeOfPerihelion: 2293444800, inclination: 6.43, longitudeAscendingNode: 131.78, argumentOfPerihelion: 273.19, orbitalPeriod: 59800, style: { color: 0x4169E1, opacity: 0.5 }, icon: { type: 'circle', color: 0x4169E1 } } }
 
-function usePlanetHover(groupRef) {
-    const { camera } = useThree()
-    const raycaster = useRef(new THREE.Raycaster())
-    const mouse = useRef(new THREE.Vector2())
-
-    useEffect(() => {
-        const onMove = (e) => {
-            mouse.current.x = (e.clientX / window.innerWidth) * 2 - 1
-            mouse.current.y = -(e.clientY / window.innerHeight) * 2 + 1
-
-            raycaster.current.setFromCamera(mouse.current, camera)
-
-            const targets = []
-            if (groupRef.current) {
-                groupRef.current.traverse(obj => {
-                    if (obj.isMesh && obj.userData?.isHoverable) {
-                        let visible = true
-                        let parent = obj
-                        while (parent) {
-                            if (!parent.visible) { visible = false; break }
-                            parent = parent.parent
-                        }
-                        if (visible) targets.push(obj)
-                    }
-                })
-            }
-
-            const hits = raycaster.current.intersectObjects(targets, false)
-
-            if (hits.length > 0) {
-                const obj = hits[0].object
-                const worldPos = new THREE.Vector3()
-                obj.parent.getWorldPosition(worldPos)
-                document.body.style.cursor = 'pointer'
-                window.dispatchEvent(new CustomEvent('planetHover', {
-                    detail: {
-                        show: true,
-                        name: obj.userData.name,
-                        color: obj.userData.color,
-                        info: obj.userData.info,
-                        x: e.clientX,
-                        y: e.clientY,
-                        worldPos: { x: worldPos.x, y: worldPos.y, z: worldPos.z },
-                    }
-                }))
-            } else {
-                document.body.style.cursor = 'auto'
-                window.dispatchEvent(new CustomEvent('planetHover', { detail: { show: false } }))
-            }
-        }
-
-        window.addEventListener('mousemove', onMove)
-        return () => window.removeEventListener('mousemove', onMove)
-    }, [camera])
-}
 
 class SolarSystemController {
     constructor(config) {
@@ -212,15 +157,10 @@ class SolarSystemController {
 
 export default function SolarSystem({ config = {} }) {
     const system = useRef(null)
-    const groupRef = useRef(null)
 
     if (!system.current) {
         system.current = new SolarSystemController(config)
     }
-
-    groupRef.current = system.current.group
-
-    usePlanetHover(groupRef)
 
     useFrame(() => {
         system.current.update()

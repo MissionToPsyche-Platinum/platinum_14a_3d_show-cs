@@ -423,8 +423,8 @@ body {
 .distance-scale__tooltip {
     position: absolute;
     bottom: calc(100% + 10px);
-    left: 50%;
-    transform: translateX(-50%) translateY(6px);
+    left: 0;
+    transform: translateY(6px);
     width: 220px;
     padding: 10px 14px;
     background: rgba(15, 18, 28, 0.92);
@@ -443,7 +443,7 @@ body {
 
 .distance-scale__tooltip--visible {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
 }
 
 .distance-scale__bar {

@@ -252,7 +252,7 @@ export default function Overlay() {
                         { label: 'Launched',       value: 'Oct 13, 2023' },
                         { label: 'Vehicle',        value: 'Falcon Heavy' },
                         { label: 'Destination',    value: '16 Psyche' },
-                        { label: 'Distance',       value: '2.5 – 3.3 AU' },
+                        { label: 'Distance',       value: '3.6 billion km' },
                         { label: 'Arrival',        value: 'Aug 2029' },
                         { label: 'Mission End',    value: 'Nov 2031' },
                     ].map(({ label, value }) => (
