@@ -17,11 +17,13 @@ export const orbitCConfig = {
         color: 0xfb9062,
     },
 
-    visibility: {
-        startVH: 17.4,
-        endVH: 30,
-        fadeInDuration: 0.15,
-    },
+    visibility: [
+        {
+            startVH: 16.9,
+            endVH: 30,
+            fadeInDuration: 0.15,
+        },
+    ],
 
     planetName: 'Orbit C',
     info: {
@@ -29,7 +31,8 @@ export const orbitCConfig = {
         type: 'Detailed Surface Study',
         altitude: '190 km',
         orbitalPeriod: '7.2 hours',
-        orbits: '333',
+        orbits: '333 orbits',
+        duration: '100 days',
         fact: 'Producing detailed maps of surface composition and magnetic variations.',
     },
 };

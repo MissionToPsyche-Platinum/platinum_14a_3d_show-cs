@@ -139,8 +139,9 @@ export default function PlanetTooltip() {
             {info && info.cardType === 'orbit' ? (
                 <div style={{ padding: '8px 14px 4px' }}>
                     {info.altitude != null && <Row label="Altitude" value={info.altitude} />}
-                    {info.orbitalPeriod != null && info.orbits != null ? (<>
-                        <Row label="Orbital Period" value={`${info.orbits} orbits`} noBorder />
+                    {info.orbitalPeriod != null && <Row label="Orbital Period" value={info.orbitalPeriod} />}
+                    {info.orbits != null && info.duration != null ? (<>
+                        <Row label="Orbits" value={info.orbits} noBorder />
                         <div style={{
                             textAlign: 'right',
                             fontSize: '11px',
@@ -150,10 +151,10 @@ export default function PlanetTooltip() {
                             padding: '0 0 5px',
                             borderBottom: '1px solid rgba(255,255,255,0.06)',
                         }}>
-                            = {info.orbitalPeriod}
+                            {info.duration}
                         </div>
-                    </>) : info.orbitalPeriod != null && (
-                        <Row label="Orbital Period" value={info.orbitalPeriod} />
+                    </>) : info.orbits != null && (
+                        <Row label="Orbits" value={info.orbits} />
                     )}
                 </div>
             ) : info && (

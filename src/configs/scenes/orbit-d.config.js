@@ -17,11 +17,13 @@ export const orbitDConfig = {
         color: 0xeeaf61,
     },
 
-    visibility: {
-        startVH: 17.35,
-        endVH: 30,
-        fadeInDuration: 0.15,
-    },
+    visibility: [
+        {
+            startVH: 16.85,
+            endVH: 30,
+            fadeInDuration: 0.15,
+        },
+    ],
 
     planetName: 'Orbit D',
     info: {
@@ -29,7 +31,8 @@ export const orbitDConfig = {
         type: 'High-Resolution Data Collection',
         altitude: '75 km',
         orbitalPeriod: '3.6 hours',
-        orbits: '666',
+        orbits: '666 orbits',
+        duration: '100 days',
         fact: 'Collecting high-resolution data to determine composition, gravity, and internal structure.',
     },
 };

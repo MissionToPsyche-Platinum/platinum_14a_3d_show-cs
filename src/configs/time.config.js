@@ -51,7 +51,7 @@ export const timeTimeLine = [
     {
         visibility: {
             startVH: 15.75,
-            endVH: 20,
+            endVH: 17.5,
             fadeInDuration: 0,
             fadeOutDuration: 0,
         },

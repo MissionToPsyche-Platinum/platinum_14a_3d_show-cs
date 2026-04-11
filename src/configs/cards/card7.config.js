@@ -1,7 +1,7 @@
 export const card7 = {
     visibility: {
-        startVH: 14,
-        endVH: 14.5,
+        startVH: 13.5,
+        endVH: 14,
         fadeInDuration: 0.25,
         fadeOutDuration: 0.25,
     }

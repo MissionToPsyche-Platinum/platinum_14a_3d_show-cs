@@ -9,8 +9,8 @@ export const marsConfig = {
     },
 
     visibility: {
-        startVH: 10,
-        endVH: 14,
+        startVH: 9.5,
+        endVH: 13.5,
         fadeInDuration: 0.1,
         fadeOutDuration: 0.1,
     }

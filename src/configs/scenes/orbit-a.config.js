@@ -17,11 +17,13 @@ export const orbitAConfig = {
         color: 0xce4993,
     },
 
-    visibility: {
-        startVH: 17.5,
-        endVH: 30,
-        fadeInDuration: 0.15,
-    },
+    visibility: [
+        {
+            startVH: 17,
+            endVH: 30,
+            fadeInDuration: 0.15,
+        },
+    ],
 
     planetName: 'Orbit A',
     info: {
@@ -29,7 +31,8 @@ export const orbitAConfig = {
         type: 'Initial Mapping & Survey',
         altitude: '709 km',
         orbitalPeriod: '32.6 hours',
-        orbits: '41',
+        orbits: '41 orbits',
+        duration: '56 days',
         fact: 'Mapping Psyche\'s overall shape, rotation, and gravitational field.',
     },
 };

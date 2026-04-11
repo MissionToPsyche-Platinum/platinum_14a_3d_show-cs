@@ -117,7 +117,7 @@ export const cameraTimeLine = [
         ]
     },
     {
-        durationVH: 1.75,
+        durationVH: 1.25,
         position: [
             [0, 350, 900],
             [0, 350, 900],
