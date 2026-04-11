@@ -276,6 +276,12 @@ export default function Overlay() {
                     ))}
                 </div>
 
+                <div className="footer__links">
+                    <a href="https://www.jpl.nasa.gov/press-kits/psyche/" target="_blank" rel="noopener noreferrer" className="footer__text-link">Press Kit</a>
+                    <span className="footer__links-divider">·</span>
+                    <a href="https://psyche.ssl.berkeley.edu/category/blog/" target="_blank" rel="noopener noreferrer" className="footer__text-link">Blog Archive</a>
+                </div>
+
                 <p className="footer__credit">NASA / JPL-Caltech / Arizona State University</p>
             </div>
         </div>
