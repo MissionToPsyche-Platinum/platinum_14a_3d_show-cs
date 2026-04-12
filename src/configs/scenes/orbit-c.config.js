@@ -21,7 +21,7 @@ export const orbitCConfig = {
         {
             startVH: 16.9,
             endVH: 18.05,
-            fadeInDuration: 0.15,
+            fadeInDuration: 0.05,
             fadeOutDuration: 0.05,
         },
         {

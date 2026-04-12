@@ -20,8 +20,8 @@ export const orbitDConfig = {
     visibility: [
         {
             startVH: 16.85,
-            endVH: 18.05,
-            fadeInDuration: 0.15,
+            endVH: 18,
+            fadeInDuration: 0.05,
             fadeOutDuration: 0.05,
         },
         {
