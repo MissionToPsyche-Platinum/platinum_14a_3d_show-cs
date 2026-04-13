@@ -32,6 +32,11 @@ export const orbitDConfig = {
         },
     ],
 
+    motion: {
+        startVH: 22.75,
+        durationVH: 1.25,
+    },
+
     planetName: 'Orbit D',
     info: {
         cardType: 'orbit',
