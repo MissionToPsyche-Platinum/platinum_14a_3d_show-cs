@@ -27,10 +27,10 @@ export default function App() {
       </Canvas>
 
       <LandscapePrompt />
-      <DistanceScaleUI isMetric={isMetric} setIsMetric={setIsMetric} />
+      {/* <DistanceScaleUI isMetric={isMetric} setIsMetric={setIsMetric} />
       <ProgressBar />
       <Overlay />
-      <PlanetTooltip />
+      <PlanetTooltip /> */}
       <DebugOverlay />
             {/* Dark overlay that blocks everything except the 3D canvas during splash */}
       {!splashDone && (

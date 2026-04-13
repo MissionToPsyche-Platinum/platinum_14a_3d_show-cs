@@ -70,7 +70,7 @@ export default function Overlay() {
                     <h1>The Asteroid Belt</h1>
                     <div>
                         <p>Between Mars and Jupiter lies a region filled with millions of rocky objects orbiting the Sun. This region is known as the <b>Main Asteroid Belt</b>.</p>
-                        <p>It stretches about <b>140 million miles</b> across, which is about one and a half times the distance from Earth to the Sun. Most objects in the asteroid belt are much smaller than planetary bodies, like Earth. Early in the solar system, this material could have formed a planet, however, Jupiter’s strong gravity prevented this, so the material remained as asteroids orbiting the Sun.</p>
+                        <p>It stretches about <b>140 million miles</b> across, which is about one and a half times the distance from Earth to the Sun. Most objects in the asteroid belt are much smaller than planetary bodies, like Earth. Early in the history of the solar system, the gravity of newly formed Jupiter brought an end to the formation of planetary bodies in this region and caused the small bodies to collide with one another, fragmenting them into the asteroids we observe today.</p>
                     </div>
                 </section>
             </CardOverlay>
@@ -81,7 +81,7 @@ export default function Overlay() {
                     <div>
                         <p><b>16 Psyche</b> is an asteroid oribiting the Sun in the <b>Main Asteroid Belt</b>, located between Mars and Jupiter. It was discovered in 1852 and was the sixteenth asteroid found, named after the Greek goddess of the soul, “Psyche”. </p>
                         <p>Psyche measures about 279 km long, 232 km wide, and 189 km tall. Its surface area is about <b>64,000 square miles</b>. With a mass of about 2.3 * 10 ^19 kg (23 with 18 zeros behind it), it is the <b>tenth largest</b> known asteroid and makes up about 1 percent of the Main Asteroid Belt’s total mass all by itself.</p>
-                        <p>Unlike most asteroids, Psyche is <b>rich in metal</b>. Scientists think it may be the <b>exposed core</b> of an early planet. This gives us a unique opportunity to study the building blocks of our own planet and how other planets are formed.</p>
+                        <p>Unlike most asteroids, Psyche is likely <b>rich in metal</b>. Scientists think it may be the <b>exposed core</b> of an early planetesimal. This gives us a unique opportunity to study the building blocks of our own planet and how other planets are formed.</p>
                     </div>
                 </section>
             </CardOverlay>
@@ -91,7 +91,7 @@ export default function Overlay() {
                     <h1>The Mission</h1>
                     <div>
                         <p>On <a href='https://science.nasa.gov/blogs/psyche/'>October 13, 2023</a>, the Psyche mission launched from Kennedy Space Center aboard a SpaceX Falcon Heavy rocket.</p>
-                        <p>The total mission length is estimated to be about <b>eight years</b>. The spacecraft will travel for nearly six years before arriving at Psyche in <b>August 2029</b>. Its science mission will continue for about two more years, ending in <b>November 2031</b>.</p>
+                        <p>The total mission length is estimated to be about <b>eight years</b>. The spacecraft will travel for nearly six years before arriving at Psyche in <b>August 2029</b>. Its primary science mission will continue for about two more years, ending in <b>November 2031</b>.</p>
                         <p>This mission will be the first to orbit a metal rich asteroid, helping scientists understand how planets formed and what lies inside their cores.</p>
                     </div>
                 </section>
@@ -112,7 +112,7 @@ export default function Overlay() {
                 <section className="overlay-right">
                     <h1>Cruise 1</h1>
                     <div>
-                        <p>Over time, the force from the thrusters adds up cumulatively, leading to enough velocity to make it to Mars. This phase is called <b>Cruise 1</b>, and begins about <b>100 days</b> after launch and lasts for nearly three years. During this time, the spacecraft travels steadily through deep space towards Mars, with arrival expected in <b>May 2026</b>.</p>
+                        <p>Over time, the force from the thrusters adds up cumulatively, leading to enough velocity to make it to Mars. This phase is called <b>Cruise 1</b>, and begins about <b>100 days</b> after launch and lasts for nearly three years. During this time, the spacecraft travels steadily through deep space towards Mars, with closest approach in <b>May 2026</b>.</p>
                         <p>The spacecraft uses its solar electric thrusters for long periods to slowly build speed. The thrust is gentle but continuous, allowing efficient long distance travel while using very little fuel.</p>
                     </div>
                 </section>
@@ -122,7 +122,7 @@ export default function Overlay() {
                 <section className="overlay-right">
                     <h1>Mars Gravity Assist</h1>
                     <div>
-                        <p>At Mars, we take advantage of one of the fundamental forces in our solar system: <b>Gravity</b>. The spacecraft performs a gravity assist to increase speed and change direction. This planet’s gravity acts like a slingshot, accelerating the spacecraft and setting it on a collision course with Psyche, all without using large amounts of fuel.</p>
+                        <p>At Mars, we take advantage of one of the fundamental forces in our solar system: <b>Gravity</b>. The spacecraft performs a gravity assist to increase speed and change direction. This planet’s gravity acts like a slingshot, accelerating the spacecraft and setting it on a course to Psyche, all without using large amounts of fuel.</p>
                         <p>The spacecraft’s speed increases from about 45,600 miles per hour to about 52,000 miles per hour. The flyby also allows the scientists to test and calibrate the instruments before reaching the asteroid.</p>
                     </div>
                 </section>
@@ -133,7 +133,7 @@ export default function Overlay() {
                     <h1>Cruise 2</h1>
                     <div>
                         <p>After the Mars flyby, Cruise 2 begins. This is the longest phase of the journey, lasting about 29 months. The spacecraft continues using its thrusters to guide itself toward Psyche for arrival in 2029.</p>
-                        <p>During this time, mission planners prepare for arrival by designing the spacecraft’s orbital path around Psyche. Instead of landing, the spacecraft will enter a series of planned orbits at different heights, each focused on collecting specific scientific data.</p>
+                        <p>During this time, mission planners prepare for arrival by designing the spacecraft’s orbital path around Psyche. Instead of landing, the spacecraft will enter a series of planned orbits at different altitudes, each focused on collecting specific scientific data.</p>
                         <p>These planned orbits allow the mission to gradually study the asteroid’s surface, composition, and internal structure.</p>
                     </div>
                 </section>
@@ -143,22 +143,22 @@ export default function Overlay() {
                 <section className="overlay-right">
                     <h1>The Instruments</h1>
                     <div>
-                        {/* <p>The spacecraft carries a magnetometer and a gamma ray and neutron spectrometer to study Psyche’s composition and history.</p> */}
+                        {/* <p>The spacecraft carries a magnetometer and a gamma-ray and neutron spectrometer to study Psyche’s composition and history.</p> */}
                         <div>
                             <h2>Imagers</h2>
                             <p>The imagers capture images using different wavelengths of light, helping scientists analyze surface features and composition.</p>
                         </div>
                         <div>
-                            <h2>X Band Radio</h2>
-                            <p>Scientists also use X band radio signals between Earth and the spacecraft to study gravity. Small changes in the spacecraft’s orbit reveal details about the asteroid’s properties, such as rotation, mass, and gravity field.</p>
+                            <h2>X-Band Radio</h2>
+                            <p>Scientists also use X-band radio signals between Earth and the spacecraft to study gravity. Small changes in the spacecraft’s orbit reveal details about the asteroid’s properties, such as rotation, mass, and gravity field.</p>
                         </div>
                         <div>
                             <h2>Magnetometer</h2>
-                            <p>The magnetometer searches for a remnant magnetic field. If Psyche once had a molten interior, it may have generated a magnetic field, and traces of it could still exist in the asteroid’s materials. This would be strong evidence that Psyche formed from the core of a planetary body.</p>
+                            <p>The magnetometer searches for a remanent magnetic field. If Psyche once had a molten interior, it may have generated a magnetic field, and traces of it could still exist in the asteroid’s materials. This would be strong evidence that Psyche formed from the core of a planetary body.</p>
                         </div>
                         <div>
                             <h2>Spectrometer</h2>
-                            <p>The gamma ray and neutron spectrometer identifies the elements that make up the asteroid. It must be cooled to about 85 Kelvin, using a cryocooler to operate accurately in space.</p>
+                            <p>The gamma-ray and neutron spectrometer identifies the elements that make up the asteroid. It must be cooled to about 85 Kelvin, using a cryocooler to operate accurately in space.</p>
                         </div>
                     </div>
                 </section>
@@ -216,7 +216,7 @@ export default function Overlay() {
                 <section className="overlay-right">
                     <h1>Orbit C</h1>
                     <div>
-                        <p>Orbit C takes place at 190 kilometers and focuses on gravity and magnetic field measurements. During this phase, the spacecraft moves into a polar orbit, allowing it to scan the asteroid from all angles as Psyche rotates beneath it.</p>
+                        <p>Orbit C takes place at 190 kilometers and focuses on gravity and magnetic field measurements. During this phase, the spacecraft scans the asteroid from all angles as Psyche rotates beneath it.</p>
                         <p>The goal of Orbit C is to understand what lies beneath the surface. By analyzing the changes in gravity and magnetic signals, scientists can determine the internal structure of Psyche and confirm whether it has a layered core like a planet.</p>
                     </div>
                 </section>
@@ -226,8 +226,8 @@ export default function Overlay() {
                 <section className="overlay-right">
                     <h1>Orbit D</h1>
                     <div>
-                        <p>Orbit D is the lowest orbit at 75 kilometers. This phase focuses on determining the asteroid’s composition using the gamma ray and neutron spectrometer, while continuing gravity and magnetic measurements.</p>
-                        <p>The goal of Orbit D is to identify what Psyche is made of. By measuring elements such as metal and rock, scientists can test the idea that Psyche may be the exposed core of an early planet. This is one of the most important phases for understanding planetary formation.</p>
+                        <p>Orbit D is the lowest orbit at 75 kilometers. At the same time, Orbit D marks a shift from a course that generally goes around the asteroid’s poles to one that generally travels around its equator. This phase focuses on determining the asteroid’s composition using the gamma-ray and neutron spectrometer, while continuing gravity and magnetic measurements.</p>
+                        <p>The goal of Orbit D is to identify what Psyche is made of. By measuring elements such as metal and rock, scientists can test the idea that Psyche may be the exposed core of an early planetesimal. This is one of the most important phases for understanding planetary formation.</p>
                     </div>
                 </section>
             </CardOverlay>
@@ -237,7 +237,7 @@ export default function Overlay() {
                     <h1>Conculsion</h1>
                     <div>
                         <p>Orbit D is the lowest orbit at 75 kilometers. This phase focuses on determining the asteroid’s composition using the gamma ray and neutron spectrometer, while continuing gravity and magnetic measurements.</p>
-                        <p>This work was created in partial fulfillment of Arizona State University Capstone Course “CSE485 & CSE486″. The work is a result of the Psyche Student Collaborations component of NASA’s Psyche Mission (<a href='https://psyche.ssl.berkeley.edu'>https://psyche.ssl.berkeley.edu</a>). “Psyche: A Journey to a Metal World” [Contract number NNM16AA09C] is part of the NASA Discovery Program mission to solar system targets. Trade names and trademarks of ASU and NASA are used in this work for identification only. Their usage does not constitute an official endorsement, either expressed or implied, by Arizona State University or National Aeronautics and Space Administration. The content is solely the responsibility of the authors and does not necessarily represent the official views of ASU or NASA.</p>
+                        <p className="disclaimer">This work was created in partial fulfillment of Arizona State University Capstone Course “CSE485 & CSE486″. The work is a result of the Psyche Student Collaborations component of NASA’s Psyche Mission (<a href='https://psyche.ssl.berkeley.edu'>https://psyche.ssl.berkeley.edu</a>). “Psyche: A Journey to a Metal World” [Contract number NNM16AA09C] is part of the NASA Discovery Program mission to solar system targets. Trade names and trademarks of ASU and NASA are used in this work for identification only. Their usage does not constitute an official endorsement, either expressed or implied, by Arizona State University or National Aeronautics and Space Administration. The content is solely the responsibility of the authors and does not necessarily represent the official views of ASU or NASA.</p>
                     </div>
                 </section>
             </CardOverlay>
@@ -252,7 +252,7 @@ export default function Overlay() {
                         { label: 'Launched',       value: 'Oct 13, 2023' },
                         { label: 'Vehicle',        value: 'Falcon Heavy' },
                         { label: 'Destination',    value: '16 Psyche' },
-                        { label: 'Distance',       value: '2.5 – 3.3 AU' },
+                        { label: 'Distance',       value: '3.6 billion km' },
                         { label: 'Arrival',        value: 'Aug 2029' },
                         { label: 'Mission End',    value: 'Nov 2031' },
                     ].map(({ label, value }) => (

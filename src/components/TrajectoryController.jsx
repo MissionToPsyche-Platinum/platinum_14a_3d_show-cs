@@ -4,15 +4,18 @@ export default class TrajectoryController {
     constructor(config = {}) {
         this.config = config
         this.group = new THREE.Group()
+        this.curveCenter = new THREE.Vector3()
 
         this.progress = 0
         this.curve = this.createCurve()
 
+        this.group.position.copy(this.curveCenter)
+
         this.trajectoryLine = this.createTrajectoryLine()
-        this.icon = this.createIcon()
+        this.icon = this.config.icon ? this.createIcon() : null
 
         this.group.add(this.trajectoryLine)
-        this.group.add(this.icon)
+        if (this.icon) this.group.add(this.icon)
 
         this.setProgress(0)
     }
@@ -34,7 +37,7 @@ export default class TrajectoryController {
         const { radius = 1, center = [0, 0, 0], axis = [0, 1, 0], startAngle = 0 } = this.config.circle
 
         const axisVector = new THREE.Vector3(...axis).normalize()
-        const centerVector = new THREE.Vector3(...center)
+        this.curveCenter = new THREE.Vector3(...center)
 
         let startVector = new THREE.Vector3(1, 0, 0)
         if (axisVector.dot(startVector) > 0.9) {
@@ -48,10 +51,10 @@ export default class TrajectoryController {
 
         const points = []
         const segments = 128
-        for (let i = 0; i <= segments; i++) {
+        for (let i = 0; i < segments; i++) {
             const angle = (i / segments) * Math.PI * 2
             const quaternion = new THREE.Quaternion().setFromAxisAngle(axisVector, angle)
-            points.push(startVector.clone().applyQuaternion(quaternion).add(centerVector))
+            points.push(startVector.clone().applyQuaternion(quaternion))
         }
 
         return new THREE.CatmullRomCurve3(points, true)
@@ -100,14 +103,15 @@ export default class TrajectoryController {
             THREE.MathUtils.degToRad(rotationOffset[2])
         ))
 
+        this.curveCenter = centerVector.clone().applyQuaternion(rotationQuaternion)
+
         const points = []
         const segments = 128
-        for (let i = 0; i <= segments; i++) {
+        for (let i = 0; i < segments; i++) {
             const angle = (i / segments) * Math.PI * 2
             const point = perpendicularVector.clone().multiplyScalar(Math.cos(angle) * radiusX)
                 .add(orthogonalVector.clone().multiplyScalar(Math.sin(angle) * radiusZ))
                 .applyQuaternion(startQuaternion)
-                .add(centerVector)
                 .applyQuaternion(rotationQuaternion)
             points.push(point)
         }
@@ -181,7 +185,9 @@ export default class TrajectoryController {
         group.add(hitbox)
 
         mesh.onBeforeRender = (renderer, scene, camera) => {
-            const distance = group.position.distanceTo(camera.position)
+            const worldPos = new THREE.Vector3()
+            group.getWorldPosition(worldPos)
+            const distance = worldPos.distanceTo(camera.position)
             const vFOV = THREE.MathUtils.degToRad(camera.fov)
             const visibleWorldHeight = 2 * distance * Math.tan(vFOV / 2)
             const worldUnitsPerPixel = visibleWorldHeight / renderer.domElement.clientHeight
@@ -296,7 +302,7 @@ export default class TrajectoryController {
         this.progress = t
 
         const position = this.curve.getPointAt(t)
-        this.icon.position.copy(position)
+        if (this.icon) this.icon.position.copy(position)
 
         if (this.config.type === 'spline') {
             const { segments = 256 } = this.config.spline
