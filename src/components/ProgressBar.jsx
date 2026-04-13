@@ -13,9 +13,8 @@ const progressBarConfig = {
     ]
 };
 
-// Breakpoints
-const SMALL = 480;  // phone
-const MEDIUM = 768;  // tablet
+const SMALL = 600;
+const MEDIUM = 1024;
 
 function useWindowWidth() {
     const [width, setWidth] = useState(window.innerWidth);
@@ -27,7 +26,7 @@ function useWindowWidth() {
     return width;
 }
 
-export default function ProgressBar() {
+export default function ProgressBar({ hidden }) {
     const [activeIndex, setActiveIndex] = useState(0);
     const [hoveredScene, setHoveredScene] = useState(null);
     const fillLineRef = useRef(null);
@@ -38,30 +37,25 @@ export default function ProgressBar() {
     const isSmall = width <= SMALL;
     const isMedium = width <= MEDIUM && !isSmall;
 
-    const leftOffset = isSmall ? '18px' : isMedium ? '28px' : '40px';
+    const leftOffset = isSmall ? '16px' : isMedium ? '24px' : '40px';
 
-    const nodeGap = isSmall ? '44px' : isMedium ? '58px' : '70px';
+    const nodeGap = isSmall ? '28px' : isMedium ? '45px' : '85px';
 
-    const dotActive = isSmall ? 8 : 10;
-    const dotInactive = isSmall ? 5 : 6;
+    const topPercent = isSmall ? '30%' : isMedium ? '40%' : '50%';
 
-    const labelSize = isSmall ? '8px' : '10px';
-    const labelLeft = isSmall ? '18px' : '25px';
-
-    const showLabels = width > 360;
-
-    const topPercent = isSmall ? '42%' : '45%';
+    const activeDotSize = isSmall ? '8px' : isMedium ? '10px' : '14px';
+    const inactiveDotSize = isSmall ? '4px' : isMedium ? '6px' : '8px';
+    const fontSize = isSmall ? '9px' : isMedium ? '10px' : '12px';
+    const textLeft = isSmall ? '18px' : isMedium ? '24px' : '35px';
 
     useEffect(() => {
         let ticking = false;
-
         const updateScroll = () => {
             const currentVH = window.scrollY / window.innerHeight;
             const { scenes } = progressBarConfig;
 
-            if (fillLineRef.current && trackRef.current && dotRefs.current[0]) {
+            if (fillLineRef.current && trackRef.current && dotRefs.current) {
                 const trackTop = trackRef.current.getBoundingClientRect().top;
-
                 const dotCenters = dotRefs.current.map(dot => {
                     const r = dot.getBoundingClientRect();
                     return r.top + r.height / 2 - trackTop;
@@ -81,7 +75,6 @@ export default function ProgressBar() {
                     ));
                     fillPx = dotCenters[segIndex] + t * (dotCenters[segIndex + 1] - dotCenters[segIndex]);
                 }
-
                 fillLineRef.current.style.height = `${fillPx}px`;
             }
 
@@ -89,16 +82,12 @@ export default function ProgressBar() {
             for (let i = 0; i < scenes.length; i++) {
                 if (currentVH >= scenes[i].vh - 0.1) currentSceneIndex = i;
             }
-
             setActiveIndex(prev => prev !== currentSceneIndex ? currentSceneIndex : prev);
             ticking = false;
         };
 
         const handleScroll = () => {
-            if (!ticking) {
-                window.requestAnimationFrame(updateScroll);
-                ticking = true;
-            }
+            if (!ticking) { window.requestAnimationFrame(updateScroll); ticking = true; }
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -122,9 +111,11 @@ export default function ProgressBar() {
             zIndex: 1002,
             maxHeight: '70vh',
             justifyContent: 'center',
+            opacity: hidden ? 0 : 1,
+            pointerEvents: hidden ? 'none' : 'auto',
+            transition: 'opacity 0.6s ease',
         }}>
             <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-
                 <div
                     ref={trackRef}
                     style={{
@@ -147,30 +138,23 @@ export default function ProgressBar() {
                     const isLast = index === progressBarConfig.scenes.length - 1;
                     const isHovered = hoveredScene === scene.name;
 
-                    const dotSize = isPassed || isHovered ? dotActive : dotInactive;
-
                     return (
                         <div
                             key={scene.name}
                             style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                                marginBottom: isLast ? 0 : nodeGap,
-                                cursor: 'pointer',
-                                position: 'relative',
+                                display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
+                                marginBottom: isLast ? 0 : nodeGap, cursor: 'pointer', position: 'relative',
                             }}
                             onClick={() => scrollToScene(scene.vh)}
                             onMouseEnter={() => setHoveredScene(scene.name)}
                             onMouseLeave={() => setHoveredScene(null)}
                         >
-                            {/* Node dot */}
                             <div
                                 ref={el => dotRefs.current[index] = el}
                                 className={isActive ? 'pulse-animation' : ''}
                                 style={{
-                                    width: isPassed || isHovered ? '10px' : '6px',
-                                    height: isPassed || isHovered ? '10px' : '6px',
+                                    width: isPassed || isHovered ? activeDotSize : inactiveDotSize,
+                                    height: isPassed || isHovered ? activeDotSize : inactiveDotSize,
                                     borderRadius: '50%',
                                     border: isPassed || isHovered ? '2px solid white' : '1px solid rgba(255,255,255,0.4)',
                                     backgroundColor: isPassed ? 'white' : '#000000',
@@ -178,9 +162,9 @@ export default function ProgressBar() {
                                 }}
                             />
                             <div style={{
-                                position: 'absolute', left: '25px',
+                                position: 'absolute', left: textLeft,
                                 color: isPassed || isHovered ? '#ffffff' : '#aaaaaa',
-                                fontFamily: 'sans-serif', fontSize: '10px', textTransform: 'uppercase',
+                                fontFamily: 'sans-serif', fontSize: fontSize, textTransform: 'uppercase',
                                 letterSpacing: '1.5px', fontWeight: isActive ? '600' : '400',
                                 opacity: isPassed || isHovered ? 1 : 0.3, transition: 'all 0.3s ease',
                                 whiteSpace: 'nowrap', pointerEvents: 'none',

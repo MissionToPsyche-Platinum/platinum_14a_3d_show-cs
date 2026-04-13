@@ -2,16 +2,15 @@ import { useState, useEffect, useRef } from 'react'
 
 const BASE_SPEED = 120 // px/s (1x)
 
-export default function AutoScroll() {
+export default function AutoScroll({ showFooter }) {
     const [isScrolling, setIsScrolling] = useState(false)
-    const [speed, setSpeed] = useState(1) // 1 or 2
+    const [speed, setSpeed] = useState(1)
 
     const rafRef = useRef(null)
     const lastTimeRef = useRef(null)
     const isScrollingRef = useRef(false)
     const speedRef = useRef(1)
 
-    // Keep refs in sync with state so rAF loop sees current values
     useEffect(() => { isScrollingRef.current = isScrolling }, [isScrolling])
     useEffect(() => { speedRef.current = speed }, [speed])
 
@@ -50,7 +49,7 @@ export default function AutoScroll() {
     }, [isScrolling])
 
     return (
-        <div className="autoscroll-group">
+        <div className={`autoscroll-group${showFooter ? ' autoscroll-group--footer-up' : ''}`}>
             <button
                 className={`autoscroll-btn${isScrolling ? ' autoscroll-btn--active' : ''}`}
                 onClick={() => setIsScrolling(prev => !prev)}
