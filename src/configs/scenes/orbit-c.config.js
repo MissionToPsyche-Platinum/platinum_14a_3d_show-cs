@@ -21,7 +21,7 @@ export const orbitCConfig = {
         {
             startVH: 16.9,
             endVH: 18.05,
-            fadeInDuration: 0.15,
+            fadeInDuration: 0.05,
             fadeOutDuration: 0.05,
         },
         {
@@ -31,6 +31,11 @@ export const orbitCConfig = {
             fadeOutDuration: 0.05,
         },
     ],
+
+    motion: {
+        startVH: 21.25,
+        durationVH: 1.25,
+    },
 
     planetName: 'Orbit C',
     info: {

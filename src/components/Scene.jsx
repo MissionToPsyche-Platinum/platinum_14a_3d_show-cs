@@ -23,6 +23,7 @@ import { earthConfig } from '../configs/scenes/earth.config.js'
 import { psycheSatEarthConfig } from '../configs/scenes/psyche-sat-earth.config.js'
 import { marsConfig } from '../configs/scenes/mars.config.js'
 import { psycheConfig } from '../configs/scenes/psyche.config.js'
+import { psycheSatAsteroidConfig } from '../configs/scenes/psyche-sat-asteroid.config.js'
 
 export default function Scene() {
   return (
@@ -48,6 +49,9 @@ export default function Scene() {
       <Trajectory config={orbitBConfig} />
       <Trajectory config={orbitCConfig} />
       <Trajectory config={orbitDConfig} />
+      <Model config={psycheSatAsteroidConfig}>
+        <PsycheSat />
+      </Model>
     </>
   )
 }

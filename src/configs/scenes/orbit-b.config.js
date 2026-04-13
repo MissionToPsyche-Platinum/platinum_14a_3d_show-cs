@@ -20,8 +20,8 @@ export const orbitBConfig = {
     visibility: [
         {
             startVH: 16.95,
-            endVH: 18.05,
-            fadeInDuration: 0.15,
+            endVH: 18.1,
+            fadeInDuration: 0.05,
             fadeOutDuration: 0.05,
         },
         {
@@ -31,6 +31,11 @@ export const orbitBConfig = {
             fadeOutDuration: 0.05,
         },
     ],
+
+    motion: {
+        startVH: 19.75,
+        durationVH: 1.25,
+    },
 
     planetName: 'Orbit B (B1, B2)',
     info: {
