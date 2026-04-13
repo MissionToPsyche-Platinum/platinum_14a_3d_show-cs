@@ -12,7 +12,7 @@ import LandscapePrompt from './components/LandscapePrompt'
 import SplashScreen from './components/SplashScreen'
 
 export default function App() {
-  const [isMetric, setIsMetric] = useState(false)
+  const [isMetric, setIsMetric] = useState(true)
   const [splashDone, setSplashDone] = useState(false)
 
   return (
