@@ -264,20 +264,25 @@ export default function Overlay() {
                                 As the mission collects data, raw images and science findings will be made publicly available. You can follow the journey, track the spacecraft in real time, and be part of what may be one of the most revealing explorations in the history of planetary science.
                             </p>
                         </div>
+
+                        <div className="conclusion-spacer">
+                        </div>
+
+                        <div className="conclusion-disclaimer">
+                            <p>
+                                This work was created in partial fulfillment of Arizona State University Capstone Course "CSE485 & CSE486″.
+                                The work is a result of the Psyche Student Collaborations component of NASA's Psyche Mission (
+                                <a href='https://psyche.ssl.berkeley.edu' target="_blank" rel="noopener noreferrer">https://psyche.ssl.berkeley.edu</a>).
+                                "Psyche: A Journey to a Metal World" [Contract number NNM16AA09C] is part of the NASA Discovery Program
+                                mission to solar system targets. Trade names and trademarks of ASU and NASA are used in this work for
+                                identification only. Their usage does not constitute an official endorsement, either expressed or implied,
+                                by Arizona State University or National Aeronautics and Space Administration. The content is solely the
+                                responsibility of the authors and does not necessarily represent the official views of ASU or NASA.
+                            </p>
+                        </div>
                     </div>
 
-                    <div className="conclusion-disclaimer">
-                        <p>
-                            This work was created in partial fulfillment of Arizona State University Capstone Course "CSE485 & CSE486″.
-                            The work is a result of the Psyche Student Collaborations component of NASA's Psyche Mission (
-                            <a href='https://psyche.ssl.berkeley.edu' target="_blank" rel="noopener noreferrer">https://psyche.ssl.berkeley.edu</a>).
-                            "Psyche: A Journey to a Metal World" [Contract number NNM16AA09C] is part of the NASA Discovery Program
-                            mission to solar system targets. Trade names and trademarks of ASU and NASA are used in this work for
-                            identification only. Their usage does not constitute an official endorsement, either expressed or implied,
-                            by Arizona State University or National Aeronautics and Space Administration. The content is solely the
-                            responsibility of the authors and does not necessarily represent the official views of ASU or NASA.
-                        </p>
-                    </div>
+                    
                 </section>
             </CardOverlay>
 
