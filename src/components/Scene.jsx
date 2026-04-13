@@ -15,6 +15,7 @@ import { orbitAConfig } from '../configs/scenes/orbit-a.config.js'
 import { orbitBConfig } from '../configs/scenes/orbit-b.config.js'
 import { orbitCConfig } from '../configs/scenes/orbit-c.config.js'
 import { orbitDConfig } from '../configs/scenes/orbit-d.config.js'
+import { psycheTrajectoryConfig } from '../configs/scenes/psyche-trajectory.config.js'
 
 // Configs
 import { psycheIntroConfig } from '../configs/scenes/psyche-intro.config.js'
@@ -52,6 +53,7 @@ export default function Scene() {
       <Model config={psycheSatAsteroidConfig}>
         <PsycheSat />
       </Model>
+      <Trajectory config={psycheTrajectoryConfig} />
     </>
   )
 }
