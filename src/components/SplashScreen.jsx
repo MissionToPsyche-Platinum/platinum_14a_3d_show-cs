@@ -27,7 +27,7 @@ export default function SplashScreen({ onDone }) {
   if (!visible) return null
 
   return (
-    <div style={{
+    <div className="splash-container" style={{
       position: 'fixed',
       inset: 0,
       zIndex: 9999,
@@ -44,144 +44,69 @@ export default function SplashScreen({ onDone }) {
     }}>
 
       {/* TOP: Title */}
-      <div style={{
-        position: 'absolute', top: '32px', left: 0, right: 0,
-        display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 2,
-      }}>
-        <p style={{
-          color: '#aaaacc', fontSize: '11px', letterSpacing: '5px',
-          textTransform: 'uppercase', margin: '0 0 6px 0', opacity: 0.8,
-        }}>
-          NASA PRESENTS
-        </p>
-        <h1 style={{
-          color: '#ffffff', fontSize: 'clamp(22px, 3vw, 38px)',
-          fontWeight: 700, letterSpacing: '6px', textTransform: 'uppercase',
-          margin: '0 0 10px 0', textShadow: '0 0 30px rgba(249,157,6,0.5)',
-          whiteSpace: 'nowrap',
-        }}>
-          Mission to Psyche
-        </h1>
-        <div style={{
-          width: '100%', maxWidth: '520px', height: '1px',
-          background: 'linear-gradient(to right, transparent, #F99D06, transparent)',
-        }} />
+      <div className="splash-title">
+        <p>NASA PRESENTS</p>
+        <h1>Mission to Psyche</h1>
+        <div className="splash-title-line" />
       </div>
 
-      {/* LEFT: Instructions */}
-      <div style={{
-        position: 'absolute', left: '32px', top: '50%', transform: 'translateY(-50%)',
-        width: '220px', zIndex: 2,
-        background: 'rgba(10,10,20,0.75)',
-        border: '1px solid rgba(255,255,255,0.1)',
-        borderLeft: '2px solid #F99D06',
-        borderRadius: '6px',
-        padding: '20px 16px',
-        backdropFilter: 'blur(8px)',
-      }}>
-        <p style={{
-          color: '#F99D06', fontSize: '9px', letterSpacing: '3px',
-          textTransform: 'uppercase', margin: '0 0 14px 0', fontWeight: 700,
-        }}>
-          How to Navigate
-        </p>
-        {[
-          { icon: '↕', text: 'Scroll to move through the mission timeline' },
-          { icon: '◎', text: 'Hover over planets to see details' },
-          { icon: '▶', text: 'Use Auto Scroll to sit back and enjoy' },
-          { icon: '●', text: 'Use the progress bar on the left to jump to any scene' },
-        ].map(({ icon, text }, i) => (
-          <div key={i} style={{ display: 'flex', gap: '10px', marginBottom: '12px', alignItems: 'flex-start' }}>
-            <span style={{ color: '#F99D06', fontSize: '14px', lineHeight: 1.4, flexShrink: 0 }}>{icon}</span>
-            <p style={{ color: '#cccccc', fontSize: '11px', lineHeight: 1.5, margin: 0, letterSpacing: '0.3px' }}>{text}</p>
+      {/* MIDDLE CONTENT: Wrapper for side cards and center area */}
+      <div className="splash-content">
+
+        {/* LEFT: Instructions */}
+        <div className="splash-instructions-card splash-card">
+          <p className="splash-card-header">How to Navigate</p>
+          <div className="instructions-list">
+            {[
+              { icon: '↕', text: 'Scroll to move through the mission timeline' },
+              { icon: '◎', text: 'Hover over planets to see details' },
+              { icon: '▶', text: 'Use Auto Scroll to sit back and enjoy' },
+              { icon: '●', text: 'Use the progress bar on the left to jump to any scene' },
+            ].map(({ icon, text }, i) => (
+              <div key={i} className="instruction-item">
+                <span>{icon}</span>
+                <p>{text}</p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-
-      {/* CENTER: Empty — Psyche 3D model shows through from scene behind */}
-      <div style={{ zIndex: 2, width: '240px', height: '240px' }} />
-
-      {/* RIGHT: Logos, Mission Summary */}
-      <div style={{
-        position: 'absolute', right: '32px', top: '50%', transform: 'translateY(-50%)',
-        width: '230px', zIndex: 2,
-        display: 'flex', flexDirection: 'column', gap: '14px', alignItems: 'center',
-      }}>
-
-        {/* Logos */}
-        <div style={{
-          display: 'flex', gap: '12px', alignItems: 'center',
-          justifyContent: 'center', flexWrap: 'wrap',
-        }}>
-          <img
-            src="/images/nasa-logo.jpg"
-            onError={(e) => { e.target.style.display = 'none' }}
-            alt="NASA"
-            style={{ height: '44px', objectFit: 'contain' }}
-          />
-          <img
-            src="/images/asu-logo.png"
-            onError={(e) => { e.target.style.display = 'none' }}
-            alt="Arizona State University"
-            style={{ height: '44px', objectFit: 'contain', filter: 'drop-shadow(0 0 6px rgba(255,165,0,0.4))' }}
-          />
-          <img
-            src="/images/psyche-logo.png"
-            onError={(e) => { e.target.style.display = 'none' }}
-            alt="Psyche Mission"
-            style={{ height: '44px', objectFit: 'contain', filter: 'drop-shadow(0 0 6px rgba(249,157,6,0.4))' }}
-          />
         </div>
 
-        {/* Divider */}
-        <div style={{ width: '100%', height: '1px', background: 'rgba(255,255,255,0.1)' }} />
+        {/* CENTER: Flexible Space */}
+        <div className="splash-center-spacer" />
 
-        {/* Mission Summary */}
-        <div style={{
-          background: 'rgba(10,10,20,0.75)',
-          border: '1px solid rgba(255,255,255,0.1)',
-          borderLeft: '2px solid #F99D06',
-          borderRadius: '6px', padding: '14px 16px', width: '100%',
-          backdropFilter: 'blur(8px)',
-        }}>
-          <p style={{
-            color: '#F99D06', fontSize: '9px', letterSpacing: '3px',
-            textTransform: 'uppercase', margin: '0 0 8px 0', fontWeight: 700,
-          }}>
-            About This Mission
-          </p>
-          <p style={{
-            color: '#cccccc', fontSize: '11px', lineHeight: 1.7,
-            margin: 0, letterSpacing: '0.3px',
-          }}>
-            In the asteroid belt between Mars and Jupiter lies{' '}
-            <b style={{ color: '#ffffff' }}>16 Psyche</b> — a metal-rich world
-            that may be the exposed core of an early planet. Launched in
-            October 2023, NASA's Psyche spacecraft will travel six years to
-            reach it, study it from four orbits, and help us understand how
-            rocky planets like Earth are formed.
-          </p>
+        {/* RIGHT: Logos, Mission Summary */}
+        <div className="splash-summary-container splash-card">
+
+          {/* Logos */}
+          <div className="splash-logos-container">
+            <img src="/images/nasa-logo.jpg" onError={(e) => { e.target.style.display = 'none' }} alt="NASA" />
+            <img src="/images/asu-logo.png" onError={(e) => { e.target.style.display = 'none' }} alt="ASU" style={{ filter: 'drop-shadow(0 0 6px rgba(255,165,0,0.4))' }} />
+            <img src="/images/psyche-logo.png" onError={(e) => { e.target.style.display = 'none' }} alt="Psyche" style={{ filter: 'drop-shadow(0 0 6px rgba(249,157,6,0.4))' }} />
+          </div>
+
+          {/* Divider */}
+          <div className="splash-divider" />
+
+          {/* Mission Summary */}
+          <div className="splash-summary-block">
+            <p className="splash-card-header">About This Mission</p>
+            <p className="splash-summary-text">
+              In the asteroid belt between Mars and Jupiter lies{' '}
+              <b>16 Psyche</b> — a metal-rich world
+              that may be the exposed core of an early planet. Launched in
+              October 2023, NASA's Psyche spacecraft will travel six years to
+              reach it, study it from four orbits, and help us understand how
+              rocky planets like Earth are formed.
+            </p>
+          </div>
         </div>
+
       </div>
 
       {/* BOTTOM: Scroll to begin */}
-      <div style={{
-        position: 'absolute', bottom: '32px', left: '50%', transform: 'translateX(-50%)',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px',
-        zIndex: 2,
-      }}>
-        <p style={{
-          color: 'rgba(255,255,255,0.4)', fontSize: '10px', letterSpacing: '3px',
-          textTransform: 'uppercase', margin: 0,
-          animation: 'fadePulse 2s ease-in-out infinite',
-        }}>
-          Scroll to Begin
-        </p>
-        <div style={{
-          width: '1px', height: '30px',
-          background: 'linear-gradient(to bottom, #F99D06, transparent)',
-          animation: 'fadePulse 2s ease-in-out infinite',
-        }} />
+      <div className="splash-scroll-indicator">
+        <p>Scroll to Begin</p>
+        <div className="splash-scroll-line" />
       </div>
 
       <style>{`
@@ -189,8 +114,176 @@ export default function SplashScreen({ onDone }) {
           0%, 100% { opacity: 0.4 }
           50% { opacity: 1 }
         }
-      `}</style>
 
+        /* --- STRUCTURAL LAYOUT --- */
+        .splash-title {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          z-index: 2;
+          margin: clamp(10px, 3vh, 32px) 0;
+          flex-shrink: 0;
+        }
+
+        .splash-title p {
+          color: #aaaacc; font-size: clamp(9px, 1.5vh, 11px); letter-spacing: 5px;
+          text-transform: uppercase; margin: 0 0 6px 0; opacity: 0.8;
+        }
+
+        .splash-title h1 {
+          color: #ffffff; font-size: clamp(18px, 4.5vh, 38px);
+          font-weight: 700; letter-spacing: clamp(3px, 1vw, 6px); text-transform: uppercase;
+          margin: 0 0 10px 0; text-shadow: 0 0 30px rgba(249,157,6,0.5);
+          white-space: nowrap;
+        }
+
+        .splash-title-line {
+          width: 100%; max-width: 520px; height: 1px;
+          background: linear-gradient(to right, transparent, #F99D06, transparent);
+        }
+
+        .splash-content {
+          flex-grow: 1;
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          padding: 0 2vw;
+          box-sizing: border-box;
+          min-height: 0; 
+        }
+
+        /* --- CARDS & CONTENT --- */
+        .splash-card {
+          background: rgba(10,10,20,0.75);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-left: 2px solid #F99D06;
+          border-radius: 6px;
+          padding: clamp(10px, 2.5vh, 20px) clamp(12px, 2vw, 16px);
+          backdrop-filter: blur(8px);
+          max-width: 280px;
+          flex-shrink: 1;
+          overflow-y: auto; 
+          max-height: 100%;
+          scrollbar-width: none;
+        }
+        .splash-card::-webkit-scrollbar { display: none; }
+
+        .splash-card-header {
+          color: #F99D06; font-size: 9px; letter-spacing: 3px;
+          text-transform: uppercase; margin: 0 0 clamp(8px, 2vh, 14px) 0; font-weight: 700;
+        }
+
+        .instructions-list {
+          display: flex; flex-direction: column; gap: clamp(6px, 1.5vh, 12px);
+        }
+
+        .instruction-item {
+          display: flex; gap: 10px; align-items: flex-start;
+        }
+
+        .instruction-item span {
+          color: #F99D06; font-size: 14px; line-height: 1.4; flex-shrink: 0;
+        }
+
+        .instruction-item p {
+          color: #cccccc; font-size: clamp(10px, 1.5vh, 11px); line-height: 1.5; margin: 0; letter-spacing: 0.3px;
+        }
+
+        .splash-center-spacer {
+          flex-grow: 1; width: clamp(10px, 10vw, 240px);
+        }
+
+        .splash-summary-container {
+          display: flex; flex-direction: column; gap: clamp(10px, 2vh, 14px); align-items: center;
+        }
+
+        .splash-logos-container {
+          display: flex; gap: clamp(6px, 1.5vw, 12px); align-items: center; justify-content: center; flex-wrap: wrap;
+        }
+
+        .splash-logos-container img {
+          height: clamp(24px, 5vh, 44px); object-fit: contain;
+        }
+
+        .splash-divider {
+          width: 100%; height: 1px; background: rgba(255,255,255,0.1); flex-shrink: 0;
+        }
+
+        .splash-summary-block { width: 100%; }
+        
+        .splash-summary-text {
+          color: #cccccc; font-size: clamp(10px, 1.5vh, 11px); line-height: 1.6;
+          margin: 0; letter-spacing: 0.3px;
+        }
+        
+        .splash-summary-text b { color: #ffffff; }
+
+        /* --- BOTTOM INDICATOR --- */
+        .splash-scroll-indicator {
+          display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 2;
+          margin: clamp(10px, 3vh, 32px) 0; flex-shrink: 0;
+        }
+
+        .splash-scroll-indicator p {
+          color: rgba(255,255,255,0.4); font-size: clamp(8px, 1.5vh, 10px); letter-spacing: 3px;
+          text-transform: uppercase; margin: 0; animation: fadePulse 2s ease-in-out infinite;
+        }
+
+        .splash-scroll-line {
+          width: 1px; height: clamp(15px, 4vh, 30px);
+          background: linear-gradient(to bottom, #F99D06, transparent);
+          animation: fadePulse 2s ease-in-out infinite;
+        }
+
+        /* --- RESPONSIVE BREAKPOINTS --- */
+        @media (max-height: 450px) {
+          .splash-title { margin: 5px 0; }
+          .splash-title h1 { margin: 0 0 5px 0; font-size: clamp(16px, 6vh, 24px); }
+          .splash-scroll-indicator { margin: 5px 0; gap: 5px; }
+          .splash-scroll-line { height: clamp(10px, 3vh, 20px); }
+          
+          /* Force cards narrower & increase transparency slightly */
+          .splash-card {
+             max-width: 210px; 
+             padding: 8px 10px;
+             background: rgba(10,10,20,0.6); 
+          }
+          
+          .splash-card-header { margin: 0 0 4px 0; font-size: 8px; }
+          .instruction-item { gap: 6px; }
+          .instructions-list { gap: 6px; }
+          .instruction-item p, .splash-summary-text { font-size: 9px; line-height: 1.35; }
+          .instruction-item span { font-size: 11px; }
+          .splash-logos-container img { height: 18px; }
+          .splash-summary-container { gap: 8px; }
+          
+          .splash-center-spacer {
+             min-width: 60px;
+             width: clamp(60px, 15vw, 240px); 
+          }
+        }
+
+        /* 2. PORTRAIT PHONES (Stacks everything vertically) */
+        @media (max-width: 600px) {
+          .splash-content {
+            flex-direction: column;
+            padding: 1vw;
+            gap: 2vh;
+          }
+          .splash-card {
+            max-width: 340px;
+            width: 100%;
+          }
+          .splash-center-spacer {
+            height: clamp(5px, 2vh, 40px);
+            width: 1px;
+            flex-grow: 0;
+            min-width: 0;
+          }
+        }
+      `}</style>
     </div>
   )
 }
