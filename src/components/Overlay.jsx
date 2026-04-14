@@ -226,7 +226,7 @@ export default function Overlay() {
             <CardOverlay config={card15}>
                 <section className={`overlay-conclusion${showFooter ? ' overlay-conclusion--footer-up' : ''}`}>
                     <div className="conclusion-hero">
-                        <h1>End of the Journey</h1>
+                        <h1>End of a Journey</h1>
                     </div>
 
                     <div className="conclusion-body">
