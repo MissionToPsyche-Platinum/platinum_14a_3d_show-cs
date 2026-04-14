@@ -122,7 +122,7 @@ body {
     color: rgba(0, 180, 255, 0.85);
 }
 
-.overlay section > div {
+.overlay section>div {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -347,7 +347,8 @@ body {
     letter-spacing: 0.12rem;
 }
 
-.autoscroll-speed {
+.autoscroll-speed,
+.autoscroll-loop {
     padding: 10px 14px;
     background: rgba(15, 18, 28, 0.82);
     backdrop-filter: blur(12px);
@@ -360,14 +361,24 @@ body {
     letter-spacing: 0.06rem;
     cursor: pointer;
     transition: border-color 0.25s, box-shadow 0.25s, color 0.25s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.autoscroll-speed:hover {
+.autoscroll-loop {
+    font-size: 18px;
+    padding: 8px 12px;
+}
+
+.autoscroll-speed:hover,
+.autoscroll-loop:hover {
     border-color: rgba(120, 180, 255, 0.5);
     color: rgba(255, 255, 255, 0.9);
 }
 
-.autoscroll-speed--active {
+.autoscroll-speed--active,
+.autoscroll-loop--active {
     border-color: rgba(90, 160, 255, 0.7);
     box-shadow: 0 0 20px rgba(90, 160, 255, 0.45);
     color: white;
@@ -530,17 +541,25 @@ body {
 .overlay section.overlay-conclusion.overlay-conclusion--footer-up {
     /* Calculate changing size of footer */
     /* (flex gaps) + (padding * 2) + (title font size clamp) + (fact gap) + (fact font size * 2) + (social logo size) + (links font size) + (credits font size)*/
-    bottom: calc(
-        7vh + /* (flex gaps) */
-        2 * 0.5rem + /* (padding * 2) */
-        clamp(1.4rem, 3.5vw, 2.8rem) + /* (title font size clamp) */
-        3px + /* (fact gap) */
-        2 * clamp(0.5rem, 0.8vw, 0.8rem) + /* (fact font size * 2) */
-        26px + /* (social logo size) */
-        clamp(0.5rem, 0.8vw, 0.7rem) + /* (links font size) */
-        clamp(0.5rem, 0.8vw, 0.8rem) + /* (credits font size) */
-        4rem /* margin */
-    );
+    bottom: calc(7vh +
+            /* (flex gaps) */
+            2 * 0.5rem +
+            /* (padding * 2) */
+            clamp(1.4rem, 3.5vw, 2.8rem) +
+            /* (title font size clamp) */
+            3px +
+            /* (fact gap) */
+            2 * clamp(0.5rem, 0.8vw, 0.8rem) +
+            /* (fact font size * 2) */
+            26px +
+            /* (social logo size) */
+            clamp(0.5rem, 0.8vw, 0.7rem) +
+            /* (links font size) */
+            clamp(0.5rem, 0.8vw, 0.8rem) +
+            /* (credits font size) */
+            4rem
+            /* margin */
+        );
 }
 
 @keyframes conclusionFadeIn {
@@ -631,7 +650,7 @@ body {
     /* gap: clamp(2rem, 4vw, 4rem) */
 }
 
-.conclusion-text-columns > * {
+.conclusion-text-columns>* {
     flex: 1 0 0;
 }
 
@@ -726,6 +745,7 @@ body {
     font-style: italic;
     background: rgba(10, 14, 24, 0.75);
 }
+
 .overlay-conclusion .conclusion-spacer {
     height: auto;
 }
@@ -742,7 +762,7 @@ body {
     padding: clamp(0.3rem, 0.5vw, 0.5rem) clamp(1rem, 2vw, 1.5rem);
     border-top: 1px solid rgba(120, 180, 255, 0.08);
     border-radius: 0.5rem 0.5rem 0 0;
-    background: rgba(0, 0, 0, 0.25);    
+    background: rgba(0, 0, 0, 0.25);
     /* overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.15) transparent; */
