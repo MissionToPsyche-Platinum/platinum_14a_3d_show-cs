@@ -6,14 +6,23 @@ export default function SplashScreen({ onDone }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
+      if (window.scrollY > 50){
+        setVisible(false)
+      }
+      else if (window.scrollY > 10 && !fadeOut && window.scrollY <= 50) {
         setFadeOut(true)
-        setTimeout(() => { setVisible(false); if (onDone) onDone() }, 800)
+        setTimeout(() => {
+          setVisible(false)
+          if (onDone) onDone()
+        }, 800)
+      } else if (window.scrollY <= 10) {
+        setVisible(true)
+        setFadeOut(false)
       }
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [onDone])
+  }, [onDone, fadeOut])
 
   if (!visible) return null
 
@@ -92,14 +101,14 @@ export default function SplashScreen({ onDone }) {
       {/* CENTER: Empty — Psyche 3D model shows through from scene behind */}
       <div style={{ zIndex: 2, width: '240px', height: '240px' }} />
 
-      {}
+      {/* RIGHT: Logos, Mission Summary */}
       <div style={{
         position: 'absolute', right: '32px', top: '50%', transform: 'translateY(-50%)',
         width: '230px', zIndex: 2,
         display: 'flex', flexDirection: 'column', gap: '14px', alignItems: 'center',
       }}>
 
-        {}
+        {/* Logos */}
         <div style={{
           display: 'flex', gap: '12px', alignItems: 'center',
           justifyContent: 'center', flexWrap: 'wrap',
