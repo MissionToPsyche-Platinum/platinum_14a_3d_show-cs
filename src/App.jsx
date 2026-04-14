@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
 import Scene from './components/Scene'
 import CameraRig from './components/CameraRig'
@@ -14,6 +14,16 @@ import SplashScreen from './components/SplashScreen'
 export default function App() {
   const [isMetric, setIsMetric] = useState(true)
   const [splashDone, setSplashDone] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY === 0) {
+        setSplashDone(false)
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <>
@@ -50,6 +60,7 @@ export default function App() {
         <ProgressBar />
         <Overlay />
         <PlanetTooltip />
+        <DebugOverlay />
       </div>
 
       <SplashScreen onDone={() => setSplashDone(true)} />
