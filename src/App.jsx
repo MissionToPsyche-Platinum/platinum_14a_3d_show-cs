@@ -36,13 +36,12 @@ export default function App() {
         <DistanceScale isMetric={isMetric} />
       </Canvas>
 
-      <LandscapePrompt />
       {/* <DistanceScaleUI isMetric={isMetric} setIsMetric={setIsMetric} />
       <ProgressBar />
       <Overlay />
       <PlanetTooltip /> */}
       <DebugOverlay />
-            {/* Dark overlay that blocks everything except the 3D canvas during splash */}
+      {/* Dark overlay that blocks everything except the 3D canvas during splash */}
       {!splashDone && (
         <div style={{
           position: 'fixed',
@@ -64,7 +63,8 @@ export default function App() {
       </div>
 
       <SplashScreen onDone={() => setSplashDone(true)} />
+      <LandscapePrompt />
     </>
-  
+
   )
 }

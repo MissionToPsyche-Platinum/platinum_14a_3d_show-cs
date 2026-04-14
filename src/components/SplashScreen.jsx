@@ -6,7 +6,7 @@ export default function SplashScreen({ onDone }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50){
+      if (window.scrollY > 50) {
         setVisible(false)
       }
       else if (window.scrollY > 10 && !fadeOut && window.scrollY <= 50) {
