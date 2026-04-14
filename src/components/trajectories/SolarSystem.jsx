@@ -5,7 +5,7 @@ import TrajectoryController from '../TrajectoryController'
 import EllipseConfigurator from './EllipseConfigurator'
 
 const PLANET_DATA = {
-    Psyche: { type: 'Asteroid', diameter: '226 km', distanceFromSun: '437 million km', orbitalPeriod: '5 years', moons: 0, fact: "A metal-rich asteroid — target of NASA's Psyche mission." },
+    '16 Psyche': { type: 'Asteroid', diameter: '226 km', distanceFromSun: '437 million km', orbitalPeriod: '5 years', moons: 0, fact: "A metal-rich asteroid — target of NASA's Psyche mission." },
     Mercury: { type: 'Terrestrial Planet', diameter: '4,879 km', distanceFromSun: '57.9 million km', orbitalPeriod: '88 days', moons: 0, fact: 'The smallest planet and closest to the Sun.' },
     Venus: { type: 'Terrestrial Planet', diameter: '12,104 km', distanceFromSun: '108.2 million km', orbitalPeriod: '225 days', moons: 0, fact: 'The hottest planet, with surface temps reaching 465°C.' },
     Earth: { type: 'Terrestrial Planet', diameter: '12,742 km', distanceFromSun: '149.6 million km', orbitalPeriod: '365.25 days', moons: 1, fact: 'The only known planet to harbour life.' },
@@ -17,7 +17,7 @@ const PLANET_DATA = {
     'The Sun': { type: 'G-type Main Sequence Star', diameter: '1,392,700 km', distanceFromSun: '—', orbitalPeriod: '225 million yrs', moons: null, fact: 'Contains 99.86% of all mass in the solar system.' },
 }
 
-const PSYCHE  = { name: 'Psyche',  trajectory: { aphelion: 497,    perihelion: 378,     timeOfPerihelion: 1745841600, inclination: 3.09,  longitudeAscendingNode: 150,    argumentOfPerihelion: 229.8,  orbitalPeriod: 1825.6, style: { color: 0xF5A020, opacity: 0.5 }, icon: { type: 'hexagon', color: 0xF5A020 } } }
+const PSYCHE  = { name: '16 Psyche',  trajectory: { aphelion: 497,    perihelion: 378,     timeOfPerihelion: 1745841600, inclination: 3.09,  longitudeAscendingNode: 150,    argumentOfPerihelion: 229.8,  orbitalPeriod: 1825.6, style: { color: 0xF5A020, opacity: 0.5 }, icon: { type: 'hexagon', color: 0xF5A020 } } }
 const MERCURY = { name: 'Mercury', trajectory: { aphelion: 69.82,  perihelion: 46,      timeOfPerihelion: 1756296000, inclination: 3.38,  longitudeAscendingNode: 48.33,  argumentOfPerihelion: 29.12,  orbitalPeriod: 87.97,  style: { color: 0x9898AA, opacity: 0.5 }, icon: { type: 'circle',  color: 0x9898AA } } }
 const VENUS   = { name: 'Venus',   trajectory: { aphelion: 108.94, perihelion: 107.48,  timeOfPerihelion: 1759406400, inclination: 3.86,  longitudeAscendingNode: 76.68,  argumentOfPerihelion: 54.88,  orbitalPeriod: 224.7,  style: { color: 0xE8C050, opacity: 0.5 }, icon: { type: 'circle',  color: 0xE8C050 } } }
 const EARTH   = { name: 'Earth',   trajectory: { aphelion: 152.1,  perihelion: 147.1,   timeOfPerihelion: 1767441600, inclination: 7.155, longitudeAscendingNode: -11.26, argumentOfPerihelion: 114.21, orbitalPeriod: 365.25, style: { color: 0x48A8E0, opacity: 0.5 }, icon: { type: 'circle',  color: 0x48A8E0 } } }

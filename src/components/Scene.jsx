@@ -11,6 +11,7 @@ import Earth from './models/Earth'
 
 // Trajectories
 import SolarSystem from './trajectories/SolarSystem.jsx'
+import { psycheSlingshotConfig } from '../configs/scenes/psyche-slingshot.config.js'
 import { orbitAConfig } from '../configs/scenes/orbit-a.config.js'
 import { orbitBConfig } from '../configs/scenes/orbit-b.config.js'
 import { orbitCConfig } from '../configs/scenes/orbit-c.config.js'
@@ -43,6 +44,7 @@ export default function Scene() {
       <Model config={marsConfig}>
         <Mars />
       </Model>
+      <Trajectory config={psycheSlingshotConfig} />
       <Model config={psycheConfig}>
         <Psyche />
       </Model>

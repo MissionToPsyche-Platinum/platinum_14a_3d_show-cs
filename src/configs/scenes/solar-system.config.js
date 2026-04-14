@@ -17,7 +17,7 @@ export const solarSystemConfig = {
             fadeOutDuration: 0.15,
         },
         {
-            startVH: 13,
+            startVH: 13.25,
             endVH: 16,
             fadeInDuration: 0.15,
             fadeOutDuration: 0.15,
