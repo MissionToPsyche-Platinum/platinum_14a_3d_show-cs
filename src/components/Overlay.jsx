@@ -177,9 +177,8 @@ export default function Overlay() {
                 <section className="overlay-right">
                     <h1>Arrival at Psyche</h1>
                     <div className="card-scroll">
-                        <p>This is a place holder</p>
-                        <p>Orbit A is the highest orbit at 709 kilometers and lasts about 56 days. During this phase, the spacecraft creates the first global maps of Psyche by imaging the entire surface. It also collects initial magnetic field and gravity measurements.</p>
-                        <p>The goal of Orbit A is to provide a complete overview of the asteroid. These early observations help scientists understand Psyche's overall shape, rotation, and major surface features. This information is critical for planning lower orbits and guiding the rest of the mission.</p>
+                        <p>The spacecraft is estimated to begin its approach at 16 Psyche in <b>May, 2029</b>. Rather than landing, the spacecraft will maneuver into 16 Psyche’s orbit, using the onboard imager to capture its <b>first close-up views</b> as well as calibrating its instruments. This will give scientists a better idea of what Psyche looks like as well as aiding in navigation.</p>
+                        <p>The spacecraft is expected to enter the first of <b>four planned orbits</b> in <b>August, 2029</b>. Over the next <b>26 months</b>, the spacecraft will transition between these orbits, labeled A through D, and utilize different instruments to collect scientific data. The sequence of orbits may vary depending on conditions such as sunlight and will not necessarily follow alphabetical order. The mission is expected to conclude <b>November, 2031</b>.</p>
                     </div>
                 </section>
             </CardOverlay>
@@ -234,40 +233,40 @@ export default function Overlay() {
                         <div className="conclusion-text-block">
                             <h2>A Window Into Our Origins</h2>
                             <p>
-                                Since we cannot bore a path to Earth's metallic core, visiting Psyche provides a one-of-a-kind opportunity to study the hidden building blocks of our solar system. By the end of its orbital campaign, the spacecraft will have gathered the data necessary to determine if this asteroid is truly the surviving heart of a shattered <b>planetesimal</b>.
+                                By the end of the mission, Psyche is expected to deliver the first detailed look at a metal-rich asteroid, offering insight into the building blocks of planetesimal cores. Its data will help scientists better understand how planets form and evolve, as well as refine models of our own solar system’s early history.
                             </p>
                             <p>
-                                Even if it proves not to be an exposed core, exploring this rare, <b>metal-rich</b> primordial world will fundamentally shift our understanding of how rocky planets formed and evolved in the violent early days of our solar system.
+                                Since we cannot bore a path to Earth's metallic core, Psyche provides a one-of-a-kind opportunity to study our own planet. By the end of its orbital campaign, the spacecraft will have gathered the data necessary to determine if this asteroid is truly the surviving heart of a shattered planetesimal.
                             </p>
                         </div>
 
                         <div className="conclusion-gallery-row">
                             <MissionGallery />
                         </div>
+                        <div className='conclusion-text-columns'>
+                            <div className="conclusion-text-block">
+                                <h2>Post-Mission Plan</h2>
+                                <p>
+                                    At the conclusion of its mission, the Psyche spacecraft will be placed into a <b>long-term</b>, <b>non-impacting</b> orbit in accordance with <b>international planetary protection standards</b>. There, it will remain indefinitely as a silent monument to human ingenuity and deep-space exploration.
+                                </p>
+                                <p>
+                                    Under the 1967 Outer Space Treaty, missions must avoid contaminating celestial bodies and protect the integrity of future scientific study. Although Psyche itself is not considered a target for biological research, the spacecraft must meet strict requirements due to its planned flyby of Mars. These include maintaining a very high probability of avoiding impact with Mars for decades after launch. From initial assembly in highly controlled clean rooms to its final trajectory, every stage of the mission is designed around these requirements and guidelines to ensure responsible and contamination-free exploration. 
+                                </p>
+                            </div>
 
-                        <div className="conclusion-text-block">
-                            <h2>Post-Mission Plan</h2>
-                            <p>
-                                What happens when the prime science mission concludes? To comply with strict international <b>planetary protection protocols</b>, the spacecraft will not return to Earth or be deliberately crashed into the asteroid.
-                            </p>
-                            <p>
-                                Instead, Psyche will be commanded into a long-term, <b>non-impacting disposal orbit</b>. There, it will remain indefinitely as a silent monument to human ingenuity and deep-space exploration.
-                            </p>
+                            <div className="conclusion-text-block">
+                                <h2>A Global Collaboration</h2>
+                                <p>
+                                    The Psyche mission brings together <b>NASA</b>, <b>universities</b>, and industry in a shared effort to explore deep space, providing opportunities for students to contribute and gain experience in <b>science and engineering</b>.
+                                </p>
+                                <p>
+                                    The mission is led by <b>Arizona State University</b>. <b>Lindy Elkins-Tanton</b> of the University of California, Berkeley is the <b>principal investigator</b>. A division of <b>Caltech</b> in <b>Pasadena, JPL</b> is responsible for the mission’s overall management, system engineering, integration and test, and mission operations. <b>Maxar Technologies</b> (now Intuitive Machines) in Palo Alto, California, provided the high-power solar electric propulsion spacecraft chassis.
+                                </p>
+                            </div>
                         </div>
 
-                        <div className="conclusion-text-block">
-                            <h2>A Global Collaboration</h2>
-                            <p>
-                                The Psyche mission is a massive collaboration drawing together resources and know-how from <b>NASA</b>, <b>Arizona State University</b>, <b>JPL/Caltech</b>, <b>Maxar Technologies</b>, and over a dozen other universities and research institutions.
-                            </p>
-                            <p>
-                                As the mission collects data, raw images and science findings will be made publicly available. You can follow the journey, track the spacecraft in real time, and be part of what may be one of the most revealing explorations in the history of planetary science.
-                            </p>
-                        </div>
-
-                        <div className="conclusion-spacer">
-                        </div>
-
+                        <div className='conclusion-spacer'></div>
+                        
                         <div className="conclusion-disclaimer">
                             <p>
                                 This work was created in partial fulfillment of Arizona State University Capstone Course "CSE485 & CSE486″.
