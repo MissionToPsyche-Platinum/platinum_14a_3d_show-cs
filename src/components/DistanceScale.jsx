@@ -10,8 +10,17 @@ export default function DistanceScale({ isMetric }) {
 
         // Hide when the footer is near (within 350px of bottom of page)
         const distFromBottom = document.documentElement.scrollHeight - window.innerHeight - window.scrollY;
-        wrapElement.style.opacity  = distFromBottom < 350 ? '0' : '1';
-        wrapElement.style.pointerEvents = distFromBottom < 350 ? 'none' : 'auto';
+        const scrollVH = window.scrollY / window.innerHeight;
+
+        // Only show during solar system scenes (matches solar-system.config.js visibility windows)
+        const inSolarSystemScene =
+            (scrollVH >= 2.35 && scrollVH <= 4.65) ||
+            (scrollVH >= 7.65 && scrollVH <= 9.90) ||
+            (scrollVH >= 13.0 && scrollVH <= 16.15);
+
+        const shouldHide = distFromBottom < 350 || !inSolarSystemScene;
+        wrapElement.style.opacity       = shouldHide ? '0' : '1';
+        wrapElement.style.pointerEvents = shouldHide ? 'none' : 'auto';
 
         // --- Original calculation logic (unchanged) ---
         const camera = state.camera;

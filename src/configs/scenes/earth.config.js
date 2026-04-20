@@ -1,7 +1,7 @@
-export const earth1Config = {
-    position: [-84.5, -117.5, -150],
-    scale: 0.1,
+export const earthConfig = {
+    position: [139.567, 9.817, -51.952],
     rotation: [0, 0, 0.2],
+    scale: 1,
 
     spin: {
         speed: 0.01,
@@ -9,8 +9,8 @@ export const earth1Config = {
     },
 
     visibility: {
-        startVH: 5.5,
-        endVH: 7.5,
+        startVH: 4.5,
+        endVH: 8,
         fadeInDuration: 0.1,
         fadeOutDuration: 0.1,
     }

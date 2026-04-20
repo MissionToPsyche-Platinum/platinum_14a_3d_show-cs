@@ -1,5 +1,6 @@
 import Model from './Model'
 import Trajectory from './Trajectory'
+import HoverDetector from './HoverDetector'
 
 // 3D Models
 import Psyche from './models/Psyche'
@@ -8,37 +9,53 @@ import Mars from './models/Mars'
 import Moon from './models/Moon'
 import Earth from './models/Earth'
 
-// Configs: Intro Scene
-import { psyche1Config } from '../configs/scenes/intro/psyche1.config.js'
-import { solarSystemConfig } from '../configs/scenes/intro/solar-system-static-1.config.js'
-
-// Configs: Scene 1: Earth and Psyche satellite scene
-import { earth1Config } from '../configs/scenes/scene1/earth1.config.js'
-import { psycheSat1Config } from '../configs/scenes/scene1/psyche-sat1.config.js'
-
-// Configs: Scene 2: Mars gravity assist scene
-import { solarSystemCruise1Config } from '../configs/scenes/scene2/solar-system-cruise1.config.js'
-
 // Trajectories
 import SolarSystem from './trajectories/SolarSystem.jsx'
+import { psycheSlingshotConfig } from '../configs/scenes/psyche-slingshot.config.js'
+import { orbitAConfig } from '../configs/scenes/orbit-a.config.js'
+import { orbitBConfig } from '../configs/scenes/orbit-b.config.js'
+import { orbitCConfig } from '../configs/scenes/orbit-c.config.js'
+import { orbitDConfig } from '../configs/scenes/orbit-d.config.js'
+import { psycheTrajectoryConfig } from '../configs/scenes/psyche-trajectory.config.js'
+
+// Configs
+import { psycheIntroConfig } from '../configs/scenes/psyche-intro.config.js'
+import { solarSystemConfig } from '../configs/scenes/solar-system.config.js'
+import { earthConfig } from '../configs/scenes/earth.config.js'
+import { psycheSatEarthConfig } from '../configs/scenes/psyche-sat-earth.config.js'
+import { marsConfig } from '../configs/scenes/mars.config.js'
+import { psycheConfig } from '../configs/scenes/psyche.config.js'
+import { psycheSatAsteroidConfig } from '../configs/scenes/psyche-sat-asteroid.config.js'
 
 export default function Scene() {
   return (
     <>
-    {/* Intro scene */}
-      <Model config={psyche1Config}>
+      <HoverDetector />
+      <Model config={psycheIntroConfig}>
         <Psyche />
       </Model>
       <SolarSystem config={solarSystemConfig} />
-    {/* Scene 1: Earth and Psyche satellite scene */}
-      <Model config={earth1Config}>
+      <Model config={earthConfig}>
         <Earth />
       </Model>
-      <Model config={psycheSat1Config}>
+      <Model config={psycheSatEarthConfig}>
         <PsycheSat />
       </Model>
-    {/* Scene 2: Mars gravity assist scene */}
-      <SolarSystem config={solarSystemCruise1Config} />
+      <Model config={marsConfig}>
+        <Mars />
+      </Model>
+      <Trajectory config={psycheSlingshotConfig} />
+      <Model config={psycheConfig}>
+        <Psyche />
+      </Model>
+      <Trajectory config={orbitAConfig} />
+      <Trajectory config={orbitBConfig} />
+      <Trajectory config={orbitCConfig} />
+      <Trajectory config={orbitDConfig} />
+      <Model config={psycheSatAsteroidConfig}>
+        <PsycheSat />
+      </Model>
+      <Trajectory config={psycheTrajectoryConfig} />
     </>
   )
 }

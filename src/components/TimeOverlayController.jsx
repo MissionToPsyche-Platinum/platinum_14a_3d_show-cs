@@ -66,13 +66,20 @@ export default class TimeOverlayController {
         if (!(startTime instanceof Date) || !(endTime instanceof Date)) return
 
         const range = endVH - startVH
-        if (range <= 0) return
+        if (range < 0) return
+        if (startTime.getTime() === endTime.getTime()) {
+            this.heading.textContent = this.formatDate(startTime)
+            return
+        }
 
-        const progress = Math.min(1, Math.max(0, (scrollVH - startVH) / range))
+        // Clamp scrollVH to the strict active window before computing progress
+        // so the date never goes past its bounds during fade-in or fade-out
+        const clampedVH = Math.min(endVH, Math.max(startVH, scrollVH))
+        const progress = (clampedVH - startVH) / range
 
         const startMs = startTime.getTime()
         const endMs = endTime.getTime()
-        const currentMs = startMs + (endMs - startMs) * progress
+        const currentMs = Math.min(endMs, Math.max(startMs, startMs + (endMs - startMs) * progress))
         const currentDate = new Date(currentMs)
 
         this.heading.textContent = this.formatDate(currentDate)
