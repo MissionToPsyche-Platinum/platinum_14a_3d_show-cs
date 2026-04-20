@@ -1,7 +1,7 @@
 import { useTexture } from '@react-three/drei'
 
 export default function Mars() {
-    const texture = useTexture('/images/equirectangular/mars-equirectangular.jpg')
+    const texture = useTexture(`${import.meta.env.BASE_URL}images/equirectangular/mars-equirectangular.jpg`)
 
     return (
         <mesh>

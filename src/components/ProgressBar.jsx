@@ -138,8 +138,6 @@ export default function ProgressBar({ hidden }) {
                     const isLast = index === progressBarConfig.scenes.length - 1;
                     const isHovered = hoveredScene === scene.name;
 
-                    const dotSize = isPassed || isHovered ? dotActive : dotInactive;
-
                     return (
                         <div
                             key={scene.name}
