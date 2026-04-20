@@ -114,19 +114,19 @@ export default function SplashScreen({ onDone }) {
           justifyContent: 'center', flexWrap: 'wrap',
         }}>
           <img
-            src="/images/nasa-logo.jpg"
+            src={`${import.meta.env.BASE_URL}images/nasa-logo.jpg`}
             onError={(e) => { e.target.style.display = 'none' }}
             alt="NASA"
             style={{ height: '44px', objectFit: 'contain' }}
           />
           <img
-            src="/images/asu-logo.png"
+            src={`${import.meta.env.BASE_URL}images/asu-logo.png`}
             onError={(e) => { e.target.style.display = 'none' }}
             alt="Arizona State University"
             style={{ height: '44px', objectFit: 'contain', filter: 'drop-shadow(0 0 6px rgba(255,165,0,0.4))' }}
           />
           <img
-            src="/images/psyche-logo.png"
+            src={`${import.meta.env.BASE_URL}images/psyche-logo.png`}
             onError={(e) => { e.target.style.display = 'none' }}
             alt="Psyche Mission"
             style={{ height: '44px', objectFit: 'contain', filter: 'drop-shadow(0 0 6px rgba(249,157,6,0.4))' }}

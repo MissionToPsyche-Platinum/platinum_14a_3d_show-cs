@@ -311,7 +311,7 @@ export default function Overlay() {
                         { name: 'youtube', url: 'https://www.youtube.com/channel/UC2BGcbPW8mxryXnjQcBqk6A' }
                     ].map(({ name, url }) => (
                         <a key={name} href={url} target="_blank" rel="noopener noreferrer" className="footer__social-link">
-                            <img src={`/images/socials/${name}.svg`} alt={name} />
+                            <img src={`${import.meta.env.BASE_URL}images/socials/${name}.svg`} alt={name} />
                         </a>
                     ))}
                 </div>

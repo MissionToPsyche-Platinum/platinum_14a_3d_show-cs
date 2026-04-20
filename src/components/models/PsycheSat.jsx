@@ -2,7 +2,7 @@ import { useGLTF } from '@react-three/drei'
 import { useMemo } from 'react'
 
 export default function Psyche({position = [0, 0, 0], scale = 1, rotation = [0, 0, 0]}) {
-    const gltf = useGLTF('/models/psyche-sat.glb')
+    const gltf = useGLTF(`${import.meta.env.BASE_URL}models/psyche-sat.glb`)
     const scene = useMemo(() => gltf.scene.clone(true), [gltf.scene])
 
     return (

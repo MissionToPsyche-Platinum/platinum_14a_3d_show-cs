@@ -1,8 +1,8 @@
 import { useTexture } from '@react-three/drei'
 
 export default function Earth() {
-    const texture = useTexture('/images/equirectangular/earth-equirectangular.jpg')
-    const cloudTexture = useTexture('/images/equirectangular/earth-clouds-equirectangular.jpg')
+    const texture = useTexture(`${import.meta.env.BASE_URL}images/equirectangular/earth-equirectangular.jpg`)
+    const cloudTexture = useTexture(`${import.meta.env.BASE_URL}images/equirectangular/earth-clouds-equirectangular.jpg`)
 
     return (
         <group>

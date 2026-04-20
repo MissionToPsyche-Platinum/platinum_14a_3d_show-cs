@@ -1,38 +1,40 @@
 import { useRef, useEffect, useState } from 'react';
 
+const base = import.meta.env.BASE_URL;
+
 const images = [
     {
-        src: '/images/psyche-launch.jpg',
+        src: `${base}images/psyche-launch.jpg`,
         alt: 'Psyche Launch',
         caption: 'Falcon Heavy launches the Psyche spacecraft — Credit: NASA/Aubrey Gemignani',
         href: 'https://images.nasa.gov/details/NHQ202310130019',
     },
     {
-        src: '/images/psyche-team.jpg',
+        src: `${base}images/psyche-team.jpg`,
         alt: 'Psyche Team',
         caption: 'The team behind the Psyche mission — Credit: Mission to Psyche (LinkedIn)',
         href: 'https://www.linkedin.com/company/mission-to-psyche',
     },
     {
-        src: '/images/offload.jpg',
+        src: `${base}images/offload.jpg`,
         alt: 'Spacecraft Offload',
         caption: 'Psyche spacecraft being offloaded at Kennedy Space Center — Credit: NASA',
         href: 'https://images.nasa.gov/details/KSC-20230715-PH-DAC01_0170',
     },
     {
-        src: '/images/dsoc.jpg',
+        src: `${base}images/dsoc.jpg`,
         alt: 'DSOC Instrument',
         caption: 'Deep Space Optical Communications demonstration — Credit: NASA/JPL-Caltech',
         href: 'https://images.nasa.gov/details/PIA24569',
     },
     {
-        src: '/images/processing.jpg',
+        src: `${base}images/processing.jpg`,
         alt: 'Spacecraft Processing',
         caption: 'Psyche spacecraft during processing at Kennedy Space Center — Credit: NASA',
         href: 'https://images.nasa.gov/details/KSC-20221208-PH-JBS01_0047',
     },
     {
-        src: '/images/spectrometer.jpg',
+        src: `${base}images/spectrometer.jpg`,
         alt: 'Spectrometer Instrument',
         caption: 'Gamma-ray and neutron spectrometer instrument — Credit: NASA/JPL-Caltech',
         href: 'https://images.nasa.gov/details/PIA24891',
