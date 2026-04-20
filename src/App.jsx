@@ -27,6 +27,7 @@ export default function App() {
 
   return (
     <>
+      <LandscapePrompt />
       <Canvas gl={{ logarithmicDepthBuffer: true }}>
         <ambientLight intensity={0.1} />
         <pointLight intensity={500} position={[0, 0, 0]} distance={0} decay={1} /> {/* Sun */}
@@ -36,13 +37,12 @@ export default function App() {
         <DistanceScale isMetric={isMetric} />
       </Canvas>
 
-      <LandscapePrompt />
       {/* <DistanceScaleUI isMetric={isMetric} setIsMetric={setIsMetric} />
       <ProgressBar />
       <Overlay />
       <PlanetTooltip /> */}
       <DebugOverlay />
-            {/* Dark overlay that blocks everything except the 3D canvas during splash */}
+      {/* Dark overlay that blocks everything except the 3D canvas during splash */}
       {!splashDone && (
         <div style={{
           position: 'fixed',
@@ -65,6 +65,6 @@ export default function App() {
 
       <SplashScreen onDone={() => setSplashDone(true)} />
     </>
-  
+
   )
 }

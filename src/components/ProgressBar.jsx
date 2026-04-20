@@ -149,6 +149,7 @@ export default function ProgressBar({ hidden }) {
                             onMouseEnter={() => setHoveredScene(scene.name)}
                             onMouseLeave={() => setHoveredScene(null)}
                         >
+                            {/* Node dot */}
                             <div
                                 ref={el => dotRefs.current[index] = el}
                                 className={isActive ? 'pulse-animation' : ''}

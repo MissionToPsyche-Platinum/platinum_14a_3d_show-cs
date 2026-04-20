@@ -48,6 +48,15 @@ export default function Overlay() {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
+    const scrollableContentStyle = {
+        maxHeight: '55vh',
+        overflowY: 'auto',
+        overscrollBehavior: 'contain',
+        pointerEvents: 'auto',
+        paddingRight: '15px',
+    };
+
+
     return (
         <div className='overlay'>
             <AutoScroll />
