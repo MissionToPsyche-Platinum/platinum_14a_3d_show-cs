@@ -110,7 +110,7 @@ canvas {
 }
 
 @media (min-width: 481px) and (max-width: 1024px) {
-    #root {
+    html #root {
         font-size: 1.5vw;
     }
     /* h1 {

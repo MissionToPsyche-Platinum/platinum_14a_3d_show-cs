@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
     color: white;
     font-family: Arial, sans-serif;
@@ -8,14 +14,14 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 3000vh;
+    height: 2650vh;
 }
 
+/* TIME BAR */
 .overlay #timeBar {
     position: fixed;
     top: 0.5rem;
     width: 100%;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,25 +30,19 @@ body {
 #timeBar h1 {
     position: relative;
     padding: 0.5rem 1.5rem;
-
-    /* font-size: 1.4rem; */
+    margin: 0;
     letter-spacing: 0.1rem;
     text-transform: uppercase;
-
     color: #eaf2ff;
-
     background:
         radial-gradient(circle at top left, rgba(110, 140, 255, 0.18), transparent 35%),
         radial-gradient(circle at bottom right, rgba(255, 196, 92, 0.14), transparent 35%),
         rgba(15, 18, 28, 0.82);
-
     border: 1px solid rgba(120, 180, 255, 0.22);
     border-radius: 999px;
-
     box-shadow:
         0 0 4px 2px rgba(255, 255, 255, 0.05) inset,
         0 0 12px rgba(90, 160, 255, 0.25);
-
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 }
@@ -53,41 +53,30 @@ body {
     top: 50%;
     width: 60%;
     height: 2px;
-
-    background: linear-gradient(90deg,
-            transparent,
-            rgba(120, 180, 255, 0.6),
-            transparent);
-
+    background: linear-gradient(90deg, transparent, rgba(120, 180, 255, 0.6), transparent);
     transform: translateY(-50%);
     z-index: -1;
 }
 
+/* STANDARD CARDS */
 .overlay section {
     position: fixed;
     top: 4rem;
-    padding: 1rem;
-    width: min(28rem, 30vw);
-    max-height: 70%;
+    padding: clamp(1rem, 2vw, 1.5rem);
+    width: clamp(240px, 30vw, 28rem);
     border-radius: 1.5rem;
     background:
         radial-gradient(circle at top left, rgba(110, 140, 255, 0.18), transparent 35%),
         radial-gradient(circle at bottom right, rgba(255, 196, 92, 0.14), transparent 35%),
         rgba(15, 18, 28, 0.82);
-
     border: 1px solid rgba(120, 180, 255, 0.22);
-
     box-shadow:
         0 0 4px 2px rgba(255, 255, 255, 0.05) inset,
         0 0 24px rgba(90, 160, 255, 0.25);
-
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-
     line-height: 1.5;
     color: rgba(255, 255, 255, 0.92);
-
-    overflow-y: auto;
 }
 
 .overlay section::before {
@@ -97,34 +86,17 @@ body {
     left: 1.25rem;
     right: 1.25rem;
     height: 2px;
-    background: linear-gradient(90deg,
-            rgba(0, 180, 255, 0),
-            rgba(0, 180, 255, 0.85),
-            rgba(255, 210, 120, 0.85),
-            rgba(0, 180, 255, 0));
+    background: linear-gradient(90deg, rgba(0, 180, 255, 0), rgba(0, 180, 255, 0.85), rgba(255, 210, 120, 0.85), rgba(0, 180, 255, 0));
 }
-
-/* .overlay section h1 {
-    margin: 0.5rem 0;
-    padding: 0.5rem 0;
-    font-size: 1.9rem;
-    line-height: 1.1;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    color: #ffffff;
-    border-bottom: 2px solid #ffffff;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
-} */
 
 .overlay section h1 {
     position: relative;
     margin: 0 0 1rem;
     padding-bottom: 0.75rem;
-
     text-transform: uppercase;
-
     color: #eaf2ff;
     text-shadow: 0 0 12px rgba(120, 190, 255, 0.18);
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
 }
 
 .overlay section h1::after {
@@ -141,9 +113,7 @@ body {
     position: relative;
     margin: 0;
     padding: 0;
-
     text-transform: uppercase;
-
     color: #eaf2ff;
     text-shadow: 0 0 12px rgba(120, 190, 255, 0.18);
 }
@@ -152,7 +122,7 @@ body {
     color: rgba(0, 180, 255, 0.85);
 }
 
-.overlay section > div {
+.overlay section>div {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -162,6 +132,7 @@ body {
 .overlay section p {
     margin: 0;
     color: rgba(222, 232, 245, 0.88);
+    font-size: clamp(0.85rem, 1vw, 1rem);
 }
 
 .overlay section b {
@@ -184,42 +155,33 @@ body {
     z-index: 999;
 }
 
-/* Footer */
+/* FOOTER */
 .footer {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    /* height: 25vh; */
     z-index: 999;
-
     padding: 0.5rem 0;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 1.4vh;
-
     background:
         radial-gradient(circle at top left, rgba(110, 140, 255, 0.15), transparent 40%),
         radial-gradient(circle at bottom right, rgba(255, 196, 92, 0.10), transparent 40%),
         rgba(8, 10, 18, 0.98);
-
     border-top: 1px solid rgba(120, 180, 255, 0.22);
     border-radius: 1.2rem 1.2rem 0 0;
-
     box-shadow:
         0 0 4px 2px rgba(255, 255, 255, 0.04) inset,
         0 -12px 60px rgba(0, 0, 0, 0.6);
-
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-
     opacity: 0;
     transform: translateY(100%);
-    transition: opacity 1s ease,
-                transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events: none;
 }
 
@@ -236,28 +198,8 @@ body {
     left: 1.25rem;
     right: 1.25rem;
     height: 2px;
-    background: linear-gradient(90deg,
-            rgba(0, 180, 255, 0),
-            rgba(0, 180, 255, 0.85),
-            rgba(255, 210, 120, 0.85),
-            rgba(0, 180, 255, 0));
+    background: linear-gradient(90deg, rgba(0, 180, 255, 0), rgba(0, 180, 255, 0.85), rgba(255, 210, 120, 0.85), rgba(0, 180, 255, 0));
 }
-
-/* .footer__accent {
-    position: absolute;
-    top: 0;
-    left: 8%;
-    right: 8%;
-    height: 2px;
-    background: linear-gradient(
-        90deg,
-        rgba(0, 180, 255, 0),
-        rgba(0, 180, 255, 0.85),
-        rgba(255, 210, 120, 0.85),
-        rgba(0, 180, 255, 0)
-    );
-    border-radius: 2px;
-} */
 
 .footer__title {
     margin: 0;
@@ -285,14 +227,14 @@ body {
 }
 
 .footer__fact-label {
-    font-size: 10px;
+    font-size: clamp(0.5rem, 0.8vw, 0.8rem);
     letter-spacing: 0.15rem;
     text-transform: uppercase;
     color: rgba(120, 180, 255, 0.75);
 }
 
 .footer__fact-value {
-    font-size: clamp(0.8rem, 1.2vw, 1rem);
+    font-size: clamp(0.5rem, 0.8vw, 0.8rem);
     font-weight: 600;
     letter-spacing: 0.05rem;
     color: rgba(225, 235, 250, 0.92);
@@ -321,15 +263,39 @@ body {
     height: 26px;
 }
 
+.footer__links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer__text-link {
+    font-size: clamp(0.5rem, 0.8vw, 0.7rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(120, 180, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer__text-link:hover {
+    color: rgba(255, 210, 120, 0.95);
+}
+
+.footer__links-divider {
+    color: rgba(120, 180, 255, 0.3);
+    font-size: 11px;
+}
+
 .footer__credit {
     margin: 0;
-    font-size: 10px;
+    font-size: clamp(0.5rem, 0.8vw, 0.8rem);
     letter-spacing: 0.1rem;
     text-transform: uppercase;
     color: rgba(150, 170, 200, 0.4);
 }
 
-/* Auto Scroll */
+/* AUTO SCROLL */
 .autoscroll-group {
     position: fixed;
     bottom: 24px;
@@ -338,7 +304,7 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
-    z-index: 10;
+    z-index: 998;
 }
 
 .autoscroll-btn {
@@ -381,7 +347,8 @@ body {
     letter-spacing: 0.12rem;
 }
 
-.autoscroll-speed {
+.autoscroll-speed,
+.autoscroll-loop {
     padding: 10px 14px;
     background: rgba(15, 18, 28, 0.82);
     backdrop-filter: blur(12px);
@@ -394,20 +361,30 @@ body {
     letter-spacing: 0.06rem;
     cursor: pointer;
     transition: border-color 0.25s, box-shadow 0.25s, color 0.25s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.autoscroll-speed:hover {
+.autoscroll-loop {
+    font-size: 18px;
+    padding: 8px 12px;
+}
+
+.autoscroll-speed:hover,
+.autoscroll-loop:hover {
     border-color: rgba(120, 180, 255, 0.5);
     color: rgba(255, 255, 255, 0.9);
 }
 
-.autoscroll-speed--active {
+.autoscroll-speed--active,
+.autoscroll-loop--active {
     border-color: rgba(90, 160, 255, 0.7);
     box-shadow: 0 0 20px rgba(90, 160, 255, 0.45);
     color: white;
 }
 
-/* Distance Scale — Google Maps style, bottom center */
+/* DISTANCE SCALE */
 .distance-scale {
     position: fixed;
     bottom: 24px;
@@ -427,8 +404,8 @@ body {
 .distance-scale__tooltip {
     position: absolute;
     bottom: calc(100% + 10px);
-    left: 50%;
-    transform: translateX(-50%) translateY(6px);
+    left: 0;
+    transform: translateY(6px);
     width: 220px;
     padding: 10px 14px;
     background: rgba(15, 18, 28, 0.92);
@@ -447,7 +424,7 @@ body {
 
 .distance-scale__tooltip--visible {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
 }
 
 .distance-scale__bar {
@@ -507,28 +484,396 @@ body {
     white-space: nowrap;
 }
 
-/* Card scrollbar — Firefox */
+/* CARD SCROLL */
 .card-scroll {
+    max-height: 55vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    pointer-events: auto;
+    padding-right: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
 }
 
-/* Card scrollbar — WebKit (Chrome, Safari, Edge) */
 .card-scroll::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
 }
 
 .card-scroll::-webkit-scrollbar-track {
     background: transparent;
-    border-radius: 10px;
 }
 
 .card-scroll::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
     border-radius: 10px;
+    transition: background 0.3s ease;
 }
 
 .card-scroll::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.4);
 }
 
+/* CONCLUSION FULL-SCREEN CARD */
+.overlay section.overlay-conclusion {
+    position: fixed;
+    top: 5vh;
+    bottom: 4.5rem;
+
+    left: clamp(160px, 18vw, 280px);
+    right: clamp(2rem, 4vw, 6rem);
+    width: auto;
+    max-width: none;
+    height: auto;
+    max-height: none;
+    transform: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 900;
+    animation: conclusionFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transition: bottom 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.overlay section.overlay-conclusion.overlay-conclusion--footer-up {
+    /* Calculate changing size of footer */
+    /* (flex gaps) + (padding * 2) + (title font size clamp) + (fact gap) + (fact font size * 2) + (social logo size) + (links font size) + (credits font size)*/
+    bottom: calc(7vh +
+            /* (flex gaps) */
+            2 * 0.5rem +
+            /* (padding * 2) */
+            clamp(1.4rem, 3.5vw, 2.8rem) +
+            /* (title font size clamp) */
+            3px +
+            /* (fact gap) */
+            2 * clamp(0.5rem, 0.8vw, 0.8rem) +
+            /* (fact font size * 2) */
+            26px +
+            /* (social logo size) */
+            clamp(0.5rem, 0.8vw, 0.7rem) +
+            /* (links font size) */
+            clamp(0.5rem, 0.8vw, 0.8rem) +
+            /* (credits font size) */
+            4rem
+            /* margin */
+        );
+}
+
+@keyframes conclusionFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.overlay-conclusion .conclusion-hero {
+    padding: clamp(1rem, 2vw, 1.5rem);
+    flex-shrink: 0;
+}
+
+.overlay-conclusion .conclusion-hero h1 {
+    font-size: clamp(1.4rem, 2.5vw, 2.4rem);
+    margin-bottom: 0.3rem;
+    padding-bottom: 0.5rem;
+}
+
+.overlay-conclusion .conclusion-subtitle {
+    margin: 0;
+    font-size: clamp(0.6rem, 1vw, 0.85rem);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    color: rgba(200, 220, 245, 0.9);
+}
+
+/* CONCLUSION BODY */
+.overlay-conclusion .conclusion-body {
+    flex: 1;
+    min-height: 0;
+    height: auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    /* padding: 0 clamp(1rem, 2vw, 1.5rem); */
+    display: flex;
+    flex-direction: column;
+    /* grid-template-columns: 1fr 1fr; */
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    align-content: start;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+.overlay-conclusion .conclusion-body::-webkit-scrollbar {
+    width: 4px;
+}
+
+.overlay-conclusion .conclusion-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.overlay-conclusion .conclusion-body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
+
+.overlay-conclusion .conclusion-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.overlay-conclusion .conclusion-body>* {
+    min-width: 0;
+}
+
+.overlay-conclusion .conclusion-body>.conclusion-text-block:first-child {
+    grid-column: 1 / -1;
+}
+
+.overlay-conclusion .conclusion-body>.conclusion-gallery-row {
+    grid-column: 1 / -1;
+    flex: 0 0 0;
+}
+
+/* CONCLUSION TEXT BLOCKS */
+.conclusion-text-columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    /* align-items: center; */
+    /* gap: clamp(2rem, 4vw, 4rem) */
+}
+
+.conclusion-text-columns>* {
+    flex: 1 0 0;
+}
+
+.conclusion-text-block {
+    padding: 0 clamp(1rem, 2vw, 1.5rem);
+}
+
+.overlay-conclusion .conclusion-text-block h2 {
+    font-size: clamp(0.6rem, 1.2vw, 0.8rem);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.38;
+    margin: 0 0 0.65rem;
+    padding: 0;
+    color: #eaf2ff;
+    text-shadow: none;
+}
+
+.overlay-conclusion .conclusion-text-block p {
+    font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+    line-height: 1.75;
+    margin: 0 0 0.75rem;
+    color: rgba(222, 232, 245, 0.88);
+}
+
+/* MISSION GALLERY  */
+.mission-gallery {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(to right,
+            transparent 0%,
+            black 6%,
+            black 94%,
+            transparent 100%);
+    -webkit-mask-image: linear-gradient(to right,
+            transparent 0%,
+            black 6%,
+            black 94%,
+            transparent 100%);
+}
+
+.mission-gallery__track {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    will-change: transform;
+}
+
+.mission-gallery__item {
+    flex-shrink: 0;
+    width: clamp(220px, 20vw, 360px);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid rgba(120, 180, 255, 0.12);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.mission-gallery__item:hover {
+    border-color: rgba(120, 180, 255, 0.5);
+    box-shadow: 0 4px 24px rgba(90, 160, 255, 0.35);
+}
+
+.mission-gallery__item img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    filter: brightness(0.85) saturate(0.9);
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.mission-gallery__item:hover img {
+    filter: brightness(1) saturate(1);
+    transform: scale(1.04);
+}
+
+.mission-gallery__item figcaption {
+    padding: 0.45rem 0.7rem 0.55rem;
+    font-size: clamp(0.55rem, 0.8vw, 0.65rem);
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    color: rgba(200, 220, 245, 0.7);
+    font-style: italic;
+    background: rgba(10, 14, 24, 0.75);
+}
+
+.overlay-conclusion .conclusion-spacer {
+    height: auto;
+}
+
+.conclusion-spacer {
+    flex: 1 0 0;
+}
+
+/* CONCLUSION DISCLAIMER */
+.overlay-conclusion .conclusion-disclaimer {
+    /* flex: 1 0 0; */
+    width: 100%;
+    grid-column: 1 / -1;
+    padding: clamp(0.3rem, 0.5vw, 0.5rem) clamp(1rem, 2vw, 1.5rem);
+    border-top: 1px solid rgba(120, 180, 255, 0.08);
+    border-radius: 0.5rem 0.5rem 0 0;
+    background: rgba(0, 0, 0, 0.25);
+    /* overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent; */
+}
+
+.overlay-conclusion .conclusion-disclaimer::-webkit-scrollbar {
+    width: 4px;
+}
+
+.overlay-conclusion .conclusion-disclaimer::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.overlay-conclusion .conclusion-disclaimer::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
+
+.overlay-conclusion .conclusion-disclaimer p {
+    font-size: clamp(0.5rem, 0.8vw, 0.58rem);
+    line-height: 1.65;
+    opacity: 0.4;
+    margin: 0;
+    color: rgba(200, 220, 245, 0.9);
+}
+
+.overlay-conclusion .conclusion-disclaimer a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/* RESPONSIVE BREAKPOINTS */
+@media (max-width: 1100px) {
+    .overlay-conclusion .conclusion-body {
+        grid-template-columns: 1fr;
+        /* padding: 1.5rem 2rem; */
+    }
+
+    .overlay-conclusion .conclusion-body>.conclusion-text-block:first-child,
+    .overlay-conclusion .conclusion-body>.conclusion-gallery-row {
+        grid-column: 1;
+    }
+}
+
+@media (max-width: 850px) {
+
+    .overlay section.overlay-left {
+        left: 1.5rem;
+        right: auto;
+        transform: none;
+    }
+
+    .overlay section.overlay-right {
+        left: auto;
+        right: 1.5rem;
+        transform: none;
+    }
+
+    .overlay section.overlay-conclusion {
+        left: 90px;
+        right: 1.5rem;
+        top: 3vh;
+        bottom: 3.5rem;
+    }
+
+    .overlay-conclusion .conclusion-body {
+        /* padding: 1rem 1.5rem; */
+        gap: 1.25rem;
+    }
+
+    .overlay-conclusion .conclusion-disclaimer {
+        /* padding: 0.75rem 1.5rem; */
+        max-height: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .overlay section.overlay-left,
+    .overlay section.overlay-right {
+        left: 64px;
+        right: 1rem;
+        width: auto;
+    }
+
+    .overlay section.overlay-conclusion {
+        left: 60px;
+        right: 1rem;
+        top: 2vh;
+        bottom: 3rem;
+    }
+
+    .overlay-conclusion .conclusion-body {
+        /* padding: 1rem 1.25rem; */
+        gap: 1rem;
+    }
+
+    .overlay-conclusion .conclusion-disclaimer {
+        /* padding: 0.5rem 1rem; */
+        max-height: 60px;
+    }
+}
+
+@media (max-height: 450px) {
+    .overlay section.overlay-conclusion {
+        top: 2vh;
+        bottom: 1.5rem;
+    }
+
+    .overlay-conclusion .conclusion-body {
+        /* padding: 0.5rem 1.5rem; */
+        gap: 1rem;
+    }
+}

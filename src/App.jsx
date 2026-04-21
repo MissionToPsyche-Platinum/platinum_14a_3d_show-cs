@@ -1,6 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
-
 import Scene from './components/Scene'
 import CameraRig from './components/CameraRig'
 import Overlay from './components/Overlay'
@@ -10,9 +9,21 @@ import DistanceScale, { DistanceScaleUI } from './components/DistanceScale'
 import PlanetTooltip from './components/PlanetTooltip'
 import DebugOverlay from './components/DebugOverlay'
 import LandscapePrompt from './components/LandscapePrompt'
+import SplashScreen from './components/SplashScreen'
 
 export default function App() {
-  const [isMetric, setIsMetric] = useState(false)
+  const [isMetric, setIsMetric] = useState(true)
+  const [splashDone, setSplashDone] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY === 0) {
+        setSplashDone(false)
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <>
@@ -25,12 +36,35 @@ export default function App() {
         <DistanceScale isMetric={isMetric} />
       </Canvas>
 
-      <LandscapePrompt />
-      <DistanceScaleUI isMetric={isMetric} setIsMetric={setIsMetric} />
+      {/* <DistanceScaleUI isMetric={isMetric} setIsMetric={setIsMetric} />
       <ProgressBar />
       <Overlay />
-      <PlanetTooltip />
+      <PlanetTooltip /> */}
       <DebugOverlay />
+      {/* Dark overlay that blocks everything except the 3D canvas during splash */}
+      {!splashDone && (
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 9998,
+          background: 'rgba(0,0,0,0.01)', // nearly transparent — just blocks pointer events
+          pointerEvents: 'none',
+        }} />
+      )}
+
+      <DistanceScaleUI isMetric={isMetric} setIsMetric={setIsMetric} />
+
+      {/* Hide all UI until splash is done */}
+      <div style={{ visibility: splashDone ? 'visible' : 'hidden' }}>
+        <ProgressBar />
+        <Overlay />
+        <PlanetTooltip />
+        <DebugOverlay />
+      </div>
+
+      <SplashScreen onDone={() => setSplashDone(true)} />
+      <LandscapePrompt />
     </>
+
   )
 }

@@ -12,13 +12,13 @@ export const solarSystemConfig = {
         },
         {
             startVH: 7.65,
-            endVH: 10.5,
+            endVH: 9.75,
             fadeInDuration: 0.15,
             fadeOutDuration: 0.15,
         },
         {
-            startVH: 13.5,
-            endVH: 16.5,
+            startVH: 13.25,
+            endVH: 16,
             fadeInDuration: 0.15,
             fadeOutDuration: 0.15,
         },
@@ -32,11 +32,11 @@ export const solarSystemConfig = {
         },
         {
             startVH: 8.25,
-            durationVH: 1.5,
+            durationVH: 1,
             endEpochTime: 1777593600,
         },
         {
-            startVH: 14.25,
+            startVH: 13.75,
             durationVH: 1.5,
             endEpochTime: 1880236800,
         },
