@@ -11,15 +11,16 @@ import DebugOverlay from './components/DebugOverlay'
 import LandscapePrompt from './components/LandscapePrompt'
 import SplashScreen from './components/SplashScreen'
 
+import { splash } from './configs/splash.config.js'
+
 export default function App() {
   const [isMetric, setIsMetric] = useState(true)
   const [splashDone, setSplashDone] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY === 0) {
-        setSplashDone(false)
-      }
+      const scrollVH = window.scrollY / window.innerHeight
+      setSplashDone(scrollVH > 0.25)
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
@@ -41,19 +42,11 @@ export default function App() {
       <Overlay />
       <PlanetTooltip /> */}
       <DebugOverlay />
-      {/* Dark overlay that blocks everything except the 3D canvas during splash */}
-      {!splashDone && (
-        <div style={{
-          position: 'fixed',
-          inset: 0,
-          zIndex: 9998,
-          background: 'rgba(0,0,0,0.01)', // nearly transparent — just blocks pointer events
-          pointerEvents: 'none',
-        }} />
-      )}
+
 
       <DistanceScaleUI isMetric={isMetric} setIsMetric={setIsMetric} />
-
+      
+      <SplashScreen config={splash}></SplashScreen>
       {/* Hide all UI until splash is done */}
       <div style={{ visibility: splashDone ? 'visible' : 'hidden' }}>
         <ProgressBar />
@@ -62,7 +55,12 @@ export default function App() {
         <DebugOverlay />
       </div>
 
-      <SplashScreen onDone={() => setSplashDone(true)} />
+      {/* <ProgressBar /> */}
+      {/* <Overlay /> */}
+      {/* <PlanetTooltip />
+      <DebugOverlay /> */}
+
+      {/* <SplashScreen onDone={() => setSplashDone(true)} /> */}
       <LandscapePrompt />
     </>
 

@@ -4,6 +4,9 @@ import CardOverlay from './CardOverlay.jsx'
 import AutoScroll from './AutoScroll.jsx'
 import TimeOverlay from './TimeOverlay.jsx'
 import MissionGallery from './MissionGallery.jsx';
+import SplashScreen from './SplashScreen.jsx'
+
+import { splash } from '../configs/splash.config.js'
 
 import { card1 } from '../configs/cards/card1.config.js'
 import { card2 } from '../configs/cards/card2.config.js'
@@ -59,6 +62,8 @@ export default function Overlay() {
 
     return (
         <div className='overlay'>
+            {/* <SplashScreen config={splash}></SplashScreen> */}
+
             <AutoScroll />
 
             <TimeOverlay config={timeTimeLine}>

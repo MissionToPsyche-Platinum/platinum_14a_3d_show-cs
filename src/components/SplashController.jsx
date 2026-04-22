@@ -1,4 +1,4 @@
-export default class CardOverlayController {
+export default class SplashController {
     constructor(element, config = {}) {
         this.element = element
         this.config = config
@@ -22,14 +22,10 @@ export default class CardOverlayController {
 
         if (scrollVH < startVH - fadeInDuration || scrollVH > endVH + fadeOutDuration) {
             this.element.style.display = 'none'
-            this.element.style.width = '0%'
-            this.element.style.height = '0%'
             return
         }
         
         this.element.style.display = 'block'
-        this.element.style.width = '100%'
-        this.element.style.height = '100%'
         let opacity = 1
 
         // Fade in
