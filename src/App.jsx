@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
+import { ACESFilmicToneMapping } from 'three'
 import Scene from './components/Scene'
 import CameraRig from './components/CameraRig'
 import Overlay from './components/Overlay'
@@ -46,8 +47,8 @@ export default function App() {
 
   return (
     <>
-      <Canvas gl={{ logarithmicDepthBuffer: true }}>
-        <ambientLight intensity={0.1} />
+      <Canvas gl={{ logarithmicDepthBuffer: true, toneMapping: ACESFilmicToneMapping, toneMappingExposure: 1.0 }}>
+        <ambientLight intensity={0.05} />
         <pointLight intensity={500} position={[0, 0, 0]} distance={0} decay={1} /> {/* Sun */}
         <Background />
         <CameraRig />
