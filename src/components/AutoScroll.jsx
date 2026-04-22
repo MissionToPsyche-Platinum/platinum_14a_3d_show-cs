@@ -53,7 +53,7 @@ export default function AutoScroll({ showFooter }) {
                                 lastTimeRef.current = null // Reset delta timer
                                 isDelayingRef.current = false // Resume normal scrolling
                             }
-                        }, 1500)
+                        }, 8000)
                     }
                 } else {
                     // If looping is OFF, just stop auto-scrolling
