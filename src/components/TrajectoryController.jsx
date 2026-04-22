@@ -120,23 +120,53 @@ export default class TrajectoryController {
     }
 
     createTrajectoryLine() {
-        const { color = 0xffffff, opacity = 1 } = this.config.style
+        const { color = 0xffffff, opacity = 1, trail } = this.config.style
 
         this.baseOpacity = opacity
+        this.trail = trail
 
         const geometry = new THREE.BufferGeometry()
-        const material = new THREE.LineBasicMaterial({
-            color,
-            transparent: true,
-            opacity,
-        })
+
+        let material
+        if (trail !== undefined) {
+            material = new THREE.ShaderMaterial({
+                uniforms: {
+                    color: { value: new THREE.Color(color) },
+                    opacity: { value: opacity },
+                },
+                vertexShader: `
+                    attribute float alpha;
+                    varying float vAlpha;
+                    void main() {
+                        vAlpha = alpha;
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                    }
+                `,
+                fragmentShader: `
+                    uniform vec3 color;
+                    uniform float opacity;
+                    varying float vAlpha;
+                    void main() {
+                        gl_FragColor = vec4(color, opacity * vAlpha);
+                    }
+                `,
+                transparent: true,
+                depthWrite: false,
+            })
+        } else {
+            material = new THREE.LineBasicMaterial({
+                color,
+                transparent: true,
+                opacity,
+            })
+        }
         material.userData.baseOpacity = opacity
 
         this.lineMaterial = material
 
         const line = new THREE.Line(geometry, material)
 
-        if (this.config.type === 'circle' || this.config.type === 'ellipse') {
+        if ((this.config.type === 'circle' || this.config.type === 'ellipse') && trail === undefined) {
             geometry.setFromPoints(this.curve.getPoints(256))
         }
 
@@ -240,9 +270,13 @@ export default class TrajectoryController {
             materials.forEach(material => {
                 if (!material) return
                 const baseOpacity = material.userData.baseOpacity ?? 1
+                const finalOpacity = opacity * baseOpacity
 
                 material.transparent = true
-                material.opacity = opacity * baseOpacity
+                material.opacity = finalOpacity
+                if (material.uniforms?.opacity !== undefined) {
+                    material.uniforms.opacity.value = finalOpacity
+                }
                 material.depthWrite = opacity >= 0.99
                 material.depthTest = true
             })
@@ -290,6 +324,16 @@ export default class TrajectoryController {
         }
     }
 
+    buildTrailGeometry(points) {
+        const geometry = new THREE.BufferGeometry().setFromPoints(points)
+        const alphas = new Float32Array(points.length)
+        for (let i = 0; i < points.length; i++) {
+            alphas[i] = i / (points.length - 1)
+        }
+        geometry.setAttribute('alpha', new THREE.BufferAttribute(alphas, 1))
+        return geometry
+    }
+
     setProgress(t) {
         if (!this.curve) return
 
@@ -306,14 +350,24 @@ export default class TrajectoryController {
 
         if (this.config.type === 'spline') {
             const { segments = 256 } = this.config.spline
+            const startT = this.trail !== undefined ? Math.max(0, t - this.trail) : 0
             const points = []
             for (let i = 0; i <= segments; i++) {
-                const segmentT = i / segments
-                if (segmentT > t) break
+                const segmentT = startT + (i / segments) * (t - startT)
+                if (segmentT > t + 1e-6) break
                 points.push(this.curve.getPointAt(segmentT))
             }
             this.trajectoryLine.geometry.dispose()
-            this.trajectoryLine.geometry = new THREE.BufferGeometry().setFromPoints(points)
+            this.trajectoryLine.geometry = this.buildTrailGeometry(points)
+        } else if (this.trail !== undefined) {
+            const segments = 256
+            const points = []
+            for (let i = 0; i <= segments; i++) {
+                const curveT = (t - this.trail) + (i / segments) * this.trail
+                points.push(this.curve.getPointAt(((curveT % 1) + 1) % 1))
+            }
+            this.trajectoryLine.geometry.dispose()
+            this.trajectoryLine.geometry = this.buildTrailGeometry(points)
         }
     }
 }

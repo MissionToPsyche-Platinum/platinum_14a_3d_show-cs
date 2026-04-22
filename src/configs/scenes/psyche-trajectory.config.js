@@ -31,7 +31,8 @@ export const psycheTrajectoryConfig = {
 
     style: {
         color: 0xB0EDEA,
-        opacity: 0.25,
+        opacity: 0.8,
+        trail: 0.075,
     },
 
     icon: {
