@@ -87,10 +87,11 @@ class GameState {
             fireCooldown: 0, invincible: 0, thrusting: false,
             upgrades: { engine: 0, cannon: 0, hull: 0, magnet: 0, repeater: 0 },
         }
-        this.asteroids = []
-        this.bullets   = []
-        this.drops     = []
-        this.particles = []
+        this.asteroids     = []
+        this.bullets       = []
+        this.drops         = []
+        this.particles     = []
+        this.floatingTexts = []
         this.stars = Array.from({ length: 80 }, () => ({
             x: Math.random() * W, y: Math.random() * H,
             r: 0.5 + Math.random() * 1.2,
@@ -324,9 +325,20 @@ class GameState {
             if (dist(p.x, p.y, d.x, d.y) < pickupR + d.radius) {
                 this.inventory[d.type]++
                 this.spawnParticles(p.x, p.y, 3, MAT_COLOR[d.type])
+                this.floatingTexts.push({
+                    x: d.x + (Math.random() - 0.5) * 16,
+                    y: d.y,
+                    text: `+1 ${MAT_ABBR[d.type]}`,
+                    color: MAT_BRIGHT[d.type],
+                    life: 1.1,
+                    maxLife: 1.1,
+                })
                 d.life = 0
             }
         })
+
+        this.floatingTexts.forEach(ft => { ft.y -= 28 * dt; ft.life -= dt })
+        this.floatingTexts = this.floatingTexts.filter(ft => ft.life > 0)
 
         if (this.asteroids.length === 0 && !this.waveCleared) this.waveCleared = true
     }
@@ -430,6 +442,20 @@ class GameState {
                 ctx.fillRect(p.x - bw / 2, p.y - p.radius - 10, bw * (p.hp / p.maxHp), 4)
             }
         }
+
+        ctx.font = 'bold 12px monospace'
+        ctx.textAlign = 'center'
+        for (const ft of this.floatingTexts) {
+            const t = ft.life / ft.maxLife
+            ctx.globalAlpha = t < 0.3 ? t / 0.3 * 0.9 : 0.9
+            ctx.shadowColor = ft.color
+            ctx.shadowBlur = 6
+            ctx.fillStyle = ft.color
+            ctx.fillText(ft.text, ft.x, ft.y)
+        }
+        ctx.globalAlpha = 1
+        ctx.shadowBlur = 0
+        ctx.textAlign = 'left'
 
         const mx = this.mouse.x, my = this.mouse.y
         ctx.strokeStyle = 'rgba(110,210,255,0.4)'; ctx.lineWidth = 1
