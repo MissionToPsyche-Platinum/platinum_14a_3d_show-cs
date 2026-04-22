@@ -76,6 +76,6 @@ export const psycheTrajectoryConfig = {
     info: {
         cardType: 'orbit',
         type: 'Spacecraft Trajectory',
-        // fact: 'Mapping Psyche\'s overall shape, rotation, and gravitational field.',
+        fact: 'Type \'psyche\' to receive a secret transmission.',
     },
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import Scene from './components/Scene'
 import CameraRig from './components/CameraRig'
@@ -10,12 +10,17 @@ import PlanetTooltip from './components/PlanetTooltip'
 import DebugOverlay from './components/DebugOverlay'
 import LandscapePrompt from './components/LandscapePrompt'
 import SplashScreen from './components/SplashScreen'
+import GamePrompt from './components/GamePrompt'
+import PsycheGame from './components/PsycheGame'
 
 import { splash } from './configs/splash.config.js'
 
 export default function App() {
   const [isMetric, setIsMetric] = useState(true)
   const [splashDone, setSplashDone] = useState(false)
+  const [showPrompt, setShowPrompt] = useState(false)
+  const [showGame, setShowGame] = useState(false)
+  const keyBufferRef = useRef('')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +29,19 @@ export default function App() {
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key.length !== 1) return
+      keyBufferRef.current = (keyBufferRef.current + e.key.toLowerCase()).slice(-6)
+      if (keyBufferRef.current === 'psyche') {
+        setShowPrompt(true)
+        keyBufferRef.current = ''
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
   }, [])
 
   return (
@@ -62,7 +80,14 @@ export default function App() {
 
       {/* <SplashScreen onDone={() => setSplashDone(true)} /> */}
       <LandscapePrompt />
-    </>
 
+      {showPrompt && !showGame && (
+        <GamePrompt
+          onPlay={() => { setShowPrompt(false); setShowGame(true) }}
+          onDismiss={() => setShowPrompt(false)}
+        />
+      )}
+      {showGame && <PsycheGame onClose={() => setShowGame(false)} />}
+    </>
   )
 }

@@ -1,8 +1,29 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
+
+const JOURNEY_SRC = `${import.meta.env.BASE_URL}music/Journey_IsaacWisdom_MP3file.mp3`
+const GAME_SRC    = `${import.meta.env.BASE_URL}music/Approaching16Psyche_RyanPowell_MP3file.mp3`
 
 export default function AudioPlayer() {
     const audioRef = useRef(null)
     const [isMuted, setIsMuted] = useState(true)
+
+    useEffect(() => {
+        const audio = audioRef.current
+        if (!audio) return
+        const switchTo = (src) => {
+            audio.src = src
+            audio.load()
+            if (!audio.muted) audio.play()
+        }
+        const onOpen  = () => switchTo(GAME_SRC)
+        const onClose = () => switchTo(JOURNEY_SRC)
+        window.addEventListener('psyche-game-open',  onOpen)
+        window.addEventListener('psyche-game-close', onClose)
+        return () => {
+            window.removeEventListener('psyche-game-open',  onOpen)
+            window.removeEventListener('psyche-game-close', onClose)
+        }
+    }, [])
 
     const toggle = () => {
         const audio = audioRef.current
@@ -20,7 +41,7 @@ export default function AudioPlayer() {
         <>
             <audio
                 ref={audioRef}
-                src={`${import.meta.env.BASE_URL}music/Journey_IsaacWisdom_MP3file.mp3`}
+                src={JOURNEY_SRC}
                 loop
                 muted
             />
