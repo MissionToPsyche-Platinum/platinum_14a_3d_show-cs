@@ -9,6 +9,7 @@ export default function Background() {
     useEffect(() => {
         texture.mapping = EquirectangularReflectionMapping
         scene.background = texture
+        scene.backgroundIntensity = 0.6
     }, [texture, scene])
 
     return null

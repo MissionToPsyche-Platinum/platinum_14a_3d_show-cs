@@ -13,7 +13,7 @@ export const psycheSlingshotConfig = {
 
     style: {
         color: 0xB0EDEA,
-        opacity: 0.5,
+        opacity: 0.25,
     },
 
     icon: {
