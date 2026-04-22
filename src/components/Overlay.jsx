@@ -129,8 +129,8 @@ export default function Overlay() {
                 <section className="overlay-right">
                     <h1>Mars Gravity Assist</h1>
                     <div className="card-scroll">
-                        <p>At Mars, we take advantage of one of the fundamental forces in our solar system: <b>Gravity</b>. The spacecraft performs a gravity assist to increase speed and change direction. This planet’s gravity acts like a slingshot, accelerating the spacecraft and setting it on a course to Psyche, all without using large amounts of fuel.</p>
-                        <p>The spacecraft’s speed increases from about 45,600 miles per hour to about 52,000 miles per hour. The flyby also allows the scientists to test and calibrate the instruments before reaching the asteroid.</p>
+                        <p>At Mars, we take advantage of one of the fundamental forces in our solar system: <b>Gravity</b>. The spacecraft performs a gravity assist to increase speed and change direction. This planet’s gravity acts like a <b>slingshot</b>, accelerating the spacecraft and setting it on a course to Psyche, all without using large amounts of fuel.</p>
+                        <p>The spacecraft’s speed increases from about <b>45,600</b> miles per hour to about <b>52,000</b> miles per hour. The flyby also allows the scientists to test and calibrate the instruments before reaching the asteroid.</p>
                     </div>
                 </section>
             </CardOverlay>
@@ -139,8 +139,8 @@ export default function Overlay() {
                 <section className="overlay-right">
                     <h1>Cruise 2</h1>
                     <div className="card-scroll">
-                        <p>After the Mars flyby, Cruise 2 begins. This is the longest phase of the journey, lasting about 29 months. The spacecraft continues using its thrusters to guide itself toward Psyche for arrival in 2029.</p>
-                        <p>During this time, mission planners prepare for arrival by designing the spacecraft’s orbital path around Psyche. Instead of landing, the spacecraft will enter a series of planned orbits at different altitudes, each focused on collecting specific scientific data.</p>
+                        <p>After the Mars flyby, <b>Cruise 2</b> begins. This is the <b>longest phase</b> of the journey, lasting about <b>29 months</b>. The spacecraft continues using its thrusters to guide itself toward Psyche for arrival in <b>2029</b>.</p>
+                        <p>During this time, mission planners prepare for arrival by designing the spacecraft’s orbital path around Psyche. Instead of landing, the spacecraft will enter a series of <b>planned orbits</b> at different altitudes, each focused on collecting specific scientific data.</p>
                         <p>These planned orbits allow the mission to gradually study the asteroid’s surface, composition, and internal structure.</p>
                     </div>
                 </section>
@@ -152,24 +152,25 @@ export default function Overlay() {
                     <div className="card-scroll">
                         <div>
                             <h2>Imagers</h2>
-                            <p>The imagers capture images using different wavelengths of light, helping scientists analyze surface features and composition.</p>
+                            <p>The imagers capture images using different wavelengths of light, helping scientists analyze <b>surface features and composition</b>.</p>
                         </div>
                         <div>
                             <h2>X-Band Radio</h2>
-                            <p>Scientists also use X-band radio signals between Earth and the spacecraft to study gravity. Small changes in the spacecraft’s orbit reveal details about the asteroid’s properties, such as rotation, mass, and gravity field.</p>
+                            <p>Scientists also use X-band radio signals between Earth and the spacecraft to study gravity. Small changes in the spacecraft’s orbit reveal details about the asteroid’s properties, such as <b>rotation</b>, <b>mass</b>, and <b>gravity field</b>.</p>
                         </div>
                         <div>
                             <h2>Magnetometer</h2>
-                            <p>The magnetometer searches for a remanent magnetic field. If Psyche once had a molten interior, it may have generated a magnetic field, and traces of it could still exist in the asteroid’s materials. This would be strong evidence that Psyche formed from the core of a planetary body.</p>
+                            <p>The magnetometer searches for a <b>remanent magnetic field</b>. If Psyche once had a molten interior, it may have generated a magnetic field, and traces of it could still exist in the asteroid’s materials. This would be strong evidence that Psyche formed from the core of a planetary body.</p>
                         </div>
                         <div>
                             <h2>Spectrometer</h2>
-                            <p>The gamma-ray and neutron spectrometer identifies the elements that make up the asteroid. It must be cooled to about 85 Kelvin, using a cryocooler to operate accurately in space.</p>
+                            <p>The gamma-ray and neutron spectrometer identifies the <b>elements</b> that make up the asteroid. It must be cooled to about 85 Kelvin, using a cryocooler to operate accurately in space.</p>
                         </div>
                     </div>
                 </section>
             </CardOverlay>
 
+            {/* CUT CONTENT: combined into single card */}
             <CardOverlay config={card9}>
                 <section className="overlay-right">
                     <h1>The Instruments</h1>
@@ -186,13 +187,13 @@ export default function Overlay() {
                     </div>
                 </section>
             </CardOverlay>
-
+            
             <CardOverlay config={card10}>
                 <section className="overlay-right">
                     <h1>Arrival at Psyche</h1>
                     <div className="card-scroll">
                         <p>The spacecraft is estimated to begin its approach at 16 Psyche in <b>May, 2029</b>. Rather than landing, the spacecraft will maneuver into 16 Psyche’s orbit, using the onboard imager to capture its <b>first close-up views</b> as well as calibrating its instruments. This will give scientists a better idea of what Psyche looks like as well as aiding in navigation.</p>
-                        <p>The spacecraft is expected to enter the first of <b>four planned orbits</b> in <b>August, 2029</b>. Over the next <b>26 months</b>, the spacecraft will transition between these orbits, labeled A through D, and utilize different instruments to collect scientific data. The sequence of orbits may vary depending on conditions such as sunlight and will not necessarily follow alphabetical order. The mission is expected to conclude <b>November, 2031</b>.</p>
+                        <p>The spacecraft is expected to enter the first of <b>four planned orbits</b> in <b>August, 2029</b>. Over the next <b>26 months</b>, the spacecraft will transition between these orbits, labeled A through D, and utilize different instruments to collect scientific data. The sequence of orbits will not actually follow alphabetical order and will transition from A to B to D to C due to varying sunlight conditions. The mission is expected to conclude <b>November, 2031</b>.</p>
                     </div>
                 </section>
             </CardOverlay>
@@ -201,8 +202,8 @@ export default function Overlay() {
                 <section className="overlay-right">
                     <h1>Orbit A</h1>
                     <div className="card-scroll">
-                        <p>Orbit A is the highest orbit at 709 kilometers and lasts about 56 days. During this phase, the spacecraft creates the first global maps of Psyche by imaging the entire surface. It also collects initial magnetic field and gravity measurements.</p>
-                        <p>The goal of Orbit A is to provide a complete overview of the asteroid. These early observations help scientists understand Psyche's overall shape, rotation, and major surface features. This information is critical for planning lower orbits and guiding the rest of the mission.</p>
+                        <p>Orbit A is the highest orbit at <b>709 kilometers</b> and lasts about <b>56 days</b>. During this phase, the spacecraft creates the <b>first global maps</b> of Psyche by imaging the entire surface. It also collects initial magnetic field and gravity measurements.</p>
+                        <p>The goal of Orbit A is to provide a complete overview of the asteroid. These early observations help scientists understand Psyche's overall <b>shape</b>, <b>rotation</b>, and <b>major surface features</b>. This information is critical for planning lower orbits and guiding the rest of the mission.</p>
                     </div>
                 </section>
             </CardOverlay>
@@ -211,8 +212,8 @@ export default function Overlay() {
                 <section className="overlay-right">
                     <h1>Orbit B</h1>
                     <div className="card-scroll">
-                        <p>Orbit B occurs at about 303 kilometers and is divided into two phases called B1 and B2. In this orbit, the spacecraft performs detailed mapping of the surface, covering most of the asteroid. It focuses on topography, geology, and surface variations.</p>
-                        <p>The goal of Orbit B is to reveal how Psyche's surface formed and changed over time. By studying features such as craters, ridges, and textures, scientists can learn about the asteroid's history and whether it formed through impacts or internal processes.</p>
+                        <p>Orbit B occurs at about <b>303 kilometers</b> and is divided into two phases called <b>B1 and B2</b>. In this orbit, the spacecraft performs <b>detailed mapping</b> of the surface, covering most of the asteroid. It focuses on <b>topography</b>, <b>geology</b>, and <b>surface variations</b>.</p>
+                        <p>The goal of Orbit B is to reveal <b>how Psyche's surface formed</b> and changed over time. By studying features such as craters, ridges, and textures, scientists can learn about the asteroid's history and whether it formed through impacts or internal processes.</p>
                     </div>
                 </section>
             </CardOverlay>
@@ -221,8 +222,8 @@ export default function Overlay() {
                 <section className="overlay-right">
                     <h1>Orbit C</h1>
                     <div className="card-scroll">
-                        <p>Orbit C takes place at 190 kilometers and focuses on gravity and magnetic field measurements. During this phase, the spacecraft scans the asteroid from all angles as Psyche rotates beneath it.</p>
-                        <p>The goal of Orbit C is to understand what lies beneath the surface. By analyzing the changes in gravity and magnetic signals, scientists can determine the internal structure of Psyche and confirm whether it has a layered core like a planet.</p>
+                        <p>Orbit C takes place at <b>190 kilometers</b> and focuses on gravity and <b>magnetic field measurements</b>. During this phase, the spacecraft scans the asteroid from all angles as Psyche rotates beneath it.</p>
+                        <p>The goal of Orbit C is to understand <b>what lies beneath the surface</b>. By analyzing the changes in gravity and magnetic signals, scientists can determine the <b>internal structure</b> of Psyche and confirm whether it has a layered core like a planet.</p>
                     </div>
                 </section>
             </CardOverlay>
@@ -231,8 +232,8 @@ export default function Overlay() {
                 <section className="overlay-right">
                     <h1>Orbit D</h1>
                     <div className="card-scroll">
-                        <p>Orbit D is the lowest orbit at 75 kilometers. At the same time, Orbit D marks a shift from a course that generally goes around the asteroid’s poles to one that generally travels around its equator. This phase focuses on determining the asteroid’s composition using the gamma-ray and neutron spectrometer, while continuing gravity and magnetic measurements.</p>
-                        <p>The goal of Orbit D is to identify what Psyche is made of. By measuring elements such as metal and rock, scientists can test the idea that Psyche may be the exposed core of an early planetesimal. This is one of the most important phases for understanding planetary formation.</p>
+                        <p>Orbit D is the lowest orbit at <b>75 kilometers</b>. At the same time, Orbit D marks a shift from a course that generally goes around the asteroid’s poles to one that generally travels around its equator. This phase focuses on determining the asteroid’s <b>composition</b> using the gamma-ray and neutron spectrometer, while continuing <b>gravity and magnetic measurements</b>.</p>
+                        <p>The goal of Orbit D is to identify <b>what Psyche is made of</b>. By measuring elements such as metal and rock, scientists can test the idea that Psyche may be the exposed core of an early planetesimal. This is one of the most important phases for understanding <b>planetary formation</b>.</p>
                     </div>
                 </section>
             </CardOverlay>
@@ -247,10 +248,10 @@ export default function Overlay() {
                         <div className="conclusion-text-block">
                             <h2>A Window Into Our Origins</h2>
                             <p>
-                                By the end of the mission, Psyche is expected to deliver the first detailed look at a metal-rich asteroid, offering insight into the building blocks of planetesimal cores. Its data will help scientists better understand how planets form and evolve, as well as refine models of our own solar system’s early history.
+                                By the end of the mission, Psyche is expected to deliver the first detailed look at a <b>metal-rich</b> asteroid, offering insight into the <b>building blocks</b> of planetesimal cores. Its data will help scientists better understand <b>how planets form</b> and evolve, as well as refine models of our own solar system’s <b>early history</b>.
                             </p>
                             <p>
-                                Since we cannot bore a path to Earth's metallic core, Psyche provides a one-of-a-kind opportunity to study our own planet. By the end of its orbital campaign, the spacecraft will have gathered the data necessary to determine if this asteroid is truly the surviving heart of a shattered planetesimal.
+                                Since we cannot bore a path to Earth's metallic core, Psyche provides a <b>one-of-a-kind</b> opportunity to study our own planet. By the end of its orbital campaign, the spacecraft will have gathered the data necessary to determine if this asteroid is truly the surviving heart of a shattered planetesimal.
                             </p>
                         </div>
 
