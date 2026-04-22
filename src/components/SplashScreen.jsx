@@ -60,7 +60,7 @@ export default function SplashScreen({ config = {} }) {
 
                         {/* Logos */}
                         <div className="splash-logos-container">
-                            <img src={`${import.meta.env.BASE_URL}images/nasa-logo.jpg`} onError={(e) => { e.target.style.display = 'none' }} alt="NASA" />
+                            <img src={`${import.meta.env.BASE_URL}images/nasa-logo.png`} onError={(e) => { e.target.style.display = 'none' }} alt="NASA" style={{ filter: 'drop-shadow(0 0 6px rgba(249,157,6,0.4))' }}/>
                             <img src={`${import.meta.env.BASE_URL}images/asu-logo.png`} onError={(e) => { e.target.style.display = 'none' }} alt="ASU" style={{ filter: 'drop-shadow(0 0 6px rgba(255,165,0,0.4))' }} />
                             <img src={`${import.meta.env.BASE_URL}images/psyche-logo.png`} onError={(e) => { e.target.style.display = 'none' }} alt="Psyche" style={{ filter: 'drop-shadow(0 0 6px rgba(249,157,6,0.4))' }} />
                         </div>
