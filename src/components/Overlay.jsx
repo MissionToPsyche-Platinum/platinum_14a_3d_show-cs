@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import '../styles/Overlay.css'
 import CardOverlay from './CardOverlay.jsx'
 import AutoScroll from './AutoScroll.jsx'
+import AudioPlayer from './AudioPlayer.jsx'
 import TimeOverlay from './TimeOverlay.jsx'
 import MissionGallery from './MissionGallery.jsx';
 import SplashScreen from './SplashScreen.jsx'
@@ -64,7 +65,10 @@ export default function Overlay() {
         <div className='overlay'>
             {/* <SplashScreen config={splash}></SplashScreen> */}
 
-            <AutoScroll />
+            <div className="playback-controls">
+                <AudioPlayer />
+                <AutoScroll />
+            </div>
 
             <TimeOverlay config={timeTimeLine}>
                 <div id="timeBar">

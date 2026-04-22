@@ -90,9 +90,17 @@ export default function AutoScroll({ showFooter }) {
             {isScrolling && (
                 <>
                     <button
+                        className={`autoscroll-speed${speed === 0.5 ? ' autoscroll-speed--active' : ''}`}
+                        onClick={() => setSpeed(s => s === 0.5 ? 1 : 0.5)}
+                        aria-label="0.5x speed"
+                    >
+                        .5×
+                    </button>
+
+                    <button
                         className={`autoscroll-speed${speed === 2 ? ' autoscroll-speed--active' : ''}`}
-                        onClick={() => setSpeed(s => s === 1 ? 2 : 1)}
-                        aria-label={speed === 2 ? 'Switch to 1x speed' : 'Switch to 2x speed'}
+                        onClick={() => setSpeed(s => s === 2 ? 1 : 2)}
+                        aria-label="2x speed"
                     >
                         2×
                     </button>
