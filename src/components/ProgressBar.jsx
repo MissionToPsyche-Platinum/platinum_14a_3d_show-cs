@@ -108,7 +108,7 @@ export default function ProgressBar({ hidden }) {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            zIndex: 1002,
+            zIndex: 3,
             maxHeight: '70vh',
             justifyContent: 'center',
             opacity: hidden ? 0 : 1,
