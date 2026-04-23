@@ -6,7 +6,7 @@ export const psycheSlingshotConfig = {
         closed: false,
         points: [
             [ 0.062, -0.002, 0.04 ],
-            [ -0.01, -0.001, -0.05 ],
+            [ -0.005, -0.001, -0.05 ],
             [ 0.009, 0, -0.3 ],
         ],
     },
@@ -25,7 +25,7 @@ export const psycheSlingshotConfig = {
     },
 
     visibility: {
-        startVH: 10.25,
+        startVH: 10.75,
         endVH: 11.75,
         fadeInDuration: 0.15,
         fadeOutDuration: 0.15,
@@ -33,6 +33,13 @@ export const psycheSlingshotConfig = {
 
     motion: {
         startVH: 10.75,
-        durationVH: 1,
-    }
+        durationVH: 1.5,
+    },
+
+    planetName: 'Psyche',
+    info: {
+        cardType: 'orbit',
+        type: 'Spacecraft Trajectory',
+        fact: 'Type \'psyche\' to receive a secret transmission.',
+    },
 }

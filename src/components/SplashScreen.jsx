@@ -35,8 +35,8 @@ export default function SplashScreen({ config = {} }) {
                             {[
                             { icon: '↕', text: 'Scroll to move through the mission timeline' },
                             { icon: '◎', text: 'Hover over planets to see details' },
-                            { icon: '▶', text: 'Use Auto Scroll to sit back and enjoy' },
                             { icon: '●', text: 'Use the progress bar on the left to jump to any scene' },
+                            { icon: '▶', text: 'Use Auto Scroll to sit back and enjoy' },
                             ].map(({ icon, text }, i) => (
                             <div key={i} className="instruction-item">
                                 <span>{icon}</span>
